@@ -5,6 +5,8 @@
 
 Marketing website and documentation for OpenSearch AgentOps - an OpenTelemetry-native observability platform for AI agents and LLM applications.
 
+🚀 **Live Site**: [https://anirudha.github.io/opensearch-agentops-website/](https://anirudha.github.io/opensearch-agentops-website/)
+
 ## About
 
 This repository contains the public-facing website and comprehensive documentation for OpenSearch AgentOps. The site showcases the platform's capabilities for observing, evaluating, and deploying production AI applications with OpenTelemetry-based tracing.
