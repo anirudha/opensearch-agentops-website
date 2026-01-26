@@ -1,0 +1,338 @@
+---
+// Comparison component for OpenSearch AgentOps marketing website
+// Displays feature comparison table against competitors
+
+type SupportLevel = 'full' | 'partial' | 'none';
+
+interface ComparisonRow {
+  feature: string;
+  agentops: SupportLevel;
+  braintrust: SupportLevel;
+  langfuse: SupportLevel;
+  arize: SupportLevel;
+  note?: string;
+}
+
+const comparisonRows: ComparisonRow[] = [
+  {
+    feature: 'LLM Tracing',
+    agentops: 'full',
+    braintrust: 'full',
+    langfuse: 'full',
+    arize: 'partial',
+  },
+  {
+    feature: 'Prompt Management',
+    agentops: 'full',
+    braintrust: 'full',
+    langfuse: 'partial',
+    arize: 'none',
+  },
+  {
+    feature: 'Evaluation Framework',
+    agentops: 'full',
+    braintrust: 'full',
+    langfuse: 'partial',
+    arize: 'full',
+  },
+  {
+    feature: 'AI Insights',
+    agentops: 'full',
+    braintrust: 'partial',
+    langfuse: 'none',
+    arize: 'full',
+  },
+  {
+    feature: 'Human Annotation',
+    agentops: 'full',
+    braintrust: 'full',
+    langfuse: 'partial',
+    arize: 'partial',
+  },
+  {
+    feature: 'Open Source',
+    agentops: 'full',
+    braintrust: 'none',
+    langfuse: 'full',
+    arize: 'none',
+  },
+  {
+    feature: 'Self-Hosted Option',
+    agentops: 'full',
+    braintrust: 'none',
+    langfuse: 'full',
+    arize: 'partial',
+  },
+  {
+    feature: 'Enterprise SSO',
+    agentops: 'full',
+    braintrust: 'full',
+    langfuse: 'full',
+    arize: 'full',
+  },
+  {
+    feature: 'SOC 2 Compliant',
+    agentops: 'full',
+    braintrust: 'full',
+    langfuse: 'partial',
+    arize: 'full',
+  },
+  {
+    feature: 'Pricing',
+    agentops: 'full',
+    braintrust: 'full',
+    langfuse: 'full',
+    arize: 'full',
+    note: 'pricing',
+  },
+];
+
+const pricingInfo = {
+  agentops: 'Free (self-hosted) or $0.001/request',
+  braintrust: '$0.002/request + $500/mo base',
+  langfuse: 'Free (self-hosted) or $0.0015/request',
+  arize: '$0.003/request + $1000/mo base',
+};
+
+// Helper function to render support icon
+function getSupportIcon(level: SupportLevel): { icon: string; color: string; label: string } {
+  switch (level) {
+    case 'full':
+      return {
+        icon: 'M5 13l4 4L19 7',
+        color: 'text-green-500',
+        label: 'Full support',
+      };
+    case 'partial':
+      return {
+        icon: 'M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+        color: 'text-yellow-500',
+        label: 'Partial support',
+      };
+    case 'none':
+      return {
+        icon: 'M6 18L18 6M6 6l12 12',
+        color: 'text-red-500',
+        label: 'No support',
+      };
+  }
+}
+---
+
+<section id="compare" class="py-20 bg-slate-900">
+  <div class="container mx-auto px-6">
+    <div class="max-w-6xl mx-auto">
+      <!-- Section Header -->
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+          How We Compare
+        </h2>
+        <p class="text-lg text-slate-400 max-w-3xl mx-auto">
+          See how OpenSearch AgentOps stacks up against Braintrust, Langfuse, and Arize
+        </p>
+      </div>
+
+      <!-- Comparison Table Container with Horizontal Scroll -->
+      <div class="comparison-table-container overflow-x-auto">
+        <table class="comparison-table w-full min-w-[800px]">
+          <!-- Sticky Header -->
+          <thead class="sticky top-0 bg-slate-900 z-10">
+            <tr>
+              <th class="feature-column text-left p-4 border-b border-slate-700 bg-slate-900">
+                <span class="text-sm font-semibold text-slate-400">Feature</span>
+              </th>
+              <th class="p-4 border-b border-slate-700 bg-indigo-500/5">
+                <div class="text-center">
+                  <div class="text-sm font-semibold text-white mb-1">OpenSearch AgentOps</div>
+                  <div class="text-xs text-indigo-400">Our Platform</div>
+                </div>
+              </th>
+              <th class="p-4 border-b border-slate-700 bg-slate-900">
+                <div class="text-center">
+                  <div class="text-sm font-semibold text-white mb-1">Braintrust</div>
+                  <div class="text-xs text-slate-500">Competitor</div>
+                </div>
+              </th>
+              <th class="p-4 border-b border-slate-700 bg-slate-900">
+                <div class="text-center">
+                  <div class="text-sm font-semibold text-white mb-1">Langfuse</div>
+                  <div class="text-xs text-slate-500">Competitor</div>
+                </div>
+              </th>
+              <th class="p-4 border-b border-slate-700 bg-slate-900">
+                <div class="text-center">
+                  <div class="text-sm font-semibold text-white mb-1">Arize</div>
+                  <div class="text-xs text-slate-500">Competitor</div>
+                </div>
+              </th>
+            </tr>
+          </thead>
+
+          <!-- Table Body -->
+          <tbody>
+            {comparisonRows.map((row) => (
+              <tr class="border-b border-slate-800 hover:bg-slate-800/30 transition-colors">
+                <td class="feature-column p-4 text-sm font-medium text-white bg-slate-900">
+                  {row.feature}
+                </td>
+                
+                {/* OpenSearch AgentOps Column - Highlighted */}
+                <td class="p-4 text-center bg-indigo-500/5" data-platform="agentops" data-support={row.agentops}>
+                  {row.note === 'pricing' ? (
+                    <div class="text-xs text-white font-semibold">
+                      {pricingInfo.agentops}
+                    </div>
+                  ) : (
+                    <div class="flex justify-center">
+                      <svg 
+                        class={`w-6 h-6 ${getSupportIcon(row.agentops).color}`}
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                        aria-label={getSupportIcon(row.agentops).label}
+                      >
+                        <path 
+                          stroke-linecap="round" 
+                          stroke-linejoin="round" 
+                          stroke-width="2" 
+                          d={getSupportIcon(row.agentops).icon}
+                        />
+                      </svg>
+                    </div>
+                  )}
+                </td>
+
+                {/* Braintrust Column */}
+                <td class="p-4 text-center bg-slate-900" data-platform="braintrust" data-support={row.braintrust}>
+                  {row.note === 'pricing' ? (
+                    <div class="text-xs text-slate-300">
+                      {pricingInfo.braintrust}
+                    </div>
+                  ) : (
+                    <div class="flex justify-center">
+                      <svg 
+                        class={`w-6 h-6 ${getSupportIcon(row.braintrust).color}`}
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                        aria-label={getSupportIcon(row.braintrust).label}
+                      >
+                        <path 
+                          stroke-linecap="round" 
+                          stroke-linejoin="round" 
+                          stroke-width="2" 
+                          d={getSupportIcon(row.braintrust).icon}
+                        />
+                      </svg>
+                    </div>
+                  )}
+                </td>
+
+                {/* Langfuse Column */}
+                <td class="p-4 text-center bg-slate-900" data-platform="langfuse" data-support={row.langfuse}>
+                  {row.note === 'pricing' ? (
+                    <div class="text-xs text-slate-300">
+                      {pricingInfo.langfuse}
+                    </div>
+                  ) : (
+                    <div class="flex justify-center">
+                      <svg 
+                        class={`w-6 h-6 ${getSupportIcon(row.langfuse).color}`}
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                        aria-label={getSupportIcon(row.langfuse).label}
+                      >
+                        <path 
+                          stroke-linecap="round" 
+                          stroke-linejoin="round" 
+                          stroke-width="2" 
+                          d={getSupportIcon(row.langfuse).icon}
+                        />
+                      </svg>
+                    </div>
+                  )}
+                </td>
+
+                {/* Arize Column */}
+                <td class="p-4 text-center bg-slate-900" data-platform="arize" data-support={row.arize}>
+                  {row.note === 'pricing' ? (
+                    <div class="text-xs text-slate-300">
+                      {pricingInfo.arize}
+                    </div>
+                  ) : (
+                    <div class="flex justify-center">
+                      <svg 
+                        class={`w-6 h-6 ${getSupportIcon(row.arize).color}`}
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                        aria-label={getSupportIcon(row.arize).label}
+                      >
+                        <path 
+                          stroke-linecap="round" 
+                          stroke-linejoin="round" 
+                          stroke-width="2" 
+                          d={getSupportIcon(row.arize).icon}
+                        />
+                      </svg>
+                    </div>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile Scroll Hint -->
+      <div class="mt-4 text-center text-sm text-slate-500 md:hidden">
+        ← Scroll horizontally to see all platforms →
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Sticky header styling */
+  .comparison-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  /* Fixed first column on mobile */
+  @media (max-width: 768px) {
+    .comparison-table-container {
+      position: relative;
+    }
+
+    .feature-column {
+      position: sticky;
+      left: 0;
+      z-index: 5;
+      box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+    }
+
+    thead .feature-column {
+      z-index: 15;
+    }
+  }
+
+  /* Smooth scrolling */
+  .comparison-table-container {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .comparison-table-container {
+      scroll-behavior: auto;
+    }
+    
+    tr {
+      transition: none;
+    }
+  }
+</style>

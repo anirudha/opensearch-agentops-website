@@ -1,0 +1,275 @@
+---
+// Navigation component with fixed header, menu items, and CTAs
+interface NavItem {
+  label: string;
+  href: string;
+  isExternal: boolean;
+}
+
+const navigationItems: NavItem[] = [
+  { label: 'Features', href: '#features', isExternal: false },
+  { label: 'Compare', href: '#compare', isExternal: false },
+  { label: 'Use Cases', href: '#use-cases', isExternal: false },
+  { label: 'Docs', href: 'https://docs.opensearch.org', isExternal: true },
+];
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800" id="main-navigation">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <div class="flex-shrink-0">
+        <a href="/" class="flex items-center space-x-2 text-white hover:text-primary-400 transition-colors">
+          <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="32" height="32" rx="6" fill="url(#logo-gradient)"/>
+            <path d="M16 8L22 12V20L16 24L10 20V12L16 8Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6366f1"/>
+                <stop offset="0.5" stop-color="#8b5cf6"/>
+                <stop offset="1" stop-color="#06b6d4"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span class="font-semibold text-lg">AgentOps</span>
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-10">
+        {navigationItems.map((item) => (
+          <a
+            href={item.href}
+            class="text-slate-300 hover:text-white transition-colors text-lg font-medium px-4 py-2 smooth-scroll"
+            target={item.isExternal ? '_blank' : undefined}
+            rel={item.isExternal ? 'noopener noreferrer' : undefined}
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
+
+      <!-- Desktop CTAs -->
+      <div class="hidden md:flex items-center space-x-4">
+        <a
+          href="/signin"
+          class="text-slate-300 hover:text-white transition-colors text-lg font-medium px-4 py-2"
+        >
+          Try Now
+        </a>
+        <a
+          href="/signup"
+          class="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-500 hover:to-secondary-500 text-white px-6 py-2.5 rounded-lg text-lg font-semibold transition-all shadow-lg shadow-primary-500/20 hover:shadow-primary-500/40"
+        >
+          Live Playground
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden">
+        <button
+          type="button"
+          class="text-slate-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-slate-950 rounded-lg p-2"
+          id="mobile-menu-button"
+          aria-label="Toggle mobile menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu (hidden by default) -->
+  <div
+    class="md:hidden hidden"
+    id="mobile-menu"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Mobile navigation menu"
+  >
+    <div class="fixed inset-0 bg-slate-950/95 backdrop-blur-md z-40" id="mobile-menu-backdrop"></div>
+    <div class="fixed inset-y-0 right-0 w-full max-w-sm bg-slate-900 shadow-xl z-50 transform transition-transform duration-300 ease-in-out translate-x-full" id="mobile-menu-drawer">
+      <div class="flex flex-col h-full">
+        <!-- Mobile Menu Header -->
+        <div class="flex items-center justify-between p-4 border-b border-slate-800">
+          <span class="font-semibold text-lg text-white">Menu</span>
+          <button
+            type="button"
+            class="text-slate-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg p-2"
+            id="mobile-menu-close"
+            aria-label="Close mobile menu"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Mobile Menu Items -->
+        <div class="flex-1 overflow-y-auto p-4">
+          <div class="space-y-2">
+            {navigationItems.map((item) => (
+              <a
+                href={item.href}
+                class="block text-slate-300 hover:text-white hover:bg-slate-800 transition-colors px-4 py-3 rounded-lg text-base font-medium mobile-menu-link"
+                target={item.isExternal ? '_blank' : undefined}
+                rel={item.isExternal ? 'noopener noreferrer' : undefined}
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+
+          <!-- Mobile CTAs -->
+          <div class="mt-8 space-y-3">
+            <a
+              href="/signin"
+              class="block text-center text-slate-300 hover:text-white hover:bg-slate-800 transition-colors px-4 py-3 rounded-lg text-base font-medium"
+            >
+              Try Now
+            </a>
+            <a
+              href="/signup"
+              class="block text-center bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-500 hover:to-secondary-500 text-white px-6 py-3 rounded-lg text-base font-semibold transition-all shadow-lg shadow-primary-500/20"
+            >
+              Live Playground
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Smooth scroll behavior for anchor links
+  document.addEventListener('DOMContentLoaded', () => {
+    const smoothScrollLinks = document.querySelectorAll('.smooth-scroll');
+    
+    smoothScrollLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const targetId = href.substring(1);
+          const targetElement = document.getElementById(targetId);
+          
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }
+      });
+    });
+
+    // Mobile menu functionality
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuDrawer = document.getElementById('mobile-menu-drawer');
+    const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+
+    // Focus trap elements
+    let focusableElements: HTMLElement[] = [];
+    let firstFocusableElement: HTMLElement | null = null;
+    let lastFocusableElement: HTMLElement | null = null;
+
+    const updateFocusableElements = () => {
+      if (mobileMenuDrawer) {
+        const elements = mobileMenuDrawer.querySelectorAll<HTMLElement>(
+          'button, a, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        focusableElements = Array.from(elements);
+        firstFocusableElement = focusableElements[0] || null;
+        lastFocusableElement = focusableElements[focusableElements.length - 1] || null;
+      }
+    };
+
+    const trapFocus = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+
+      if (e.shiftKey) {
+        // Shift + Tab
+        if (document.activeElement === firstFocusableElement) {
+          e.preventDefault();
+          lastFocusableElement?.focus();
+        }
+      } else {
+        // Tab
+        if (document.activeElement === lastFocusableElement) {
+          e.preventDefault();
+          firstFocusableElement?.focus();
+        }
+      }
+    };
+
+    const openMobileMenu = () => {
+      if (mobileMenu && mobileMenuDrawer && mobileMenuButton) {
+        mobileMenu.classList.remove('hidden');
+        // Trigger reflow to enable transition
+        mobileMenuDrawer.offsetHeight;
+        mobileMenuDrawer.classList.remove('translate-x-full');
+        mobileMenuButton.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+        
+        // Set up focus trap
+        updateFocusableElements();
+        document.addEventListener('keydown', trapFocus);
+        
+        // Focus the close button
+        setTimeout(() => {
+          mobileMenuClose?.focus();
+        }, 100);
+      }
+    };
+
+    const closeMobileMenu = () => {
+      if (mobileMenu && mobileMenuDrawer && mobileMenuButton) {
+        mobileMenuDrawer.classList.add('translate-x-full');
+        mobileMenuButton.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        
+        // Remove focus trap
+        document.removeEventListener('keydown', trapFocus);
+        
+        // Wait for transition to complete before hiding
+        setTimeout(() => {
+          mobileMenu?.classList.add('hidden');
+        }, 300);
+        
+        // Return focus to menu button
+        mobileMenuButton.focus();
+      }
+    };
+
+    // Open menu on button click
+    mobileMenuButton?.addEventListener('click', openMobileMenu);
+
+    // Close menu on close button click
+    mobileMenuClose?.addEventListener('click', closeMobileMenu);
+
+    // Close menu when clicking backdrop
+    mobileMenuBackdrop?.addEventListener('click', closeMobileMenu);
+
+    // Close menu when clicking a link
+    mobileMenuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        closeMobileMenu();
+      });
+    });
+
+    // Close menu on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu && !mobileMenu.classList.contains('hidden')) {
+        closeMobileMenu();
+      }
+    });
+  });
+</script>
