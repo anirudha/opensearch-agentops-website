@@ -328,3 +328,44 @@ const sections: NavSection[] = [
     animation: slideDown 0.2s ease-out;
   }
 </style>
+
+
+<script>
+  // Persist accordion state across page navigations
+  document.addEventListener('DOMContentLoaded', () => {
+    const STORAGE_KEY = 'docs-sidebar-state';
+    
+    // Restore accordion state from sessionStorage
+    const savedState = sessionStorage.getItem(STORAGE_KEY);
+    if (savedState) {
+      try {
+        const openSections = JSON.parse(savedState);
+        openSections.forEach((index: number) => {
+          const details = document.querySelectorAll('details')[index];
+          if (details) {
+            details.open = true;
+          }
+        });
+      } catch (e) {
+        console.error('Failed to restore sidebar state:', e);
+      }
+    }
+    
+    // Save accordion state when it changes
+    const saveState = () => {
+      const allDetails = document.querySelectorAll('details');
+      const openIndices: number[] = [];
+      allDetails.forEach((details, index) => {
+        if (details.open) {
+          openIndices.push(index);
+        }
+      });
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(openIndices));
+    };
+    
+    // Listen for toggle events on all details elements
+    document.querySelectorAll('details').forEach(details => {
+      details.addEventListener('toggle', saveState);
+    });
+  });
+</script>
