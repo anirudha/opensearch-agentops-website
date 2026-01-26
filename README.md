@@ -1,29 +1,53 @@
-# Astro Starter Kit: Minimal
+# OpenSearch AgentOps
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Marketing website and documentation for OpenSearch AgentOps - an OpenTelemetry-native observability platform for AI agents and LLM applications.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## About
 
-## 🚀 Project Structure
+This repository contains the public-facing website and comprehensive documentation for OpenSearch AgentOps. The site showcases the platform's capabilities for observing, evaluating, and deploying production AI applications with OpenTelemetry-based tracing.
 
-Inside of your Astro project, you'll see the following folders and files:
+## What's Included
+
+### Marketing Website (`/`)
+- Hero section with dynamic taglines highlighting key benefits
+- Feature showcase for observability, evaluation, and deployment
+- Integration paths for different use cases (Greenfield, Brownfield, Migration)
+- Developer testimonials and social proof
+- Pricing information and call-to-action sections
+
+### Documentation Site (`/docs`)
+- **Get Started**: Quickstart guides, core concepts, and example projects
+- **Instrument**: OpenTelemetry setup, provider wrapping, and custom tracing
+- **Observe**: Tracing, agent observability, and project management
+- **Annotate**: Labeling queues, feedback, and data export
+- **Evaluate**: Datasets, experiments, and CI/CD integration
+- **Prompts**: Prompt hub and optimization
+- **Deploy**: AI proxy, prompt deployment, and MCP
+- **Integrations**: Model providers, cloud platforms, and frameworks
+- **SDKs**: Python and JavaScript/TypeScript documentation
+- **Platform**: Authentication, security, and self-hosting
+
+## Project Structure
 
 ```text
 /
-├── public/
+├── public/              # Static assets (logos, icons, robots.txt)
 ├── src/
-│   └── pages/
-│       └── index.astro
+│   ├── components/      # Reusable UI components
+│   │   ├── Hero.astro
+│   │   ├── Features.astro
+│   │   ├── DocsSidebar.astro
+│   │   └── ...
+│   ├── layouts/         # Page layouts
+│   │   ├── Layout.astro      # Main layout
+│   │   └── DocsLayout.astro  # Documentation layout
+│   ├── pages/           # Routes and pages
+│   │   ├── index.astro       # Landing page
+│   │   └── docs/             # Documentation pages
+│   └── styles/          # Global styles
+├── scripts/             # Utility scripts
 └── package.json
 ```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
 
 ## 🧞 Commands
 
@@ -41,3 +65,57 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+
+## Development
+
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
+
+### Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+The site will be available at `http://localhost:4321`
+
+### Available Commands
+
+| Command           | Action                                      |
+| :---------------- | :------------------------------------------ |
+| `npm install`     | Install dependencies                        |
+| `npm run dev`     | Start dev server at `localhost:4321`        |
+| `npm run build`   | Build production site to `./dist/`          |
+| `npm run preview` | Preview production build locally            |
+| `npm test`        | Run test suite                              |
+
+## Key Features
+
+### Collapsible Documentation Navigation
+The docs sidebar features smooth accordion-style navigation with:
+- Collapsible main sections (Get Started, Instrument, Observe, etc.)
+- Nested sub-navigation for detailed topics
+- Auto-expansion of sections containing the current page
+- Custom minimal scrollbar styling
+
+### Responsive Design
+Fully responsive across all devices with optimized layouts for mobile, tablet, and desktop.
+
+### Performance Optimized
+- Static site generation for fast page loads
+- Optimized images and assets
+- Minimal JavaScript footprint
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit issues or pull requests.
+
+## License
+
+See LICENSE file for details.
