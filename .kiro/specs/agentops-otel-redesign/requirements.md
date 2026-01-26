@@ -30,7 +30,7 @@ This document specifies the requirements for the OpenSearch AgentOps OpenTelemet
 
 #### Acceptance Criteria
 
-1. THE Navigation_Bar SHALL display the logo, menu items (Features, Integration, Why OTEL, Pricing, Docs), and two CTAs (Sign In, Get Started)
+1. THE Navigation_Bar SHALL display the logo, menu items (Features, Integration, Why OTEL, Docs), and two CTAs (Sign In, Get Started)
 2. WHEN a visitor scrolls down the page, THE Navigation_Bar SHALL remain fixed at the top with a blur background effect
 3. WHEN a visitor views the site on mobile, THE Navigation_Bar SHALL display a hamburger menu icon
 4. WHEN a visitor clicks the hamburger menu, THE Mobile_Menu SHALL slide out from the side with all navigation items
@@ -119,29 +119,20 @@ This document specifies the requirements for the OpenSearch AgentOps OpenTelemet
 6. WHEN a visitor clicks a filter button, THE Website SHALL display only testimonials matching that category
 7. WHEN a visitor hovers over a Testimonial_Card, THE Website SHALL apply a border color change and glow effect
 
-### Requirement 8: Pricing Information
-
-**User Story:** As a budget-conscious buyer, I want to understand pricing clearly, so that I can determine affordability and value.
-
-#### Acceptance Criteria
-
-1. THE Website SHALL display a pricing section with clear information about cost structure
-2. THE Website SHALL provide a CTA to contact sales or learn more about pricing
-
-### Requirement 9: Footer Information
+### Requirement 8: Footer Information
 
 **User Story:** As a visitor, I want to access additional resources and legal information, so that I can explore further or understand policies.
 
 #### Acceptance Criteria
 
 1. THE Footer SHALL display four columns: Product, Resources, Company, and Legal
-2. THE Product column SHALL include links to Features, Pricing, Changelog, and Roadmap
+2. THE Product column SHALL include links to Features, Changelog, and Roadmap
 3. THE Resources column SHALL include links to Documentation, API Reference, Tutorials, and Blog
 4. THE Company column SHALL include links to About, Careers, Contact, and Press
 5. THE Legal column SHALL include links to Privacy, Terms, Security, and GDPR
 6. THE Footer SHALL display the logo, copyright notice, and social media links (GitHub, Twitter, Discord, LinkedIn)
 
-### Requirement 10: Performance Standards
+### Requirement 9: Performance Standards
 
 **User Story:** As a visitor on any device or connection, I want the website to load quickly, so that I can access information without delay.
 
@@ -153,7 +144,7 @@ This document specifies the requirements for the OpenSearch AgentOps OpenTelemet
 4. THE Website SHALL achieve Cumulative Layout Shift less than 0.1
 5. THE Website SHALL lazy-load images below the fold
 
-### Requirement 11: Accessibility Compliance
+### Requirement 10: Accessibility Compliance
 
 **User Story:** As a visitor with accessibility needs, I want the website to be fully accessible, so that I can navigate and understand all content.
 
@@ -166,7 +157,7 @@ This document specifies the requirements for the OpenSearch AgentOps OpenTelemet
 5. THE Website SHALL provide alt text for all images
 6. THE Website SHALL use semantic HTML elements
 
-### Requirement 12: Responsive Design
+### Requirement 11: Responsive Design
 
 **User Story:** As a visitor on mobile or tablet, I want the website to display properly on my device, so that I can access all features comfortably.
 
@@ -178,7 +169,7 @@ This document specifies the requirements for the OpenSearch AgentOps OpenTelemet
 4. WHEN viewed on mobile, THE Website SHALL stack sections vertically
 5. WHEN viewed on tablet, THE Website SHALL optimize layouts for medium screens
 
-### Requirement 13: SEO Optimization
+### Requirement 12: SEO Optimization
 
 **User Story:** As a potential visitor searching online, I want the website to appear in relevant search results, so that I can discover the platform.
 
@@ -191,7 +182,7 @@ This document specifies the requirements for the OpenSearch AgentOps OpenTelemet
 5. THE Website SHALL provide a robots.txt file
 6. THE Website SHALL use descriptive heading hierarchy (h1, h2, h3)
 
-### Requirement 14: Analytics and Tracking
+### Requirement 13: Analytics and Tracking
 
 **User Story:** As a product owner, I want to track visitor behavior and conversions, so that I can optimize the website effectiveness.
 
@@ -204,7 +195,7 @@ This document specifies the requirements for the OpenSearch AgentOps OpenTelemet
 5. THE Website SHALL track testimonial filter selection events
 6. THE Website SHALL track outbound link clicks (GitHub, social media, documentation)
 
-### Requirement 15: Animation and Interaction
+### Requirement 14: Animation and Interaction
 
 **User Story:** As a visitor, I want smooth animations and interactions, so that the website feels polished and professional.
 

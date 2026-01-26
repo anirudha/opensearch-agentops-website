@@ -197,38 +197,16 @@ interface GridData {
 ```
 
 **Visual Design**:
+### Features Component
+
+**Purpose**: Display key product features with visual examples
+
+**Visual Design**:
 - Alternating layout: image left/right
 - Each feature: 50/50 split on desktop, stacked on mobile
 - Code snippets: Syntax highlighted with dark theme
 - Mockups: Card-based UI previews
 - Grid: 2x4 layout with progress bars
-
-### Comparison Component
-
-**Purpose**: Feature comparison table against competitors
-
-**Props Interface**:
-```typescript
-interface ComparisonRow {
-  feature: string;
-  agentops: 'full' | 'partial' | 'none';
-  braintrust: 'full' | 'partial' | 'none';
-  langfuse: 'full' | 'partial' | 'none';
-  arize: 'full' | 'partial' | 'none';
-  note?: string;
-}
-
-interface ComparisonProps {
-  rows: ComparisonRow[];
-}
-```
-
-**Visual Design**:
-- Table with sticky header
-- Icons: Checkmark (green), Partial circle (yellow), X (red)
-- Highlight AgentOps column with subtle background
-- Mobile: Horizontal scroll with fixed first column
-- Pricing row: Show actual ranges
 
 ### UseCases Component
 
@@ -447,6 +425,14 @@ const features: Feature[] = [
     icon: 'Activity',
     title: 'LLM Tracing',
     description: 'Complete visibility into every LLM call...',
+### Feature Data
+
+```typescript
+const features = [
+  {
+    id: 'tracing',
+    title: 'LLM Tracing',
+    description: 'Complete visibility into every LLM call',
     bullets: [
       'Auto instrumentation for popular frameworks',
       'Cost per request tracking',
@@ -463,31 +449,16 @@ const features: Feature[] = [
 ];
 ```
 
-### Comparison Data
-
-```typescript
-const comparisonRows: ComparisonRow[] = [
-  {
-    feature: 'LLM Tracing',
-    agentops: 'full',
-    braintrust: 'full',
-    langfuse: 'full',
-    arize: 'partial',
-  },
-  // ... more rows
-];
-```
-
 ## Correctness Properties
 
 *A property is a characteristic or behavior that should hold true across all valid executions of a system—essentially, a formal statement about what the system should do. Properties serve as the bridge between human-readable specifications and machine-verifiable correctness guarantees.*
 
 
-### Property 1: Comparison icons match support levels
+### Property 1: Feature cards contain all required elements
 
-*For any* comparison row data with support levels (full, partial, none), the rendered table cell should display the correct icon: checkmark (green) for full, partial circle (yellow) for partial, and X (red) for none.
+*For any* feature data object, the rendered card should include a title, description, and visual content.
 
-**Validates: Requirements 6.3**
+**Validates: Requirements 5.1**
 
 ### Property 2: Use case cards contain all required elements
 
@@ -657,20 +628,18 @@ import fc from 'fast-check';
 
 // Example property test
 describe('Property Tests', () => {
-  it('should render comparison icons correctly for all support levels', () => {
+  it('should render feature cards correctly', () => {
     fc.assert(
       fc.property(
         fc.record({
-          feature: fc.string(),
-          agentops: fc.constantFrom('full', 'partial', 'none'),
-          braintrust: fc.constantFrom('full', 'partial', 'none'),
-          langfuse: fc.constantFrom('full', 'partial', 'none'),
-          arize: fc.constantFrom('full', 'partial', 'none'),
+          id: fc.string(),
+          title: fc.string(),
+          description: fc.string(),
         }),
-        (row) => {
+        (feature) => {
           // Test implementation
-          const rendered = renderComparisonRow(row);
-          // Verify correct icons are rendered
+          const rendered = renderFeature(feature);
+          // Verify correct elements are rendered
         }
       ),
       { numRuns: 100 }
@@ -685,7 +654,7 @@ describe('Property Tests', () => {
 - Analytics tracking properties (Props 14-16)
 
 **Generators**:
-- Random comparison data with all support level combinations
+- Random feature data with varying content lengths
 - Random use case data with varying content lengths
 - Random testimonial data with and without metrics
 - Random integration data across categories
@@ -778,7 +747,7 @@ Property-based tests handle comprehensive input coverage through randomization, 
 ---
 // In Layout.astro or index.astro
 const title = 'OpenSearch AgentOps - AI Observability & Evaluation Platform';
-const description = 'The unified open-source platform for LLM evaluation, prompt management, and observability. Braintrust + Langfuse + Arize combined at 70% lower cost.';
+const description = 'The unified open-source platform for LLM evaluation, prompt management, and observability. Ship agents with confidence.';
 ---
 <head>
   <title>{title}</title>

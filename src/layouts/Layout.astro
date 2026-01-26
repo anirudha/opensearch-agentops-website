@@ -6,9 +6,9 @@ interface Props {
 }
 
 const {
-  title = 'OpenSearch AgentOps - AI Observability & Evaluation Platform',
-  description = 'The unified open-source platform for LLM evaluation, prompt management, and observability. Braintrust + Langfuse + Arize combined at 70% lower cost.',
-  ogImage = '/og-image.png'
+  title = 'OpenSearch AgentOps - OpenTelemetry for AI Agents',
+  description = 'Built on industry standards. Ship production AI in minutes with unified observability, evaluation, and prompt management. Zero vendor lock-in.',
+  ogImage = '/og-image-otel.png'
 } = Astro.props;
 
 const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url.pathname;
@@ -46,14 +46,14 @@ const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astr
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
     
-    <!-- Structured Data -->
+    <!-- Structured Data - OTEL Positioning -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "OpenSearch AgentOps",
         "applicationCategory": "DeveloperApplication",
-        "description": "Open-source AI observability and evaluation platform",
+        "description": "OpenTelemetry-based AI observability platform",
         "offers": {
           "@type": "Offer",
           "price": "0",
@@ -203,13 +203,13 @@ const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astr
 </html>
 
 <style>
-  /* Skip to main content link - hidden until focused */
+  /* Skip to main content link - hidden until focused - OTEL Cyan */
   .skip-to-main {
     position: absolute;
     top: -40px;
     left: 0;
-    background: #6366f1;
-    color: white;
+    background: #00d4ff;
+    color: #0a0e1a;
     padding: 8px 16px;
     text-decoration: none;
     font-weight: 600;

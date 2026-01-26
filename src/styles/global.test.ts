@@ -33,7 +33,7 @@ describe('Tailwind CSS Configuration', () => {
 
     // Check for body styles
     expect(globalCssContent).toContain('body {');
-    expect(globalCssContent).toContain('bg-slate-950');
+    expect(globalCssContent).toContain('background-color: #0a0e1a');
     expect(globalCssContent).toContain('text-slate-100');
   });
 

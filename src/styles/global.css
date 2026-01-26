@@ -1,43 +1,63 @@
 @import "tailwindcss";
 
+/* Tailwind CSS v4 automatically purges unused classes during build
+ * No additional configuration needed - the @tailwindcss/vite plugin
+ * handles tree-shaking and optimization automatically
+ */
+
 @theme {
-  /* Custom Colors */
-  --color-primary-50: #eef2ff;
-  --color-primary-100: #e0e7ff;
-  --color-primary-200: #c7d2fe;
-  --color-primary-300: #a5b4fc;
-  --color-primary-400: #818cf8;
-  --color-primary-500: #6366f1;
-  --color-primary-600: #4f46e5;
-  --color-primary-700: #4338ca;
-  --color-primary-800: #3730a3;
-  --color-primary-900: #312e81;
+  /* OTEL-Focused Colors - Cyan Primary */
+  --color-otel-cyan: #00d4ff;
+  --color-otel-blue: #0099ff;
+  --color-otel-dark: #0a0e1a;
+  --color-otel-darker: #050810;
   
-  --color-secondary-50: #faf5ff;
-  --color-secondary-100: #f3e8ff;
-  --color-secondary-200: #e9d5ff;
-  --color-secondary-300: #d8b4fe;
-  --color-secondary-400: #c084fc;
-  --color-secondary-500: #a855f7;
-  --color-secondary-600: #9333ea;
-  --color-secondary-700: #7e22ce;
-  --color-secondary-800: #6b21a8;
-  --color-secondary-900: #581c87;
+  /* Primary Colors (OTEL Cyan) */
+  --color-primary-50: #e0f7ff;
+  --color-primary-100: #b3ebff;
+  --color-primary-200: #80dfff;
+  --color-primary-300: #4dd3ff;
+  --color-primary-400: #26c9ff;
+  --color-primary-500: #00d4ff;
+  --color-primary-600: #00b8e6;
+  --color-primary-700: #0099cc;
+  --color-primary-800: #007ab3;
+  --color-primary-900: #005580;
   
-  --color-accent-50: #ecfeff;
-  --color-accent-100: #cffafe;
-  --color-accent-200: #a5f3fc;
-  --color-accent-300: #67e8f9;
-  --color-accent-400: #22d3ee;
-  --color-accent-500: #06b6d4;
-  --color-accent-600: #0891b2;
-  --color-accent-700: #0e7490;
-  --color-accent-800: #155e75;
-  --color-accent-900: #164e63;
+  /* Secondary Colors (Deep Blue) */
+  --color-secondary-50: #e6f0ff;
+  --color-secondary-100: #b3d1ff;
+  --color-secondary-200: #80b3ff;
+  --color-secondary-300: #4d94ff;
+  --color-secondary-400: #267aff;
+  --color-secondary-500: #0099ff;
+  --color-secondary-600: #0080e6;
+  --color-secondary-700: #0066cc;
+  --color-secondary-800: #004db3;
+  --color-secondary-900: #003380;
+  
+  /* Accent Colors (Cyan variations) */
+  --color-accent-50: #e0f9ff;
+  --color-accent-100: #b3f0ff;
+  --color-accent-200: #80e7ff;
+  --color-accent-300: #4dddff;
+  --color-accent-400: #26d6ff;
+  --color-accent-500: #00d4ff;
+  --color-accent-600: #00c2e6;
+  --color-accent-700: #00a3cc;
+  --color-accent-800: #0085b3;
+  --color-accent-900: #006080;
+  
+  /* Dark Backgrounds */
+  --color-dark-950: #0a0e1a;
+  --color-dark-900: #0f1729;
+  --color-dark-800: #1a2332;
+  --color-dark-700: #252f3f;
+  --color-dark-600: #303b4d;
   
   /* Custom Fonts */
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'Fira Code', 'Courier New', monospace;
+  --font-mono: 'Fira Code', 'Monaco', 'Courier New', monospace;
   
   /* Custom Spacing */
   --spacing-18: 4.5rem;
@@ -46,9 +66,10 @@
   --spacing-30: 7.5rem;
 }
 
-/* Base Styles */
+/* Base Styles - OTEL Dark Theme */
 body {
-  @apply bg-slate-950 text-slate-100;
+  @apply text-slate-100;
+  background-color: #0a0e1a;
   font-family: var(--font-sans);
 }
 
@@ -57,7 +78,7 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Keyboard Navigation - Focus Indicators */
+/* Keyboard Navigation - Focus Indicators - OTEL Cyan */
 /* Visible focus indicators for all interactive elements */
 a:focus-visible,
 button:focus-visible,
@@ -65,7 +86,7 @@ input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
 [tabindex]:not([tabindex="-1"]):focus-visible {
-  outline: 2px solid #6366f1;
+  outline: 2px solid #00d4ff;
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -73,7 +94,7 @@ textarea:focus-visible,
 /* Enhanced focus for buttons and links */
 button:focus-visible,
 a:focus-visible {
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.3);
 }
 
 /* Remove default outline and use custom focus styles */
@@ -82,7 +103,7 @@ a:focus-visible {
 }
 
 *:focus-visible {
-  outline: 2px solid #6366f1;
+  outline: 2px solid #00d4ff;
   outline-offset: 2px;
 }
 
@@ -145,9 +166,9 @@ a:not(:last-child) {
   transform: translateY(0);
 }
 
-/* Gradient text animation */
+/* Gradient text animation - OTEL Cyan theme */
 .gradient-text {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+  background: linear-gradient(135deg, #00d4ff, #0099ff, #00b8e6);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -200,17 +221,54 @@ a:not(:last-child) {
   }
 }
 
-/* Fade in animation */
+/* Fade in animation - for tab content switches */
 .fade-in {
   animation: fadeIn 0.6s ease-out;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth transitions for cards - GPU accelerated */
+.card-transition {
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.card-transition:hover {
+  transform: translateY(-4px);
+}
+
+/* Smooth transitions for filter buttons */
+.filter-transition {
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Testimonial card fade-in on filter change */
+.testimonial-fade-in {
+  animation: testimonialFadeIn 0.4s ease-out forwards;
+}
+
+@keyframes testimonialFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -230,12 +288,14 @@ a:not(:last-child) {
     scroll-behavior: auto;
   }
   
+  /* Disable all animations and transitions */
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
   
   /* Disable scroll animations */
@@ -245,10 +305,46 @@ a:not(:last-child) {
     transition: none;
   }
   
-  /* Disable hover effects */
+  /* Disable hover transform effects but keep color changes */
   .card-hover:hover,
   .button-hover:hover,
-  .logo-hover:hover {
-    transform: none;
+  .logo-hover:hover,
+  .card-transition:hover {
+    transform: none !important;
+  }
+  
+  /* Disable fade-in animations */
+  .fade-in,
+  .animate-fade-in,
+  .testimonial-fade-in {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  /* Disable gradient animation */
+  .gradient-text {
+    animation: none !important;
+  }
+  
+  /* Disable floating animations */
+  .float-animation,
+  .float-animation-delayed {
+    animation: none !important;
+  }
+  
+  /* Disable pulse animation */
+  .pulse-animation {
+    animation: none !important;
+  }
+  
+  /* Keep focus indicators but remove transitions */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [tabindex]:not([tabindex="-1"]):focus-visible {
+    transition: none !important;
   }
 }

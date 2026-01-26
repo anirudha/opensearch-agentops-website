@@ -1,0 +1,62 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import DocsSidebar from '../../components/DocsSidebar.astro';
+---
+
+<DocsLayout 
+  title="Documentation" 
+  description="Complete guide to building production AI with OpenTelemetry-based observability"
+>
+  <DocsSidebar slot="sidebar" />
+  
+  <div class="space-y-8">
+    <section>
+      <h2>Welcome to AgentOps Documentation</h2>
+      <p>
+        AgentOps is an OpenTelemetry-based observability platform for AI agents and LLM applications.
+        Built on industry standards, it provides unified observability, evaluation, and prompt management
+        with zero vendor lock-in.
+      </p>
+    </section>
+
+    <section>
+      <h2>Quick Links</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 not-prose">
+        <a href="/docs/get-started" class="block p-6 bg-slate-800/50 rounded-lg border border-slate-700 hover:border-primary-500 transition-colors">
+          <div class="text-2xl mb-2">🚀</div>
+          <h3 class="text-lg font-semibold text-white mb-2">Get Started</h3>
+          <p class="text-slate-400 text-sm">Learn the basics and get up and running in minutes</p>
+        </a>
+        
+        <a href="/docs/instrument" class="block p-6 bg-slate-800/50 rounded-lg border border-slate-700 hover:border-primary-500 transition-colors">
+          <div class="text-2xl mb-2">🔧</div>
+          <h3 class="text-lg font-semibold text-white mb-2">Instrument</h3>
+          <p class="text-slate-400 text-sm">Add OpenTelemetry tracing to your AI applications</p>
+        </a>
+        
+        <a href="/docs/observe" class="block p-6 bg-slate-800/50 rounded-lg border border-slate-700 hover:border-primary-500 transition-colors">
+          <div class="text-2xl mb-2">👁️</div>
+          <h3 class="text-lg font-semibold text-white mb-2">Observe</h3>
+          <p class="text-slate-400 text-sm">Monitor traces, agents, and system performance</p>
+        </a>
+        
+        <a href="/docs/evaluate" class="block p-6 bg-slate-800/50 rounded-lg border border-slate-700 hover:border-primary-500 transition-colors">
+          <div class="text-2xl mb-2">📊</div>
+          <h3 class="text-lg font-semibold text-white mb-2">Evaluate</h3>
+          <p class="text-slate-400 text-sm">Run experiments and evaluate AI performance</p>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <h2>Popular Topics</h2>
+      <ul>
+        <li><a href="/docs/get-started/quickstart/first-traces">Log Your First Traces</a></li>
+        <li><a href="/docs/instrument/opentelemetry/collector">OpenTelemetry Collector Configuration</a></li>
+        <li><a href="/docs/observe/agent-observability">Agent Observability</a></li>
+        <li><a href="/docs/integrations/agent-frameworks">Agent Framework Integrations</a></li>
+        <li><a href="/docs/evaluate/experiments">Running Experiments</a></li>
+      </ul>
+    </section>
+  </div>
+</DocsLayout>

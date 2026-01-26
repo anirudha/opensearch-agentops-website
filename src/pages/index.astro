@@ -2,15 +2,11 @@
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
 import Hero from '../components/Hero.astro';
-import SocialProof from '../components/SocialProof.astro';
-import ProblemSolution from '../components/ProblemSolution.astro';
+import QuickWin from '../components/QuickWin.astro';
+import IntegrationPaths from '../components/IntegrationPaths.astro';
+import WhyOTEL from '../components/WhyOTEL.astro';
 import Features from '../components/Features.astro';
-import Comparison from '../components/Comparison.astro';
-import UseCases from '../components/UseCases.astro';
-import Testimonials from '../components/Testimonials.astro';
-import Integrations from '../components/Integrations.astro';
-import OpenSource from '../components/OpenSource.astro';
-import CTASection from '../components/CTASection.astro';
+import DeveloperTestimonials from '../components/DeveloperTestimonials.astro';
 import Footer from '../components/Footer.astro';
 ---
 
@@ -18,21 +14,21 @@ import Footer from '../components/Footer.astro';
   <Navigation />
   <main id="main-content">
     <Hero />
-    <SocialProof />
-    <ProblemSolution />
+    <section id="quick-win">
+      <QuickWin />
+    </section>
+    <section id="integration">
+      <IntegrationPaths />
+    </section>
+    <section id="why-otel">
+      <WhyOTEL />
+    </section>
     <section id="features">
       <Features />
     </section>
-    <section id="compare">
-      <Comparison />
+    <section id="testimonials">
+      <DeveloperTestimonials />
     </section>
-    <section id="use-cases">
-      <UseCases />
-    </section>
-    <Testimonials />
-    <Integrations />
-    <OpenSource />
-    <CTASection />
   </main>
   <Footer />
 </Layout>

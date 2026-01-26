@@ -1,5 +1,6 @@
 ---
-// Hero component for OpenSearch AgentOps marketing website
+// Hero component for OpenSearch AgentOps - OpenTelemetry-focused redesign
+import { CyclingTagline } from './CyclingTagline';
 ---
 
 <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-950">
@@ -11,178 +12,251 @@
   </div>
   
   <article class="container mx-auto px-6 py-20 relative z-10">
-    <div class="max-w-6xl mx-auto text-center">
-      <!-- Announcement Badge -->
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 mb-8">
-        <span class="px-2 py-0.5 text-xs font-semibold bg-indigo-500 text-white rounded-full">NEW</span>
-        <span class="text-sm text-indigo-300">Introducing OpenSearch AgentOps</span>
-      </div>
+    <div class="max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Column: Headline and CTAs -->
+        <div class="text-center lg:text-left">
+          <!-- Main Headline -->
+          <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            <span class="text-white">Ship Agents Without the Anxiety.</span>
+          </h1>
 
-      <!-- Main Headline with Gradient -->
-      <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-        <span class="bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent">
-          Braintrust + Langfuse + Arize Combined.
-        </span>
-        <br />
-        <span class="text-white">Open Source.</span>
-      </h1>
+          <!-- Subheadline -->
+          <p class="text-base md:text-lg text-slate-400 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
+            Traces. Logs. Metrics. Sessions. Costs. <span class="text-white font-medium">Your agents aren't black boxes anymore.</span> Evals powered by LLM-as-Judge, datasets, and scorers. Prompts refined from real feedback. Anomalies caught. Alerts sent.
+          </p>
+          <p class="text-base md:text-lg font-semibold text-cyan-400 mb-10 max-w-2xl mx-auto lg:mx-0">
+            One continuous loop. Ship with confidence.
+          </p>
 
-      <!-- Subheadline -->
-      <p class="text-xl md:text-2xl text-slate-300 mb-12 max-w-3xl mx-auto">
-        The unified platform for LLM evaluation, prompt management, and observability. 
-        Everything you need to build production-ready AI applications.
-      </p>
-
-      <!-- Trust Badges Grid -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-4xl mx-auto" role="list" aria-label="Key benefits">
-        <div class="flex flex-col items-center gap-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800" role="listitem">
-          <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <span class="text-sm font-semibold text-white">70% Cost Savings</span>
+          <!-- Three CTAs with Hierarchy -->
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
+            <!-- Primary CTA -->
+            <a 
+              href="/docker-setup" 
+              class="cta-primary px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold rounded-lg transition-all duration-200 shadow-lg shadow-purple-500/50 hover:shadow-purple-500/70 hover:scale-105 backdrop-blur-sm"
+              data-analytics="cta_hero_get_started"
+            >
+              Live Playground
+            </a>
+            
+            <!-- Secondary CTA -->
+            <a 
+              href="/docs" 
+              class="cta-secondary px-8 py-4 bg-slate-800/50 hover:bg-slate-700/50 text-white font-semibold rounded-lg transition-all duration-200 border-2 border-purple-500/50 hover:border-purple-400 backdrop-blur-sm"
+              data-analytics="cta_hero_view_docs"
+            >
+              View Docs
+            </a>
+          </div>
         </div>
 
-        <div class="flex flex-col items-center gap-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800" role="listitem">
-          <svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-          </svg>
-          <span class="text-sm font-semibold text-white">100% Open Source</span>
-        </div>
-
-        <div class="flex flex-col items-center gap-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800" role="listitem">
-          <svg class="w-8 h-8 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
-          </svg>
-          <span class="text-sm font-semibold text-white">Self-Hosted Available</span>
-        </div>
-
-        <div class="flex flex-col items-center gap-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800" role="listitem">
-          <svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-          </svg>
-          <span class="text-sm font-semibold text-white">SOC 2 & HIPAA Ready</span>
-        </div>
-      </div>
-
-      <!-- CTAs -->
-      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-        <a 
-          href="/signup" 
-          class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition-colors duration-200 shadow-lg shadow-indigo-500/50"
-          data-analytics="cta_hero_start_trial"
-        >
-          Start Free Trial
-        </a>
-        <a 
-          href="https://github.com/opensearch-project/agentops" 
-          target="_blank"
-          rel="noopener noreferrer"
-          class="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-lg transition-colors duration-200 border border-slate-700"
-          data-analytics="cta_hero_github"
-        >
-          <span class="flex items-center gap-2">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+        <!-- Right Column: Infinity Loop Visualization -->
+        <div class="flex flex-col items-center">
+          <div class="relative h-[400px] w-full">
+            
+            <!-- SVG Infinity Path -->
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet">
+              <path 
+                d="M 200,200
+                   C 200,100 350,100 400,200
+                   C 450,300 600,300 600,200
+                   C 600,100 450,100 400,200
+                   C 350,300 200,300 200,200"
+                fill="none"
+                stroke="url(#loopGradient)"
+                stroke-width="3"
+                stroke-dasharray="10 5"
+                opacity="0.5"
+              />
+              <defs>
+                <linearGradient id="loopGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#3b82f6" />
+                  <stop offset="33%" stop-color="#10b981" />
+                  <stop offset="66%" stop-color="#f59e0b" />
+                  <stop offset="100%" stop-color="#ef4444" />
+                </linearGradient>
+              </defs>
+              
+              <!-- Animated dot -->
+              <circle r="6" fill="#10b981">
+                <animateMotion 
+                  dur="8s"
+                  repeatCount="indefinite"
+                  path="M 200,200 C 200,100 350,100 400,200 C 450,300 600,300 600,200 C 600,100 450,100 400,200 C 350,300 200,300 200,200"
+                />
+              </circle>
             </svg>
-            Star on GitHub
-          </span>
-        </a>
-      </div>
-
-      <!-- Dashboard Preview Mockup -->
-      <div id="dashboard-preview-container" class="relative max-w-5xl mx-auto">
-        <div class="relative rounded-xl overflow-hidden border border-slate-700 shadow-2xl shadow-indigo-500/20" role="img" aria-label="Dashboard preview showing LLM performance metrics and traces">
-          <!-- Dashboard mockup with gradient background -->
-          <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8">
-            <!-- Mock dashboard header -->
-            <div class="flex items-center justify-between mb-6">
-              <div class="flex items-center gap-3" aria-hidden="true">
-                <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+            
+            <!-- Cards positioned on the infinity -->
+            
+            <!-- Left loop: Observe, Evaluate -->
+            <div class="absolute left-[22%] top-[15%] loop-card">
+              <div class="group relative">
+                <div class="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-teal-500 rounded-xl blur opacity-30 group-hover:opacity-60 transition duration-300"></div>
+                <div class="relative bg-slate-900 border border-cyan-500/30 rounded-xl p-4 w-28 text-center">
+                  <div class="w-10 h-10 bg-cyan-500 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
+                  </div>
+                  <div class="font-medium text-white text-sm">Observe</div>
+                </div>
               </div>
-              <div class="text-xs text-slate-500 font-mono">dashboard.agentops.dev</div>
             </div>
             
-            <!-- Mock dashboard content -->
-            <div class="space-y-4">
-              <!-- Stats row -->
-              <div class="grid grid-cols-3 gap-4">
-                <div class="bg-slate-800/50 rounded-lg p-4 border border-slate-700">
-                  <div class="text-xs text-slate-400 mb-1">Total Requests</div>
-                  <div class="text-2xl font-bold text-white">1.2M</div>
-                  <div class="text-xs text-green-400">↑ 23% this week</div>
-                </div>
-                <div class="bg-slate-800/50 rounded-lg p-4 border border-slate-700">
-                  <div class="text-xs text-slate-400 mb-1">Avg Latency</div>
-                  <div class="text-2xl font-bold text-white">234ms</div>
-                  <div class="text-xs text-green-400">↓ 12% faster</div>
-                </div>
-                <div class="bg-slate-800/50 rounded-lg p-4 border border-slate-700">
-                  <div class="text-xs text-slate-400 mb-1">Cost Saved</div>
-                  <div class="text-2xl font-bold text-white">$4.2K</div>
-                  <div class="text-xs text-green-400">↓ 68% reduction</div>
-                </div>
-              </div>
-              
-              <!-- Chart placeholder -->
-              <div class="bg-slate-800/50 rounded-lg p-6 border border-slate-700">
-                <div class="flex items-center justify-between mb-4">
-                  <div class="text-sm font-semibold text-white">LLM Performance</div>
-                  <div class="text-xs text-slate-400">Last 7 days</div>
-                </div>
-                <div class="h-32 flex items-end gap-2" role="img" aria-label="Bar chart showing LLM performance over the last 7 days">
-                  <div class="flex-1 bg-indigo-500/30 rounded-t" style="height: 60%"></div>
-                  <div class="flex-1 bg-indigo-500/30 rounded-t" style="height: 75%"></div>
-                  <div class="flex-1 bg-indigo-500/30 rounded-t" style="height: 45%"></div>
-                  <div class="flex-1 bg-indigo-500/30 rounded-t" style="height: 85%"></div>
-                  <div class="flex-1 bg-indigo-500/30 rounded-t" style="height: 70%"></div>
-                  <div class="flex-1 bg-indigo-500/30 rounded-t" style="height: 90%"></div>
-                  <div class="flex-1 bg-indigo-500 rounded-t" style="height: 100%"></div>
-                </div>
-              </div>
-              
-              <!-- Recent traces -->
-              <div class="bg-slate-800/50 rounded-lg p-4 border border-slate-700">
-                <div class="text-sm font-semibold text-white mb-3">Recent Traces</div>
-                <div class="space-y-2">
-                  <div class="flex items-center justify-between text-xs">
-                    <span class="text-slate-300 font-mono">gpt-4-turbo</span>
-                    <span class="text-green-400">✓ 187ms</span>
+            <div class="absolute left-[22%] bottom-[15%] loop-card">
+              <div class="group relative">
+                <div class="absolute -inset-0.5 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-xl blur opacity-30 group-hover:opacity-60 transition duration-300"></div>
+                <div class="relative bg-slate-900 border border-emerald-500/30 rounded-xl p-4 w-28 text-center">
+                  <div class="w-10 h-10 bg-emerald-500 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                    </svg>
                   </div>
-                  <div class="flex items-center justify-between text-xs">
-                    <span class="text-slate-300 font-mono">claude-3-opus</span>
-                    <span class="text-green-400">✓ 234ms</span>
-                  </div>
-                  <div class="flex items-center justify-between text-xs">
-                    <span class="text-slate-300 font-mono">gpt-4-turbo</span>
-                    <span class="text-green-400">✓ 156ms</span>
-                  </div>
+                  <div class="font-medium text-white text-sm">Evaluate</div>
                 </div>
               </div>
             </div>
+            
+            <!-- Center crossing point -->
+            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+              <div class="bg-slate-800 border border-cyan-500/50 rounded-full w-16 h-16 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                <span class="text-cyan-400 text-2xl animate-spin-slow">↻</span>
+              </div>
+            </div>
+            
+            <!-- Right loop: Label, Alert -->
+            <div class="absolute right-[22%] top-[15%] loop-card">
+              <div class="group relative">
+                <div class="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-amber-500 rounded-xl blur opacity-30 group-hover:opacity-60 transition duration-300"></div>
+                <div class="relative bg-slate-900 border border-amber-500/30 rounded-xl p-4 w-28 text-center">
+                  <div class="w-10 h-10 bg-amber-500 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                    </svg>
+                  </div>
+                  <div class="font-medium text-white text-sm">Label</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="absolute right-[22%] bottom-[15%] loop-card">
+              <div class="group relative">
+                <div class="absolute -inset-0.5 bg-gradient-to-r from-amber-500 to-orange-500 rounded-xl blur opacity-30 group-hover:opacity-60 transition duration-300"></div>
+                <div class="relative bg-slate-900 border border-orange-500/30 rounded-xl p-4 w-28 text-center">
+                  <div class="w-10 h-10 bg-orange-500 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                    </svg>
+                  </div>
+                  <div class="font-medium text-white text-sm">Alert</div>
+                </div>
+              </div>
+            </div>
+            
           </div>
+          
+          <!-- Cycling Tagline directly below the graph -->
+          <div class="mt-6 w-full flex justify-center">
+            <div class="ml-[-300px]">
+              <CyclingTagline client:load />
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Quick Start Code Snippet - Full Width -->
+      <div class="mt-12">
+        <div class="bg-slate-900/80 backdrop-blur-sm border border-slate-700 rounded-lg p-4 relative group">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs text-slate-400 font-semibold uppercase tracking-wide">Quick Start</span>
+            <button 
+              class="copy-button px-3 py-1 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded transition-colors"
+              data-copy="curl -fsSL https://raw.githubusercontent.com/opensearch-project/agentops/main/install.sh | bash"
+              aria-label="Copy command"
+            >
+              <span class="copy-text">Copy</span>
+              <span class="copied-text hidden">Copied!</span>
+            </button>
+          </div>
+          <code class="text-sm text-cyan-400 font-mono block">
+            <span class="text-slate-500">$</span> curl -fsSL https://raw.githubusercontent.com/opensearch-project/agentops/main/install.sh | bash
+          </code>
+          <p class="text-xs text-slate-500 mt-2">Works everywhere. Installs everything. You're welcome. 🔥</p>
         </div>
       </div>
     </div>
   </article>
 </section>
 
-
 <style>
+  /* OpenTelemetry gradient */
+  .otel-gradient {
+    background: linear-gradient(135deg, #00f0ff 0%, #00d4ff 50%, #ffffff 100%);
+  }
+
+  /* Slow spin animation for loop icon */
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 3s linear infinite;
+  }
+
+  /* Stagger card entrance animation */
+  .loop-card {
+    animation: fadeInUp 0.5s ease-out forwards;
+    opacity: 0;
+  }
+
+  .loop-card:nth-child(1) { animation-delay: 0.1s; }
+  .loop-card:nth-child(3) { animation-delay: 0.2s; }
+  .loop-card:nth-child(5) { animation-delay: 0.3s; }
+  .loop-card:nth-child(7) { animation-delay: 0.4s; }
+  .loop-card:nth-child(9) { animation-delay: 0.5s; }
+  .loop-card:nth-child(11) { animation-delay: 0.6s; }
+  .loop-card:nth-child(13) { animation-delay: 0.7s; }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-spin-slow {
+      animation: none;
+    }
+    
+    .loop-card {
+      animation: none;
+      opacity: 1;
+    }
+  }
+
   /* Floating orb animations */
   .orb {
     position: absolute;
     border-radius: 50%;
     filter: blur(80px);
-    opacity: 0.3;
+    opacity: 0.2;
     animation: float 20s ease-in-out infinite;
   }
 
   .orb-1 {
     width: 500px;
     height: 500px;
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    background: linear-gradient(135deg, #00d4ff, #0099ff);
     top: -10%;
     left: -10%;
     animation-delay: 0s;
@@ -192,7 +266,7 @@
   .orb-2 {
     width: 400px;
     height: 400px;
-    background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+    background: linear-gradient(135deg, #0099ff, #06b6d4);
     top: 40%;
     right: -5%;
     animation-delay: 5s;
@@ -202,7 +276,7 @@
   .orb-3 {
     width: 450px;
     height: 450px;
-    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    background: linear-gradient(135deg, #06b6d4, #00d4ff);
     bottom: -15%;
     left: 30%;
     animation-delay: 10s;
@@ -224,10 +298,74 @@
     }
   }
 
+  /* CTA hierarchy styling with GPU-accelerated transitions */
+  .cta-primary,
+  .cta-secondary,
+  .cta-tertiary {
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    will-change: transform;
+  }
+
+  .cta-primary:hover {
+    transform: scale(1.05);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .flow-container {
+      height: 500px;
+    }
+  }
+
   /* Respect reduced motion preferences */
   @media (prefers-reduced-motion: reduce) {
     .orb {
       animation: none;
     }
+    
+    .cta-primary,
+    .cta-secondary,
+    .cta-tertiary {
+      transition: none;
+    }
+    
+    .cta-primary:hover {
+      transform: none;
+    }
   }
 </style>
+
+<script>
+  // Copy to clipboard functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const copyButtons = document.querySelectorAll('.copy-button');
+    
+    copyButtons.forEach(button => {
+      button.addEventListener('click', async () => {
+        const textToCopy = button.getAttribute('data-copy');
+        const copyText = button.querySelector('.copy-text');
+        const copiedText = button.querySelector('.copied-text');
+        
+        if (textToCopy) {
+          try {
+            await navigator.clipboard.writeText(textToCopy);
+            
+            // Show "Copied!" feedback
+            if (copyText && copiedText) {
+              copyText.classList.add('hidden');
+              copiedText.classList.remove('hidden');
+              
+              // Reset after 2 seconds
+              setTimeout(() => {
+                copyText.classList.remove('hidden');
+                copiedText.classList.add('hidden');
+              }, 2000);
+            }
+          } catch (err) {
+            console.error('Failed to copy:', err);
+          }
+        }
+      });
+    });
+  });
+</script>

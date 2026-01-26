@@ -26,45 +26,33 @@ describe('Hero Component - Unit Tests', () => {
       const heroHTML = `
         <section id="hero">
           <h1>
-            <span class="bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent">
-              Braintrust + Langfuse + Arize Combined.
-            </span>
-            <br />
-            <span class="text-white">Open Source.</span>
+            <span class="text-white">Ship Agents Without the Anxiety.</span>
           </h1>
         </section>
       `;
       
       container.innerHTML = heroHTML;
       const h1 = container.querySelector('h1');
-      const gradientSpan = h1?.querySelector('.bg-gradient-to-r');
       const whiteSpan = h1?.querySelector('.text-white');
 
       expect(h1).toBeTruthy();
-      expect(gradientSpan?.textContent?.trim()).toBe('Braintrust + Langfuse + Arize Combined.');
-      expect(whiteSpan?.textContent?.trim()).toBe('Open Source.');
+      expect(whiteSpan?.textContent?.trim()).toBe('Ship Agents Without the Anxiety.');
     });
 
-    it('should have gradient text styling on first part of headline', () => {
+    it('should have white text styling on headline', () => {
       const heroHTML = `
         <section id="hero">
           <h1>
-            <span class="bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent">
-              Braintrust + Langfuse + Arize Combined.
-            </span>
+            <span class="text-white">Ship Agents Without the Anxiety.</span>
           </h1>
         </section>
       `;
       
       container.innerHTML = heroHTML;
-      const gradientSpan = container.querySelector('.bg-gradient-to-r');
+      const whiteSpan = container.querySelector('.text-white');
 
-      expect(gradientSpan).toBeTruthy();
-      expect(gradientSpan?.classList.contains('from-indigo-500')).toBe(true);
-      expect(gradientSpan?.classList.contains('via-purple-500')).toBe(true);
-      expect(gradientSpan?.classList.contains('to-cyan-500')).toBe(true);
-      expect(gradientSpan?.classList.contains('bg-clip-text')).toBe(true);
-      expect(gradientSpan?.classList.contains('text-transparent')).toBe(true);
+      expect(whiteSpan).toBeTruthy();
+      expect(whiteSpan?.classList.contains('text-white')).toBe(true);
     });
 
     it('should render subheadline text', () => {

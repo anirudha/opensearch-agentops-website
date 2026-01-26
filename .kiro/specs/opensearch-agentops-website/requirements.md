@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This document specifies the requirements for the OpenSearch AgentOps marketing website - a modern, high-converting landing page for an open-source AI observability and evaluation platform. The website positions OpenSearch AgentOps as a unified alternative to Braintrust, Langfuse, and Arize, emphasizing cost savings, open-source transparency, and enterprise-grade capabilities.
+This document specifies the requirements for the OpenSearch AgentOps marketing website - a modern, high-converting landing page for an open-source AI observability and evaluation platform. The website emphasizes cost savings, open-source transparency, and enterprise-grade capabilities.
 
 ## Glossary
 
@@ -45,7 +45,7 @@ This document specifies the requirements for the OpenSearch AgentOps marketing w
 1. THE Hero_Section SHALL display an announcement badge, main headline with gradient text, subheadline, four Trust_Badges, and two CTAs
 2. THE Hero_Section SHALL include a Dashboard_Preview mockup showing the product interface
 3. WHEN the Hero_Section loads, THE Website SHALL animate floating background orbs
-4. THE Hero_Section SHALL display the headline "Braintrust + Langfuse + Arize Combined. Open Source."
+4. THE Hero_Section SHALL display the headline "Ship Agents Without the Anxiety."
 5. THE Hero_Section SHALL display Trust_Badges for "70% Cost Savings", "100% Open Source", "Self-Hosted Available", and "SOC 2 & HIPAA Ready"
 6. WHEN a visitor clicks "Start Free Trial", THE Website SHALL navigate to the sign-up flow
 7. WHEN a visitor clicks "Star on GitHub", THE Website SHALL open the GitHub repository in a new tab
@@ -86,17 +86,16 @@ This document specifies the requirements for the OpenSearch AgentOps marketing w
 5. THE AI Insights Feature_Block SHALL display alert and insight card mockups
 6. WHEN a Feature_Block is displayed, THE Website SHALL alternate the layout direction (left-right, right-left)
 
-### Requirement 6: Competitor Comparison
+### Requirement 6: Feature Highlights
 
-**User Story:** As a decision maker, I want to compare OpenSearch AgentOps against Braintrust, Langfuse, and Arize, so that I can make an informed choice.
+**User Story:** As a decision maker, I want to understand the key features and capabilities of OpenSearch AgentOps, so that I can make an informed choice.
 
 #### Acceptance Criteria
 
-1. THE Comparison_Table SHALL display feature rows for LLM Tracing, Prompt Management, Evaluation Framework, AI Insights, Human Annotation, Open Source, Self-Hosted Option, Enterprise SSO, SOC 2 Compliant, and Pricing
-2. THE Comparison_Table SHALL display columns for OpenSearch AgentOps, Braintrust, Langfuse, and Arize
-3. THE Comparison_Table SHALL use checkmark icons (green) for full support, partial icons (yellow) for partial support, and X icons (red) for no support
-4. THE Comparison_Table SHALL display actual pricing ranges for each platform
-5. WHEN viewed on mobile, THE Comparison_Table SHALL scroll horizontally while keeping the feature column fixed
+1. THE Website SHALL display comprehensive feature information for LLM Tracing, Prompt Management, Evaluation Framework, AI Insights, Human Annotation, Open Source, Self-Hosted Option, Enterprise SSO, and SOC 2 Compliance
+2. THE Website SHALL highlight the open-source nature and self-hosted capabilities
+3. THE Website SHALL display pricing information clearly
+4. WHEN viewed on mobile, THE feature sections SHALL display responsively
 
 ### Requirement 7: Use Case Demonstration
 

@@ -147,29 +147,10 @@ This implementation plan breaks down the OpenSearch AgentOps marketing website i
     - Test code snippet is present in LLM Tracing
     - _Requirements: 5.1, 5.2, 5.6_
 
-- [x] 8. Implement Comparison section
-  - [x] 8.1 Create Comparison.astro component
-    - Build comparison table structure with headers
-    - Add columns: OpenSearch AgentOps, Braintrust, Langfuse, Arize
-    - Add feature rows: LLM Tracing, Prompt Management, Evaluation Framework, AI Insights, Human Annotation, Open Source, Self-Hosted Option, Enterprise SSO, SOC 2 Compliant, Pricing
-    - Implement sticky header for scrolling
-    - Add horizontal scroll for mobile with fixed first column
-    - _Requirements: 6.1, 6.2, 6.4, 6.5_
-
-  - [x] 8.2 Add comparison icons based on support levels
-    - Create icon rendering logic: checkmark (green) for full, partial circle (yellow) for partial, X (red) for none
-    - Apply icons to all table cells based on data
-    - _Requirements: 6.3_
-
-  - [x] 8.3 Write property test for comparison icons
-    - **Property 1: Comparison icons match support levels**
-    - **Validates: Requirements 6.3**
-
-  - [x] 8.4 Write unit tests for Comparison component
-    - Test correct number of rows and columns
-    - Test pricing row displays pricing information
-    - Test mobile horizontal scroll behavior
-    - _Requirements: 6.1, 6.2, 6.4, 6.5_
+- [x] 8. Removed Comparison section (competitor references removed)
+  - Comparison component and tests deleted
+  - No longer comparing against specific competitors
+  - _Requirements: Updated to focus on feature highlights_
 
 - [x] 9. Checkpoint - Ensure all tests pass
   - Run all unit and property tests

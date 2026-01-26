@@ -6,9 +6,8 @@ import { join } from 'path';
  * Responsive Behavior Unit Tests
  * Tests specific responsive behaviors:
  * - Navigation shows hamburger menu on mobile
- * - Comparison table scrolls horizontally on mobile
  * - Sections stack vertically on mobile
- * Requirements: 1.3, 6.5, 16.4
+ * Requirements: 1.3, 16.4
  */
 
 describe('Responsive Behavior Unit Tests', () => {
@@ -64,81 +63,15 @@ describe('Responsive Behavior Unit Tests', () => {
     });
   });
 
-  describe('Comparison Table - Horizontal Scroll', () => {
-    it('should have overflow-x-auto class for horizontal scrolling', () => {
-      const comparisonContent = readFileSync(
-        join(process.cwd(), 'src/components/Comparison.astro'),
-        'utf-8'
-      );
-
-      // Check for horizontal scroll container
-      expect(comparisonContent).toContain('overflow-x-auto');
-      expect(comparisonContent).toContain('comparison-table-container');
-      
-      // Validates: Requirements 6.5
-    });
-
-    it('should have minimum width to enable scrolling on mobile', () => {
-      const comparisonContent = readFileSync(
-        join(process.cwd(), 'src/components/Comparison.astro'),
-        'utf-8'
-      );
-
-      // Check for minimum width that forces scrolling
-      expect(comparisonContent).toMatch(/min-w-\[800px\]/);
-      
-      // Validates: Requirements 6.5
-    });
-
-    it('should have fixed first column on mobile with feature-column class', () => {
-      const comparisonContent = readFileSync(
-        join(process.cwd(), 'src/components/Comparison.astro'),
-        'utf-8'
-      );
-
-      // Check for feature column class
-      expect(comparisonContent).toContain('feature-column');
-      
-      // Validates: Requirements 6.5
-    });
-
-    it('should have mobile scroll hint text', () => {
-      const comparisonContent = readFileSync(
-        join(process.cwd(), 'src/components/Comparison.astro'),
-        'utf-8'
-      );
-
-      // Check for mobile scroll hint
-      expect(comparisonContent).toContain('md:hidden');
-      expect(comparisonContent).toMatch(/scroll|Scroll/i);
-      
-      // Validates: Requirements 6.5
-    });
-
-    it('should have CSS for sticky feature column on mobile', () => {
-      const comparisonContent = readFileSync(
-        join(process.cwd(), 'src/components/Comparison.astro'),
-        'utf-8'
-      );
-
-      // Check for sticky positioning in CSS
-      expect(comparisonContent).toContain('position: sticky');
-      expect(comparisonContent).toContain('left: 0');
-      
-      // Validates: Requirements 6.5
-    });
-  });
-
   describe('Sections Stack Vertically on Mobile', () => {
-    it('Hero section should stack trust badges in 2 columns on mobile', () => {
+    it('Hero section should have responsive grid layout', () => {
       const heroContent = readFileSync(
         join(process.cwd(), 'src/components/Hero.astro'),
         'utf-8'
       );
 
-      // Check for responsive grid
-      expect(heroContent).toContain('grid-cols-2');
-      expect(heroContent).toContain('md:grid-cols-4');
+      // Check for responsive grid (2 columns on large screens)
+      expect(heroContent).toContain('lg:grid-cols-2');
       
       // Validates: Requirements 16.4
     });
@@ -310,7 +243,6 @@ describe('Responsive Behavior Unit Tests', () => {
         'Navigation.astro',
         'Hero.astro',
         'Features.astro',
-        'Comparison.astro',
         'UseCases.astro',
         'Footer.astro',
       ];
@@ -342,7 +274,6 @@ describe('Responsive Behavior Unit Tests', () => {
         'Navigation.astro',
         'Hero.astro',
         'Features.astro',
-        'Comparison.astro',
         'UseCases.astro',
         'Footer.astro',
       ];
