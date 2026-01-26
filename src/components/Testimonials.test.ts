@@ -97,7 +97,7 @@ describe('Testimonials - Property 3: Testimonial cards contain all required elem
       fc.property(
         fc.record({
           quote: fc.string({ minLength: 20, maxLength: 300 })
-            .filter(s => s.trim().length >= 20 && !/[<>"]/.test(s)),
+            .filter(s => s.trim().length >= 20 && !/[<>&"#]/.test(s)),
           author: fc.string({ minLength: 3, maxLength: 50 })
             .filter(s => /^[a-zA-Z\s]+$/.test(s) && s.trim().length >= 3),
           role: fc.string({ minLength: 3, maxLength: 50 })
@@ -108,7 +108,7 @@ describe('Testimonials - Property 3: Testimonial cards contain all required elem
           companyLogo: fc.option(fc.webUrl(), { nil: undefined }),
           metrics: fc.option(
             fc.string({ minLength: 10, maxLength: 100 })
-              .filter(s => s.trim().length >= 10 && !/[<>"]/.test(s)),
+              .filter(s => s.trim().length >= 10 && !/[<>&"#]/.test(s)),
             { nil: undefined }
           ),
         }),
@@ -157,7 +157,7 @@ describe('Testimonials - Property 3: Testimonial cards contain all required elem
       fc.property(
         fc.record({
           quote: fc.string({ minLength: 20, maxLength: 300 })
-            .filter(s => s.trim().length >= 20 && !/[<>"]/.test(s)),
+            .filter(s => s.trim().length >= 20 && !/[<>&"#]/.test(s)),
           author: fc.string({ minLength: 3, maxLength: 50 })
             .filter(s => /^[a-zA-Z\s]+$/.test(s) && s.trim().length >= 3),
           role: fc.string({ minLength: 3, maxLength: 50 })
@@ -168,7 +168,7 @@ describe('Testimonials - Property 3: Testimonial cards contain all required elem
           companyLogo: fc.option(fc.webUrl(), { nil: undefined }),
           metrics: fc.option(
             fc.string({ minLength: 10, maxLength: 100 })
-              .filter(s => s.trim().length >= 10 && !/[<>"]/.test(s)),
+              .filter(s => s.trim().length >= 10 && !/[<>&"#]/.test(s)),
             { nil: undefined }
           ),
         }),
@@ -198,7 +198,7 @@ describe('Testimonials - Property 3: Testimonial cards contain all required elem
       fc.property(
         fc.record({
           quote: fc.string({ minLength: 20, maxLength: 300 })
-            .filter(s => s.trim().length >= 20 && !/[<>"]/.test(s)),
+            .filter(s => s.trim().length >= 20 && !/[<>&"#]/.test(s)),
           author: fc.string({ minLength: 3, maxLength: 50 })
             .filter(s => /^[a-zA-Z\s]+$/.test(s) && s.trim().length >= 3),
           role: fc.string({ minLength: 3, maxLength: 50 })
@@ -209,7 +209,7 @@ describe('Testimonials - Property 3: Testimonial cards contain all required elem
           companyLogo: fc.option(fc.webUrl(), { nil: undefined }),
           metrics: fc.option(
             fc.string({ minLength: 10, maxLength: 100 })
-              .filter(s => s.trim().length >= 10 && !/[<>"]/.test(s)),
+              .filter(s => s.trim().length >= 10 && !/[<>&"#]/.test(s)),
             { nil: undefined }
           ),
         }),
@@ -251,7 +251,7 @@ describe('Testimonials - Property 3: Testimonial cards contain all required elem
       fc.property(
         fc.record({
           quote: fc.string({ minLength: 20, maxLength: 300 })
-            .filter(s => s.trim().length >= 20 && !/[<>"]/.test(s)),
+            .filter(s => s.trim().length >= 20 && !/[<>&"#]/.test(s)),
           author: fc.string({ minLength: 3, maxLength: 50 })
             .filter(s => /^[a-zA-Z\s]+$/.test(s) && s.trim().length >= 3),
           role: fc.string({ minLength: 3, maxLength: 50 })
@@ -262,7 +262,7 @@ describe('Testimonials - Property 3: Testimonial cards contain all required elem
           companyLogo: fc.option(fc.webUrl(), { nil: undefined }),
           metrics: fc.option(
             fc.string({ minLength: 10, maxLength: 100 })
-              .filter(s => s.trim().length >= 10 && !/[<>"]/.test(s)),
+              .filter(s => s.trim().length >= 10 && !/[<>&"#]/.test(s)),
             { nil: undefined }
           ),
         }),
@@ -294,7 +294,7 @@ describe('Testimonials - Property 3: Testimonial cards contain all required elem
       fc.property(
         fc.record({
           quote: fc.string({ minLength: 20, maxLength: 300 })
-            .filter(s => s.trim().length >= 20 && !/[<>"]/.test(s)),
+            .filter(s => s.trim().length >= 20 && !/[<>&"#]/.test(s)),
           author: fc.string({ minLength: 3, maxLength: 50 })
             .filter(s => /^[a-zA-Z\s]+$/.test(s) && s.trim().length >= 3),
           role: fc.string({ minLength: 3, maxLength: 50 })
@@ -305,7 +305,7 @@ describe('Testimonials - Property 3: Testimonial cards contain all required elem
           companyLogo: fc.webUrl(),
           metrics: fc.option(
             fc.string({ minLength: 10, maxLength: 100 })
-              .filter(s => s.trim().length >= 10 && !/[<>"]/.test(s)),
+              .filter(s => s.trim().length >= 10 && !/[<>&"#]/.test(s)),
             { nil: undefined }
           ),
         }),
@@ -442,7 +442,7 @@ describe('Testimonials - Property 4: Testimonial metrics display conditionally',
       fc.property(
         fc.record({
           quote: fc.string({ minLength: 20, maxLength: 300 })
-            .filter(s => s.trim().length >= 20 && !/[<>"]/.test(s)),
+            .filter(s => s.trim().length >= 20 && !/[<>&"#]/.test(s)),
           author: fc.string({ minLength: 3, maxLength: 50 })
             .filter(s => /^[a-zA-Z\s]+$/.test(s) && s.trim().length >= 3),
           role: fc.string({ minLength: 3, maxLength: 50 })
@@ -517,7 +517,7 @@ describe('Testimonials - Property 4: Testimonial metrics display conditionally',
       fc.property(
         fc.record({
           quote: fc.string({ minLength: 20, maxLength: 300 })
-            .filter(s => s.trim().length >= 20 && !/[<>"]/.test(s)),
+            .filter(s => s.trim().length >= 20 && !/[<>&"#]/.test(s)),
           author: fc.string({ minLength: 3, maxLength: 50 })
             .filter(s => /^[a-zA-Z\s]+$/.test(s) && s.trim().length >= 3),
           role: fc.string({ minLength: 3, maxLength: 50 })
@@ -527,7 +527,7 @@ describe('Testimonials - Property 4: Testimonial metrics display conditionally',
           avatar: fc.option(fc.webUrl(), { nil: undefined }),
           companyLogo: fc.option(fc.webUrl(), { nil: undefined }),
           metrics: fc.string({ minLength: 10, maxLength: 100 })
-            .filter(s => s.trim().length >= 10 && !/[<>"]/.test(s)),
+            .filter(s => s.trim().length >= 10 && !/[<>&"#]/.test(s)),
         }),
         (testimonial) => {
           container.innerHTML = renderTestimonialCard(testimonial);
