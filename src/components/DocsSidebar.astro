@@ -12,6 +12,11 @@ interface NavItem {
   items?: NavItem[];
 }
 
+// Helper to create proper URLs with base path
+const withBase = (path: string) => `${import.meta.env.BASE_URL}/${path.startsWith('/') ? path.slice(1) : path}`;
+
+const currentPath = Astro.url.pathname;
+
 const sections: NavSection[] = [
   {
     title: 'Get Started',
@@ -209,14 +214,12 @@ const sections: NavSection[] = [
     ]
   },
 ];
-
-const currentPath = Astro.url.pathname;
 ---
 
 {sections.map((section) => {
   const sectionHasActivePage = section.items.some(item => 
-    currentPath === item.href || 
-    (item.items && item.items.some(sub => currentPath === sub.href))
+    currentPath === withBase(item.href) || 
+    (item.items && item.items.some(sub => currentPath === withBase(sub.href)))
   );
   
   return (
@@ -234,9 +237,9 @@ const currentPath = Astro.url.pathname;
         {section.items.map((item) => (
           <li>
             {item.items ? (
-              <details class="group" open={item.items.some(sub => currentPath === sub.href)}>
+              <details class="group" open={item.items.some(sub => currentPath === withBase(sub.href))}>
                 <summary class={`flex items-center justify-between px-2 py-1.5 rounded-md text-sm transition-all cursor-pointer list-none ${
-                  currentPath === item.href
+                  currentPath === withBase(item.href)
                     ? 'bg-primary-500/10 text-primary-400 font-medium'
                     : 'text-slate-300 hover:bg-slate-800/30 hover:text-white'
                 }`}>
@@ -249,9 +252,9 @@ const currentPath = Astro.url.pathname;
                   {item.items.map((subItem) => (
                     <li class="animate-slideIn">
                       <a
-                        href={subItem.href}
+                        href={withBase(subItem.href)}
                         class={`block px-2 py-1 rounded text-xs transition-all ${
-                          currentPath === subItem.href
+                          currentPath === withBase(subItem.href)
                             ? 'bg-primary-500/10 text-primary-400 font-medium'
                             : 'text-slate-400 hover:bg-slate-800/30 hover:text-slate-200'
                         }`}
@@ -264,9 +267,9 @@ const currentPath = Astro.url.pathname;
               </details>
             ) : (
               <a
-                href={item.href}
+                href={withBase(item.href)}
                 class={`block px-2 py-1.5 rounded-md text-sm transition-all ${
-                  currentPath === item.href
+                  currentPath === withBase(item.href)
                     ? 'bg-primary-500/10 text-primary-400 font-medium'
                     : 'text-slate-300 hover:bg-slate-800/30 hover:text-white'
                 }`}
