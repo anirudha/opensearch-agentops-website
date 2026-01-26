@@ -2,10 +2,11 @@
 
 [![CI](https://github.com/anirudha/opensearch-agentops-website/actions/workflows/ci.yml/badge.svg)](https://github.com/anirudha/opensearch-agentops-website/actions/workflows/ci.yml)
 [![Deploy](https://github.com/anirudha/opensearch-agentops-website/actions/workflows/deploy.yml/badge.svg)](https://github.com/anirudha/opensearch-agentops-website/actions/workflows/deploy.yml)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-success?logo=github)](https://anirudha.github.io/opensearch-agentops-website/)
+
+**🌐 Live Site**: [https://anirudha.github.io/opensearch-agentops-website/](https://anirudha.github.io/opensearch-agentops-website/)
 
 Marketing website and documentation for OpenSearch AgentOps - an OpenTelemetry-native observability platform for AI agents and LLM applications.
-
-🚀 **Live Site**: [https://anirudha.github.io/opensearch-agentops-website/](https://anirudha.github.io/opensearch-agentops-website/)
 
 ## About
 

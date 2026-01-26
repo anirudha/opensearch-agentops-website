@@ -9,7 +9,8 @@
     "astro": "astro",
     "test": "vitest --run",
     "test:watch": "vitest",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --run --coverage"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
