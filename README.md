@@ -1,5 +1,8 @@
 # OpenSearch AgentOps
 
+[![CI](https://github.com/anirudha/opensearch-agentops-website/actions/workflows/ci.yml/badge.svg)](https://github.com/anirudha/opensearch-agentops-website/actions/workflows/ci.yml)
+[![Deploy](https://github.com/anirudha/opensearch-agentops-website/actions/workflows/deploy.yml/badge.svg)](https://github.com/anirudha/opensearch-agentops-website/actions/workflows/deploy.yml)
+
 Marketing website and documentation for OpenSearch AgentOps - an OpenTelemetry-native observability platform for AI agents and LLM applications.
 
 ## About
