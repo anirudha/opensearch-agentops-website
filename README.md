@@ -2,8 +2,7 @@
 
 [![CI](https://github.com/anirudha/opensearch-agentops-website/actions/workflows/ci.yml/badge.svg)](https://github.com/anirudha/opensearch-agentops-website/actions/workflows/ci.yml)
 [![Deploy](https://github.com/anirudha/opensearch-agentops-website/actions/workflows/deploy.yml/badge.svg)](https://github.com/anirudha/opensearch-agentops-website/actions/workflows/deploy.yml)
-[![codecov](https://codecov.io/gh/anirudha/opensearch-agentops-website/graph/badge.svg?token=YOUR_CODECOV_TOKEN)](https://codecov.io/gh/anirudha/opensearch-agentops-website)
-[![Coverage](https://img.shields.io/codecov/c/github/anirudha/opensearch-agentops-website/main?logo=codecov&label=coverage)](https://codecov.io/gh/anirudha/opensearch-agentops-website)
+[![codecov](https://codecov.io/gh/anirudha/opensearch-agentops-website/branch/main/graph/badge.svg)](https://codecov.io/gh/anirudha/opensearch-agentops-website)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-success?logo=github)](https://anirudha.github.io/opensearch-agentops-website/)
 
 **🌐 Live Site**: [https://anirudha.github.io/opensearch-agentops-website/](https://anirudha.github.io/opensearch-agentops-website/)
