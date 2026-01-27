@@ -52,8 +52,8 @@ jobs:
 
       - name: Merge Starlight docs into main dist
         run: |
-          mkdir -p dist/getting-started
-          cp -r starlight-docs/dist/* dist/getting-started/
+          mkdir -p dist/docs
+          cp -r starlight-docs/dist/* dist/docs/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
