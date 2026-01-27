@@ -331,62 +331,53 @@ const sections: NavSection[] = [
 </style>
 
 
-<script is:inline>
-  // Persist accordion state across page navigations
-  (function() {
-    const STORAGE_KEY = 'docs-sidebar-state';
-    
-    // Restore state before page is visible (blocking script)
+<script>
+  // Persist accordion state across page navigations with View Transitions
+  const STORAGE_KEY = 'docs-sidebar-state';
+  
+  function saveState() {
+    const allDetails = document.querySelectorAll('details');
+    const openIndices: number[] = [];
+    allDetails.forEach((details, index) => {
+      if (details.open) {
+        openIndices.push(index);
+      }
+    });
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(openIndices));
+  }
+  
+  function restoreState() {
     const savedState = sessionStorage.getItem(STORAGE_KEY);
     if (savedState) {
       try {
         const openSections = JSON.parse(savedState);
-        // Wait for DOM to be parsed
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', () => {
-            openSections.forEach((index) => {
-              const details = document.querySelectorAll('details')[index];
-              if (details && !details.open) {
-                details.setAttribute('open', '');
-              }
-            });
-          });
-        } else {
-          openSections.forEach((index) => {
-            const details = document.querySelectorAll('details')[index];
-            if (details && !details.open) {
-              details.setAttribute('open', '');
-            }
-          });
-        }
+        const allDetails = document.querySelectorAll('details');
+        openSections.forEach((index: number) => {
+          const details = allDetails[index];
+          if (details && !details.open) {
+            details.setAttribute('open', '');
+          }
+        });
       } catch (e) {
         console.error('Failed to restore sidebar state:', e);
       }
     }
-    
-    // Save state on toggle
-    const saveState = () => {
-      const allDetails = document.querySelectorAll('details');
-      const openIndices = [];
-      allDetails.forEach((details, index) => {
-        if (details.open) {
-          openIndices.push(index);
-        }
-      });
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(openIndices));
-    };
-    
-    // Attach listeners
-    const attachListeners = () => {
-      document.querySelectorAll('details').forEach(details => {
-        details.addEventListener('toggle', saveState);
-      });
-    };
-    
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', attachListeners);
-    } else {
-      attachListeners();
-    }
-  })();
+  }
+  
+  function attachListeners() {
+    document.querySelectorAll('details').forEach(details => {
+      details.addEventListener('toggle', saveState);
+    });
+  }
+  
+  function init() {
+    restoreState();
+    attachListeners();
+  }
+  
+  // Initial load
+  init();
+  
+  // Re-run on View Transitions navigation
+  document.addEventListener('astro:page-load', init);
 </script>

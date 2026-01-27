@@ -12,6 +12,8 @@ const {
 } = Astro.props;
 
 const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url.pathname;
+
+import { ViewTransitions } from 'astro:transitions';
 ---
 
 <!doctype html>
@@ -21,6 +23,8 @@ const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astr
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalURL} />
+    
+    <ViewTransitions />
     
     <!-- Primary Meta Tags -->
     <title>{title}</title>
@@ -47,7 +51,7 @@ const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astr
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
     
     <!-- Structured Data - OTEL Positioning -->
-    <script type="application/ld+json">
+    <script is:inline type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
@@ -69,7 +73,7 @@ const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astr
     </style>
     
     <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -78,13 +82,13 @@ const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astr
     </script>
     
     <!-- Analytics Event Tracking -->
-    <script is:inline>
+    <script>
       // Track CTA button clicks
-      document.addEventListener('DOMContentLoaded', function() {
+      function initAnalytics() {
         // CTA click tracking
         document.querySelectorAll('[data-analytics]').forEach(function(element) {
           element.addEventListener('click', function() {
-            var ctaName = this.getAttribute('data-analytics');
+            const ctaName = this.getAttribute('data-analytics');
             if (typeof gtag !== 'undefined') {
               gtag('event', 'cta_click', {
                 'cta_name': ctaName,
@@ -97,7 +101,7 @@ const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astr
         // External link click tracking
         document.querySelectorAll('a[target="_blank"], a[rel*="noopener"]').forEach(function(link) {
           link.addEventListener('click', function() {
-            var href = this.getAttribute('href');
+            const href = this.getAttribute('href');
             if (typeof gtag !== 'undefined') {
               gtag('event', 'external_link_click', {
                 'link_url': href,
@@ -110,9 +114,9 @@ const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astr
 
         // Form submission tracking
         document.querySelectorAll('form').forEach(function(form) {
-          form.addEventListener('submit', function(e) {
-            var formId = this.id || 'unnamed_form';
-            var formAction = this.action || window.location.href;
+          form.addEventListener('submit', function() {
+            const formId = this.id || 'unnamed_form';
+            const formAction = this.action || window.location.href;
             if (typeof gtag !== 'undefined') {
               gtag('event', 'form_submission', {
                 'form_id': formId,
@@ -124,13 +128,13 @@ const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astr
         });
 
         // Scroll depth tracking (25%, 50%, 75%, 100%)
-        var scrollDepths = [25, 50, 75, 100];
-        var trackedDepths = {};
+        const scrollDepths = [25, 50, 75, 100];
+        const trackedDepths = {};
         
         function trackScrollDepth() {
-          var scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-          var scrolled = window.scrollY;
-          var scrollPercent = (scrolled / scrollHeight) * 100;
+          const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const scrolled = window.scrollY;
+          const scrollPercent = (scrolled / scrollHeight) * 100;
           
           scrollDepths.forEach(function(depth) {
             if (scrollPercent >= depth && !trackedDepths[depth]) {
@@ -146,31 +150,37 @@ const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astr
         }
         
         // Throttle scroll events
-        var scrollTimeout;
+        let scrollTimeout;
         window.addEventListener('scroll', function() {
           if (scrollTimeout) {
             clearTimeout(scrollTimeout);
           }
           scrollTimeout = setTimeout(trackScrollDepth, 100);
         });
-      });
+      }
+
+      // Initial load
+      initAnalytics();
+      
+      // Re-run on View Transitions navigation
+      document.addEventListener('astro:page-load', initAnalytics);
     </script>
     
     <!-- Scroll-triggered animations with Intersection Observer -->
-    <script is:inline>
-      document.addEventListener('DOMContentLoaded', function() {
+    <script>
+      function initAnimations() {
         // Check if user prefers reduced motion
-        var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         
         if (!prefersReducedMotion) {
           // Create Intersection Observer for scroll animations
-          var observerOptions = {
+          const observerOptions = {
             root: null,
             rootMargin: '0px',
             threshold: 0.1
           };
           
-          var observer = new IntersectionObserver(function(entries) {
+          const observer = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
               if (entry.isIntersecting) {
                 entry.target.classList.add('is-visible');
@@ -190,7 +200,13 @@ const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astr
             element.classList.add('is-visible');
           });
         }
-      });
+      }
+
+      // Initial load
+      initAnimations();
+      
+      // Re-run on View Transitions navigation
+      document.addEventListener('astro:page-load', initAnimations);
     </script>
   </head>
   <body>
