@@ -5,7 +5,7 @@ import starlight from '@astrojs/starlight';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://anirudha.github.io',
-	base: '/opensearch-agentops-website/getting-started',
+	base: '/',
 	integrations: [
 		starlight({
 			title: 'Getting Started with OpenSearch AgentOps',
