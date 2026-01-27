@@ -290,6 +290,16 @@ const sections: NavSection[] = [
     display: none;
   }
 
+  /* Prevent flash by hiding sidebar until state is restored */
+  #docs-nav {
+    opacity: 0;
+    transition: opacity 0.1s ease-in;
+  }
+
+  #docs-nav.loaded {
+    opacity: 1;
+  }
+
   details[open] > ul {
     animation: slideDown 0.15s ease-out;
   }
@@ -330,19 +340,22 @@ const sections: NavSection[] = [
 </style>
 
 
-<script>
+<script is:inline>
   // Persist accordion state across page navigations
-  document.addEventListener('DOMContentLoaded', () => {
+  // Run immediately to prevent flash
+  (function() {
     const STORAGE_KEY = 'docs-sidebar-state';
+    const nav = document.getElementById('docs-nav');
     
-    // Restore accordion state from sessionStorage
+    // Restore accordion state from sessionStorage immediately
     const savedState = sessionStorage.getItem(STORAGE_KEY);
     if (savedState) {
       try {
         const openSections = JSON.parse(savedState);
-        openSections.forEach((index: number) => {
+        // Restore state synchronously before showing
+        openSections.forEach((index) => {
           const details = document.querySelectorAll('details')[index];
-          if (details) {
+          if (details && !details.open) {
             details.open = true;
           }
         });
@@ -351,10 +364,15 @@ const sections: NavSection[] = [
       }
     }
     
+    // Show the nav after state is restored
+    if (nav) {
+      nav.classList.add('loaded');
+    }
+    
     // Save accordion state when it changes
     const saveState = () => {
       const allDetails = document.querySelectorAll('details');
-      const openIndices: number[] = [];
+      const openIndices = [];
       allDetails.forEach((details, index) => {
         if (details.open) {
           openIndices.push(index);
@@ -363,9 +381,9 @@ const sections: NavSection[] = [
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(openIndices));
     };
     
-    // Listen for toggle events on all details elements
+    // Attach listeners immediately
     document.querySelectorAll('details').forEach(details => {
       details.addEventListener('toggle', saveState);
     });
-  });
+  })();
 </script>
