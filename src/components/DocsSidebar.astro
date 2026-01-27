@@ -290,16 +290,7 @@ const sections: NavSection[] = [
     display: none;
   }
 
-  /* Prevent flash by hiding sidebar until state is restored */
-  #docs-nav {
-    opacity: 0;
-    transition: opacity 0.1s ease-in;
-  }
-
-  #docs-nav.loaded {
-    opacity: 1;
-  }
-
+  /* Prevent any flash during page load */
   details[open] > ul {
     animation: slideDown 0.15s ease-out;
   }
@@ -342,34 +333,38 @@ const sections: NavSection[] = [
 
 <script is:inline>
   // Persist accordion state across page navigations
-  // Run immediately to prevent flash
   (function() {
     const STORAGE_KEY = 'docs-sidebar-state';
-    const nav = document.getElementById('docs-nav');
     
-    // Restore accordion state from sessionStorage immediately
+    // Restore state before page is visible (blocking script)
     const savedState = sessionStorage.getItem(STORAGE_KEY);
     if (savedState) {
       try {
         const openSections = JSON.parse(savedState);
-        // Restore state synchronously before showing
-        openSections.forEach((index) => {
-          const details = document.querySelectorAll('details')[index];
-          if (details && !details.open) {
-            details.open = true;
-          }
-        });
+        // Wait for DOM to be parsed
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', () => {
+            openSections.forEach((index) => {
+              const details = document.querySelectorAll('details')[index];
+              if (details && !details.open) {
+                details.setAttribute('open', '');
+              }
+            });
+          });
+        } else {
+          openSections.forEach((index) => {
+            const details = document.querySelectorAll('details')[index];
+            if (details && !details.open) {
+              details.setAttribute('open', '');
+            }
+          });
+        }
       } catch (e) {
         console.error('Failed to restore sidebar state:', e);
       }
     }
     
-    // Show the nav after state is restored
-    if (nav) {
-      nav.classList.add('loaded');
-    }
-    
-    // Save accordion state when it changes
+    // Save state on toggle
     const saveState = () => {
       const allDetails = document.querySelectorAll('details');
       const openIndices = [];
@@ -381,9 +376,17 @@ const sections: NavSection[] = [
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(openIndices));
     };
     
-    // Attach listeners immediately
-    document.querySelectorAll('details').forEach(details => {
-      details.addEventListener('toggle', saveState);
-    });
+    // Attach listeners
+    const attachListeners = () => {
+      document.querySelectorAll('details').forEach(details => {
+        details.addEventListener('toggle', saveState);
+      });
+    };
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', attachListeners);
+    } else {
+      attachListeners();
+    }
   })();
 </script>
