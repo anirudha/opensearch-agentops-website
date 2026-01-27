@@ -22,6 +22,7 @@ This repository contains the public-facing website and comprehensive documentati
 - Pricing information and call-to-action sections
 
 ### Documentation Site (`/docs`)
+Built with [Astro Starlight](https://starlight.astro.build/) for a polished documentation experience with:
 - **Get Started**: Quickstart guides, core concepts, and example projects
 - **Instrument**: OpenTelemetry setup, provider wrapping, and custom tracing
 - **Observe**: Tracing, agent observability, and project management
@@ -32,12 +33,6 @@ This repository contains the public-facing website and comprehensive documentati
 - **Integrations**: Model providers, cloud platforms, and frameworks
 - **SDKs**: Python and JavaScript/TypeScript documentation
 - **Platform**: Authentication, security, and self-hosting
-
-### Getting Started Guide (`/getting-started`)
-- Built with [Astro Starlight](https://starlight.astro.build/) for a polished documentation experience
-- **Introduction**: Overview of OpenSearch AgentOps and its capabilities
-- **Quick Start**: 5-minute setup guide to get started quickly
-- **Installation**: Detailed installation instructions for different environments
 
 ## Project Structure
 
@@ -130,6 +125,67 @@ Fully responsive across all devices with optimized layouts for mobile, tablet, a
 - Static site generation for fast page loads
 - Optimized images and assets
 - Minimal JavaScript footprint
+
+## Writing Documentation
+
+The documentation is built with [Astro Starlight](https://starlight.astro.build/), a powerful documentation framework. All documentation files are located in `starlight-docs/src/content/docs/`.
+
+### Quick Start for Doc Writers
+
+1. **Navigate to the docs directory**:
+   ```bash
+   cd starlight-docs/src/content/docs/
+   ```
+
+2. **Create or edit markdown files**:
+   - Files are organized by section (get-started, instrument, observe, etc.)
+   - Use `.md` or `.mdx` format
+   - Frontmatter is required for each page
+
+3. **Basic page structure**:
+   ```markdown
+   ---
+   title: Your Page Title
+   description: A brief description of the page content
+   ---
+
+   # Your Page Title
+
+   Your content here...
+   ```
+
+### Starlight Features
+
+Starlight provides powerful features for documentation:
+
+- **Automatic sidebar generation**: Organized by folder structure
+- **Search**: Built-in search powered by Pagefind
+- **Dark/Light mode**: Automatic theme switching
+- **Code syntax highlighting**: With copy buttons
+- **Callouts/Admonitions**: For tips, warnings, and notes
+- **Tabs**: For multi-language examples
+- **Link cards**: For featured links
+- **File tree**: For showing directory structures
+
+### Learn More
+
+For detailed guidance on writing with Starlight, see:
+- [Starlight Getting Started Guide](https://starlight.astro.build/getting-started/)
+- [Authoring Content in Markdown](https://starlight.astro.build/guides/authoring-content/)
+- [Components Reference](https://starlight.astro.build/components/using-components/)
+
+### Testing Your Changes
+
+```bash
+# From the root directory
+npm run build:starlight
+
+# Or start a dev server for the docs
+cd starlight-docs
+npm run dev
+```
+
+The docs will be available at `http://localhost:4321/opensearch-agentops-website/docs/`
 
 ## Contributing
 
