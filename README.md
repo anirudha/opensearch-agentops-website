@@ -33,6 +33,12 @@ This repository contains the public-facing website and comprehensive documentati
 - **SDKs**: Python and JavaScript/TypeScript documentation
 - **Platform**: Authentication, security, and self-hosting
 
+### Getting Started Guide (`/getting-started`)
+- Built with [Astro Starlight](https://starlight.astro.build/) for a polished documentation experience
+- **Introduction**: Overview of OpenSearch AgentOps and its capabilities
+- **Quick Start**: 5-minute setup guide to get started quickly
+- **Installation**: Detailed installation instructions for different environments
+
 ## Project Structure
 
 ```text
@@ -51,6 +57,9 @@ This repository contains the public-facing website and comprehensive documentati
 │   │   ├── index.astro       # Landing page
 │   │   └── docs/             # Documentation pages
 │   └── styles/          # Global styles
+├── starlight-docs/      # Starlight-based Getting Started guide
+│   ├── src/content/docs/    # Getting Started documentation
+│   └── astro.config.mjs     # Starlight configuration
 ├── scripts/             # Utility scripts
 └── package.json
 ```
@@ -63,8 +72,12 @@ All commands are run from the root of the project, from a terminal:
 | :------------------------ | :----------------------------------------------- |
 | `npm install`             | Installs dependencies                            |
 | `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run build`           | Build production site (main + Starlight docs)    |
+| `npm run build:main`      | Build only the main site                         |
+| `npm run build:starlight` | Build only the Starlight Getting Started docs    |
 | `npm run preview`         | Preview your build locally, before deploying     |
+| `npm test`                | Run test suite                                   |
+| `npm run test:coverage`   | Run tests with coverage report                   |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
