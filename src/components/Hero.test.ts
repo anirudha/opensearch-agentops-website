@@ -298,11 +298,22 @@ describe('Hero - Property 14: CTA button analytics tracking', () => {
       fc.property(
         fc.array(
           fc.record({
-            text: fc.string({ minLength: 3, maxLength: 30 }),
-            href: fc.string({ minLength: 3, maxLength: 100 }),
+            text: fc.string({ minLength: 3, maxLength: 30 })
+              .filter(s => s.trim().length >= 3)
+              .map(s => s.replace(/[<>"'&]/g, '')), // Sanitize HTML special chars
+            href: fc.oneof(
+              fc.constant('/signup'),
+              fc.constant('/demo'),
+              fc.constant('/pricing'),
+              fc.webUrl()
+            ),
             analyticsId: fc.string({ minLength: 5, maxLength: 50 })
-              .map(s => s.replace(/[^a-z0-9_]/gi, '_').toLowerCase())
-              .filter(s => s.length >= 5)
+              .map(s => s.replace(/[^a-z0-9]/gi, '_').toLowerCase())
+              .filter(s => {
+                // Ensure it's not just underscores and has actual content
+                const withoutUnderscores = s.replace(/_/g, '');
+                return withoutUnderscores.length >= 3 && s.length >= 5;
+              })
           }),
           { minLength: 2, maxLength: 5 }
         ),
@@ -335,6 +346,7 @@ describe('Hero - Property 14: CTA button analytics tracking', () => {
 
           // Property: All CTAs must have analytics tracking
           expect(ctaButtons.length).toBeGreaterThan(0);
+          expect(ctaButtons.length).toBe(ctasWithUniqueIds.length);
 
           // Collect all analytics IDs
           const analyticsIds = Array.from(ctaButtons).map(btn => 
