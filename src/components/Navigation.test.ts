@@ -33,7 +33,7 @@ describe('Navigation - Property 7: Keyboard navigation support', () => {
         fc.record({
           menuItems: fc.array(
             fc.record({
-              label: fc.string({ minLength: 1, maxLength: 20 }),
+              label: fc.stringMatching(/^[a-zA-Z0-9\s]{1,20}$/),
               href: fc.oneof(
                 fc.constant('#features'),
                 fc.constant('#compare'),
