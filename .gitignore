@@ -13,6 +13,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# test coverage
+coverage/
+*.lcov
 
 # environment variables
 .env
