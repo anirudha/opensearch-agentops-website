@@ -18,28 +18,28 @@ const problems: ProblemCard[] = [
   {
     icon: 'layers',
     title: 'Tool Sprawl',
-    description: 'Managing separate tools for tracing, prompts, and evaluation creates complexity and integration headaches.',
+    description: 'Separate tools for APM, logs, metrics, dashboards, and AI observability. Fragmented views, fragmented teams.',
     theme: 'red',
   },
   {
     icon: 'trending-up',
     title: 'Cost Explosion',
-    description: 'Multiple vendor subscriptions and per-request pricing quickly spiral out of control as you scale.',
+    description: 'Per-host, per-GB, per-query pricing from multiple vendors adds up fast as your infrastructure scales.',
     theme: 'orange',
   },
   {
     icon: 'lock',
     title: 'Vendor Lock-in',
-    description: 'Proprietary platforms trap your data and workflows, making it expensive and risky to switch.',
+    description: 'Proprietary agents, query languages, and data formats make it painful and expensive to switch.',
     theme: 'yellow',
   },
 ];
 
 const stats: StatCard[] = [
   { value: '70% Cost Savings', label: 'vs. multiple vendors' },
-  { value: '1 Unified Platform', label: 'for all AI ops' },
-  { value: '10+ Eval Methods', label: 'built-in' },
-  { value: '100% Data Ownership', label: 'self-hosted option' },
+  { value: '1 Unified Platform', label: 'services + AI observability' },
+  { value: 'SLO/SLI', label: 'built-in tracking & alerts' },
+  { value: '100% Data Ownership', label: 'self-hosted, open source' },
 ];
 
 const themeColors = {
@@ -136,7 +136,7 @@ const iconPaths = {
           </h2>
 
           <p class="text-lg text-slate-400 text-center mb-12 max-w-2xl mx-auto">
-            OpenSearch AgentOps unifies LLM tracing, prompt management, and evaluation in a single open-source platform
+            OpenSearch - Observability Stack unifies APM traces, logs, Prometheus metrics, dashboards, alerts, anomaly detection, and AI agent observability in a single open-source platform
           </p>
 
           <!-- Stat Cards Grid -->

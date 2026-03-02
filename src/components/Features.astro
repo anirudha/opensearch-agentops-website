@@ -23,85 +23,89 @@ const iconPaths = {
 
 const features: Feature[] = [
   {
-    id: 'tracing',
+    id: 'apm-tracing',
     icon: 'activity',
-    title: 'LLM Tracing',
-    description: 'Complete visibility into every LLM call with automatic instrumentation and detailed performance metrics.',
+    title: 'APM & Distributed Tracing',
+    description: 'End-to-end visibility across services with service maps, latency breakdowns, and error tracking. OpenTelemetry-native.',
     bullets: [
-      'Auto instrumentation for popular frameworks',
-      'Cost per request tracking',
-      'Agent and RAG workflow tracking',
+      'Service maps and dependency visualization',
+      'Distributed trace correlation across services',
+      'Latency percentiles, error rates, and throughput',
     ],
     visualType: 'code',
     visualContent: {
-      language: 'python',
-      code: `from agentops import trace
+      language: 'yaml',
+      code: `# otel-collector-config.yaml
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
 
-@trace
-def my_llm_call(prompt):
-    response = openai.chat.completions.create(
-        model="gpt-4-turbo",
-        messages=[{"role": "user", "content": prompt}]
-    )
-    return response
+exporters:
+  opensearch:
+    http:
+      endpoint: https://opensearch:9200
+    dataset: traces
 
-# Automatically tracked:
-# - Latency, tokens, cost
-# - Input/output content
-# - Model and parameters`,
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [opensearch]`,
     },
     imagePosition: 'right',
   },
   {
-    id: 'prompts',
-    icon: 'file-text',
-    title: 'Prompt Management',
-    description: 'Version control and A/B test your prompts with a centralized prompt library and deployment system.',
+    id: 'metrics-dashboards',
+    icon: 'zap',
+    title: 'Metrics, Dashboards & SLO/SLI',
+    description: 'Prometheus-compatible metrics ingestion with custom dashboards, SLO/SLI tracking, anomaly detection, and forecasting.',
     bullets: [
-      'Version control for prompts',
-      'A/B testing and rollback',
-      'Collaborative prompt editing',
+      'Prometheus remote-write and PromQL support',
+      'SLO/SLI definitions with burn-rate alerts',
+      'Anomaly detection and time-series forecasting',
+    ],
+    visualType: 'grid',
+    visualContent: {
+      items: [
+        { title: 'Availability', progress: 99 },
+        { title: 'Latency P99', progress: 95 },
+        { title: 'Error Budget', progress: 82 },
+        { title: 'Throughput', progress: 97 },
+        { title: 'Saturation', progress: 88 },
+        { title: 'Anomaly Score', progress: 94 },
+        { title: 'Forecast Acc.', progress: 91 },
+        { title: 'Alert Precision', progress: 96 },
+      ],
+    },
+    imagePosition: 'left',
+  },
+  {
+    id: 'logs',
+    icon: 'file-text',
+    title: 'Log Analytics & Correlation',
+    description: 'Ingest, search, and correlate logs with traces. Structured logging, pattern detection, and alerting at scale.',
+    bullets: [
+      'Log-to-trace correlation in one click',
+      'Full-text search with structured field queries',
+      'Log-based alerting and anomaly detection',
     ],
     visualType: 'mockup',
     visualContent: {
       type: 'prompt-card',
     },
-    imagePosition: 'left',
-  },
-  {
-    id: 'evaluation',
-    icon: 'check-circle',
-    title: 'Evaluation Framework',
-    description: 'Comprehensive evaluation suite with 10+ built-in methods and custom evaluator support.',
-    bullets: [
-      'Accuracy, relevance, and hallucination detection',
-      'Custom evaluator support',
-      'Automated regression testing',
-    ],
-    visualType: 'grid',
-    visualContent: {
-      items: [
-        { title: 'Accuracy', progress: 94 },
-        { title: 'Relevance', progress: 88 },
-        { title: 'Hallucination', progress: 96 },
-        { title: 'Toxicity', progress: 99 },
-        { title: 'Bias', progress: 92 },
-        { title: 'Coherence', progress: 90 },
-        { title: 'Fluency', progress: 95 },
-        { title: 'Custom', progress: 87 },
-      ],
-    },
     imagePosition: 'right',
   },
   {
-    id: 'insights',
-    icon: 'zap',
-    title: 'AI Insights',
-    description: 'Intelligent alerts and recommendations powered by automated analysis of your LLM usage patterns.',
+    id: 'ai-observability',
+    icon: 'check-circle',
+    title: 'AI Agent & LLM Observability',
+    description: 'Trace agent workflows, run local evals, track LLM costs, and manage prompts. Full observability for your AI stack.',
     bullets: [
-      'Anomaly detection and alerts',
-      'Cost optimization recommendations',
-      'Performance improvement suggestions',
+      'Agent tracing with tool-call and reasoning steps',
+      'Local evaluation with LLM-as-Judge and custom scorers',
+      'Prompt versioning, A/B testing, and cost tracking',
     ],
     visualType: 'mockup',
     visualContent: {
@@ -118,10 +122,10 @@ def my_llm_call(prompt):
       <!-- Section Header -->
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-          Everything You Need to Build Production AI
+          Full-Stack Observability, One Platform
         </h2>
         <p class="text-lg text-slate-400 max-w-3xl mx-auto">
-          A complete platform for observability, evaluation, and optimization of your LLM applications
+          From service health to AI agent performance — traces, logs, metrics, dashboards, alerts, and more
         </p>
       </div>
 

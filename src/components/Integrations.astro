@@ -7,21 +7,21 @@ interface Integration {
 }
 
 const integrations: Integration[] = [
-  // LLM Providers
-  { name: 'OpenAI', category: 'llm' },
-  { name: 'Anthropic', category: 'llm' },
-  { name: 'Google', category: 'llm' },
-  { name: 'Cohere', category: 'llm' },
+  // Data Sources
+  { name: 'OpenTelemetry', category: 'llm' },
+  { name: 'Prometheus', category: 'llm' },
+  { name: 'Jaeger', category: 'llm' },
+  { name: 'Fluentd', category: 'llm' },
   
-  // Frameworks
-  { name: 'LangChain', category: 'framework' },
-  { name: 'LlamaIndex', category: 'framework' },
-  { name: 'Haystack', category: 'framework' },
+  // Frameworks & Platforms
+  { name: 'Kubernetes', category: 'framework' },
+  { name: 'AWS', category: 'framework' },
+  { name: 'Docker', category: 'framework' },
   
-  // SDKs
-  { name: 'Python', category: 'sdk' },
-  { name: 'Node.js', category: 'sdk' },
-  { name: 'REST API', category: 'sdk' },
+  // AI & LLM
+  { name: 'OpenAI', category: 'sdk' },
+  { name: 'LangChain', category: 'sdk' },
+  { name: 'Anthropic', category: 'sdk' },
 ];
 
 // Group integrations by category
@@ -32,9 +32,9 @@ const groupedIntegrations = {
 };
 
 const categoryLabels = {
-  llm: 'LLM Providers',
-  framework: 'Frameworks',
-  sdk: 'SDKs',
+  llm: 'Data Sources',
+  framework: 'Infrastructure',
+  sdk: 'AI & LLM',
 };
 ---
 

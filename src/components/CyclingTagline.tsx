@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react';
 
 const taglines = [
-  // Observe (cyan)
-  { label: 'Observe', text: 'Traces, logs, metrics—one place, zero blind spots', color: 'text-cyan-400' },
-  { label: 'Observe', text: 'Your agents aren\'t black boxes anymore', color: 'text-cyan-400' },
-  { label: 'Observe', text: 'Debug in minutes, not days', color: 'text-cyan-400' },
-  // Evaluate (emerald)
-  { label: 'Evaluate', text: 'Catch regressions before your users do', color: 'text-emerald-400' },
-  { label: 'Evaluate', text: 'Vibes aren\'t a test strategy', color: 'text-emerald-400' },
-  { label: 'Evaluate', text: 'Ship only what passes', color: 'text-emerald-400' },
-  // Refine (amber)
-  { label: 'Refine', text: 'Better prompts from real data, not guesswork', color: 'text-amber-400' },
-  { label: 'Refine', text: 'Stop guessing. Start measuring, Labelling', color: 'text-amber-400' },
-  { label: 'Refine', text: 'Every failure is a training signal', color: 'text-amber-400' },
-  // Alert (orange)
-  { label: 'Alert', text: 'Anomalies caught. Alerts sent. You sleep.', color: 'text-orange-400' },
-  { label: 'Alert', text: 'Know before your users complain', color: 'text-orange-400' },
-  { label: 'Alert', text: 'The right signal. The right time. Nothing else.', color: 'text-orange-400' },
+  // Services (cyan)
+  { label: 'Services', text: 'APM traces, service maps, and distributed tracing across your stack', color: 'text-cyan-400' },
+  { label: 'Services', text: 'See every request, every dependency, every bottleneck', color: 'text-cyan-400' },
+  { label: 'Services', text: 'From microservices to monoliths—full visibility', color: 'text-cyan-400' },
+  // Metrics (emerald)
+  { label: 'Metrics', text: 'Prometheus metrics, custom dashboards, SLO/SLI tracking', color: 'text-emerald-400' },
+  { label: 'Metrics', text: 'Anomaly detection and forecasting built in', color: 'text-emerald-400' },
+  { label: 'Metrics', text: 'Real-time dashboards for the signals that matter', color: 'text-emerald-400' },
+  // Logs (amber)
+  { label: 'Logs', text: 'Correlate logs with traces—debug in minutes, not days', color: 'text-amber-400' },
+  { label: 'Logs', text: 'Structured logging, search, and alerting at scale', color: 'text-amber-400' },
+  { label: 'Logs', text: 'From ingestion to insight, all in one place', color: 'text-amber-400' },
+  // AI (orange)
+  { label: 'AI Agents', text: 'Agent tracing, local evals, and LLM observability', color: 'text-orange-400' },
+  { label: 'AI Agents', text: 'Your agents aren\'t black boxes anymore', color: 'text-orange-400' },
+  { label: 'AI Agents', text: 'Evals, prompt management, and cost tracking for LLMs', color: 'text-orange-400' },
 ];
 
 export function CyclingTagline() {

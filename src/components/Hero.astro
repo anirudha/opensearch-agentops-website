@@ -18,15 +18,15 @@ import { CyclingTagline } from './CyclingTagline';
         <div class="text-center lg:text-left">
           <!-- Main Headline -->
           <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            <span class="text-white">Ship Agents Without the Anxiety.</span>
+            <span class="text-white">See Everything. From Services to AI Agents.</span>
           </h1>
 
           <!-- Subheadline -->
           <p class="text-base md:text-lg text-slate-400 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
-            Traces. Logs. Metrics. Sessions. Costs. <span class="text-white font-medium">Your agents aren't black boxes anymore.</span> Evals powered by LLM-as-Judge, datasets, and scorers. Prompts refined from real feedback. Anomalies caught. Alerts sent.
+            APM traces. Logs. Prometheus metrics. Service maps. Dashboards. Alerts. SLO/SLI. Anomaly detection. Forecasting. <span class="text-white font-medium">Plus agent tracing, local evals, and LLM observability.</span>
           </p>
           <p class="text-base md:text-lg font-semibold text-cyan-400 mb-10 max-w-2xl mx-auto lg:mx-0">
-            One continuous loop. Ship with confidence.
+            One open-source platform. Full-stack observability. Zero lock-in.
           </p>
 
           <!-- Three CTAs with Hierarchy -->
@@ -92,18 +92,17 @@ import { CyclingTagline } from './CyclingTagline';
             
             <!-- Cards positioned on the infinity -->
             
-            <!-- Left loop: Observe, Evaluate -->
+            <!-- Left loop: Services, Metrics -->
             <div class="absolute left-[22%] top-[15%] loop-card">
               <div class="group relative">
                 <div class="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-teal-500 rounded-xl blur opacity-30 group-hover:opacity-60 transition duration-300"></div>
                 <div class="relative bg-slate-900 border border-cyan-500/30 rounded-xl p-4 w-28 text-center">
                   <div class="w-10 h-10 bg-cyan-500 rounded-lg mx-auto mb-2 flex items-center justify-center">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                     </svg>
                   </div>
-                  <div class="font-medium text-white text-sm">Observe</div>
+                  <div class="font-medium text-white text-sm">Traces</div>
                 </div>
               </div>
             </div>
@@ -114,10 +113,10 @@ import { CyclingTagline } from './CyclingTagline';
                 <div class="relative bg-slate-900 border border-emerald-500/30 rounded-xl p-4 w-28 text-center">
                   <div class="w-10 h-10 bg-emerald-500 rounded-lg mx-auto mb-2 flex items-center justify-center">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                     </svg>
                   </div>
-                  <div class="font-medium text-white text-sm">Evaluate</div>
+                  <div class="font-medium text-white text-sm">Metrics</div>
                 </div>
               </div>
             </div>
@@ -129,17 +128,17 @@ import { CyclingTagline } from './CyclingTagline';
               </div>
             </div>
             
-            <!-- Right loop: Label, Alert -->
+            <!-- Right loop: Dashboards, Alerts -->
             <div class="absolute right-[22%] top-[15%] loop-card">
               <div class="group relative">
                 <div class="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-amber-500 rounded-xl blur opacity-30 group-hover:opacity-60 transition duration-300"></div>
                 <div class="relative bg-slate-900 border border-amber-500/30 rounded-xl p-4 w-28 text-center">
                   <div class="w-10 h-10 bg-amber-500 rounded-lg mx-auto mb-2 flex items-center justify-center">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
                     </svg>
                   </div>
-                  <div class="font-medium text-white text-sm">Label</div>
+                  <div class="font-medium text-white text-sm">Dashboards</div>
                 </div>
               </div>
             </div>
@@ -153,7 +152,7 @@ import { CyclingTagline } from './CyclingTagline';
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
                     </svg>
                   </div>
-                  <div class="font-medium text-white text-sm">Alert</div>
+                  <div class="font-medium text-white text-sm">Alerts</div>
                 </div>
               </div>
             </div>

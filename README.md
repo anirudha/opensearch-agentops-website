@@ -1,4 +1,4 @@
-# OpenSearch AgentOps
+# OpenSearch - Observability Stack
 
 [![CI](https://github.com/anirudha/opensearch-agentops-website/actions/workflows/ci.yml/badge.svg)](https://github.com/anirudha/opensearch-agentops-website/actions/workflows/ci.yml)
 [![Deploy](https://github.com/anirudha/opensearch-agentops-website/actions/workflows/deploy.yml/badge.svg)](https://github.com/anirudha/opensearch-agentops-website/actions/workflows/deploy.yml)
@@ -7,11 +7,11 @@
 
 **🌐 Live Site**: [https://anirudha.github.io/opensearch-agentops-website/](https://anirudha.github.io/opensearch-agentops-website/)
 
-Marketing website and documentation for OpenSearch AgentOps - an OpenTelemetry-native observability platform for AI agents and LLM applications.
+Marketing website and documentation for OpenSearch - Observability Stack - an OpenTelemetry-native observability platform for AI agents and LLM applications.
 
 ## About
 
-This repository contains the public-facing website and comprehensive documentation for OpenSearch AgentOps. The site showcases the platform's capabilities for observing, evaluating, and deploying production AI applications with OpenTelemetry-based tracing.
+This repository contains the public-facing website and comprehensive documentation for OpenSearch - Observability Stack. The site showcases the platform's capabilities for observing, evaluating, and deploying production AI applications with OpenTelemetry-based tracing.
 
 ## What's Included
 

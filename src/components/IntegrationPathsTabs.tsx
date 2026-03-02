@@ -53,7 +53,7 @@ from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from agentops.exporters import AgentOpsExporter
 
-# Configure OTEL with AgentOps exporter
+# Configure OTEL with Observability Stack exporter
 provider = TracerProvider()
 exporter = AgentOpsExporter(api_key="your_key")
 provider.add_span_processor(BatchSpanProcessor(exporter))
@@ -81,12 +81,12 @@ with tracer.start_as_current_span("agent_task"):
     label: 'Custom OTEL',
     timing: 'Flexible',
     title: 'Bring Your Own OTEL Setup',
-    description: 'Already using OTEL? Just point your exporter to AgentOps. Keep your existing setup.',
+    description: 'Already using OTEL? Just point your exporter to Observability Stack. Keep your existing setup.',
     language: 'python',
     code: `from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from agentops.exporters import AgentOpsExporter
 
-# Add AgentOps as an additional exporter
+# Add Observability Stack as an additional exporter
 # Keep your existing OTEL configuration
 exporter = AgentOpsExporter(
     endpoint="https://api.agentops.ai/v1/traces",
@@ -99,7 +99,7 @@ trace_provider.add_span_processor(
 )
 
 # Your existing OTEL instrumentation continues to work
-# Traces now flow to both your existing backend AND AgentOps`,
+# Traces now flow to both your existing backend AND Observability Stack`,
     benefits: [
       'Keep your existing OTEL setup',
       'Multi-backend support (send to multiple destinations)',

@@ -8,7 +8,7 @@ export default defineConfig({
 	base: '/opensearch-agentops-website/docs',
 	integrations: [
 		starlight({
-			title: 'Getting Started with OpenSearch AgentOps',
+			title: 'Getting Started with OpenSearch - Observability Stack',
 			logo: {
 				src: './src/assets/opensearch-logo-darkmode.svg',
 			},
