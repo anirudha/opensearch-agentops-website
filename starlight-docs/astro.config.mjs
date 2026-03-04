@@ -1,12 +1,16 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import mermaid from 'astro-mermaid';
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://anirudha.github.io',
 	base: '/opensearch-agentops-website/docs',
 	integrations: [
+		mermaid({
+			autoTheme: true,
+		}),
 		starlight({
 			title: 'OpenSearch - Observability Stack',
 			logo: {
