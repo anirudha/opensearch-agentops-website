@@ -25,23 +25,14 @@ Logs and traces share PPL as their query language, giving analysts a consistent 
 
 PPL uses a pipe-delimited syntax where each command transforms the result set and passes it to the next. It reads naturally from left to right.
 
-**Sample queries:**
+**Log queries** (run in the Logs Discover view against `logs-otel-v1*`):
 
 Filter error logs and count by service:
 ```sql
 source = logs-otel-v1*
-| where severity.text = 'ERROR'
-| stats count() as errorCount by instrumentationScope.name
+| where severityNumber >= 17
+| stats count() as errorCount by `resource.attributes.service.name`
 | sort - errorCount
-```
-
-Find the slowest traces in the last hour:
-```sql
-source = otel-v1-apm-span-*
-| where durationInNanos > 5000000000
-| fields traceId, serviceName, operationName, durationInNanos
-| sort - durationInNanos
-| head 10
 ```
 
 Extract HTTP status codes from log bodies:
@@ -53,11 +44,26 @@ source = logs-otel-v1*
 | sort statusCode
 ```
 
+**Trace queries** (run in the Traces Discover view against `otel-v1-apm-span-*`):
+
+Find the slowest traces in the last hour:
+```sql
+source = otel-v1-apm-span-*
+| where durationInNanos > 5000000000
+| fields traceId, serviceName, name, durationInNanos
+| sort - durationInNanos
+| head 10
+```
+
 For the full PPL command reference, see the [PPL documentation](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/index.md). For hands-on examples using OTEL data, see [Explore Logs](/opensearch-agentops-website/docs/investigate/explore-logs/) and [Explore Traces](/opensearch-agentops-website/docs/investigate/explore-traces/).
 
 ### PromQL
 
 PromQL is a functional query language for selecting and aggregating time-series metrics. It supports instant queries, range queries, and built-in functions for rates, aggregations, and mathematical operations.
+
+:::caution[Placeholder queries]
+The PromQL examples below use standard OpenTelemetry metric names. Your environment may use different metric names and labels — adjust accordingly.
+:::
 
 **Sample queries:**
 

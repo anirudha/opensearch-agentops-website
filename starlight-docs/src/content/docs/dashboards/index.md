@@ -46,7 +46,7 @@ Filters let you narrow the data across all panels at once without editing indivi
 ### Adding filters
 
 1. Select **Add filter** in the filter bar
-2. Choose a field (e.g., `instrumentationScope.name`, `severity.text`, `service_name`)
+2. Choose a field (e.g., `resource.attributes.service.name`, `severity.text`, `service_name`)
 3. Pick an operator — `is`, `is not`, `is one of`, `exists`, etc.
 4. Set the value (e.g., `checkout-service`)
 5. The filter applies to every panel on the dashboard immediately
@@ -57,7 +57,7 @@ You can stack multiple filters. They combine with AND logic — all conditions m
 
 | Scenario | Filter |
 |---|---|
-| Focus on one service during an incident | `instrumentationScope.name` is `checkout-service` |
+| Focus on one service during an incident | `resource.attributes.service.name` is `checkout-service` |
 | Exclude noisy debug logs | `severity.text` is not `DEBUG` |
 | Show only error-related data | `severity.text` is one of `ERROR, FATAL` |
 | Filter to a specific environment | `resource.attributes.deployment.environment` is `production` |

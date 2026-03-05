@@ -22,10 +22,8 @@ Each row in the results represents a single span. Expand a row to see all span a
 | `spanId` | Unique identifier for this span |
 | `parentSpanId` | The parent span (empty for root spans) |
 | `serviceName` | Service that produced this span |
-| `operationName` | The operation or endpoint name |
+| `name` | The operation or endpoint name |
 | `durationInNanos` | Span duration in nanoseconds |
-| `startTime` | When the span started |
-| `endTime` | When the span ended |
 | `status.code` | Span status — UNSET, OK, or ERROR |
 | `kind` | Span kind — SERVER, CLIENT, INTERNAL, PRODUCER, CONSUMER |
 | `resource.attributes.*` | Resource-level attributes |
@@ -38,7 +36,7 @@ Each row in the results represents a single span. Expand a row to see all span a
 ```sql
 source = otel-v1-apm-span-*
 | where durationInNanos > 5000000000
-| fields traceId, serviceName, operationName, durationInNanos, status.code
+| fields traceId, serviceName, name, durationInNanos, status.code
 | sort - durationInNanos
 | head 20
 ```
@@ -50,8 +48,8 @@ source = otel-v1-apm-span-*
 ```sql
 search earliest=-1h source = otel-v1-apm-span-*
 | where serviceName = 'frontend'
-      AND operationName LIKE '%/api/%'
-| fields traceId, operationName, durationInNanos, status.code
+      AND name LIKE '%/api/%'
+| fields traceId, name, durationInNanos, status.code
 | sort - durationInNanos
 ```
 
@@ -60,7 +58,7 @@ search earliest=-1h source = otel-v1-apm-span-*
 ```sql
 source = otel-v1-apm-span-*
 | where status.code = 'ERROR'
-| fields traceId, serviceName, operationName, durationInNanos
+| fields traceId, serviceName, name, durationInNanos
 | sort - durationInNanos
 | head 50
 ```
@@ -70,7 +68,7 @@ source = otel-v1-apm-span-*
 ```sql
 source = otel-v1-apm-span-*
 | where parentSpanId = '' OR parentSpanId IS NULL
-| fields traceId, serviceName, operationName, durationInNanos, status.code
+| fields traceId, serviceName, name, durationInNanos, status.code
 | sort - durationInNanos
 | head 30
 ```
@@ -84,8 +82,8 @@ Root spans represent the entry point of a request — typically the first servic
 ```sql
 source = otel-v1-apm-span-*
 | where traceId = '<your-trace-id>'
-| fields startTime, serviceName, operationName, spanId, parentSpanId, durationInNanos, status.code
-| sort startTime
+| fields serviceName, name, spanId, parentSpanId, durationInNanos, status.code
+| sort - durationInNanos
 ```
 
 This gives you the full span tree for a trace, ordered chronologically. Walk through it to see exactly which services were called, in what order, and how long each took.
@@ -127,7 +125,7 @@ search earliest=-6h source = otel-v1-apm-span-*
 | stats avg(durationMs) as p50,
         max(durationMs) as pMax,
         count() as spanCount
-        by serviceName, operationName
+        by serviceName, name
 | where spanCount > 10
 | sort - p50
 | head 20
@@ -164,7 +162,7 @@ The `traceId` field is the bridge between traces and logs. Use it to get the ful
 ```sql
 source = logs-otel-v1*
 | where traceId = '<your-trace-id>'
-| fields @timestamp, spanId, severity.text, body, instrumentationScope.name
+| fields @timestamp, spanId, severity.text, body, `resource.attributes.service.name`
 | sort @timestamp
 ```
 
@@ -175,13 +173,13 @@ source = otel-v1-apm-span-* as a
 | where status.code = 'ERROR'
 | left join ON a.traceId = b.traceId
     [ source = logs-otel-v1*
-      | where severity.text = 'ERROR'
+      | where severityNumber >= 17
       | stats count() as logErrorCount,
-              values(instrumentationScope.name) as errorServices
+              values(`resource.attributes.service.name`) as errorServices
               by traceId
     ] as b
 | where b.logErrorCount > 0
-| fields a.traceId, a.serviceName, a.operationName, a.durationInNanos, b.logErrorCount, b.errorServices
+| fields a.traceId, a.serviceName, a.name, a.durationInNanos, b.logErrorCount, b.errorServices
 | sort - b.logErrorCount
 | head 20
 ```
@@ -219,10 +217,10 @@ search earliest=-6h source = otel-v1-apm-span-*
 | eval durationMs = durationInNanos / 1000000
 | eventstats avg(durationMs) as avgDuration,
               stddev(durationMs) as stddevDuration
-              by serviceName, operationName
+              by serviceName, name
 | eval zScore = (durationMs - avgDuration) / stddevDuration
 | where zScore > 3
-| fields traceId, serviceName, operationName, durationMs, avgDuration, zScore
+| fields traceId, serviceName, name, durationMs, avgDuration, zScore
 | sort - zScore
 | head 20
 ```
@@ -263,11 +261,11 @@ Flags time windows where average latency is 50% or more above the moving average
 ```sql
 search earliest=-1h source = otel-v1-apm-span-*
 | where status.code = 'ERROR'
-| stats count() as recentErrors by serviceName, operationName
-| left join ON a.serviceName = b.serviceName AND a.operationName = b.operationName
+| stats count() as recentErrors by serviceName, name
+| left join ON a.serviceName = b.serviceName AND a.name = b.name
     [ search earliest=-24h latest=-1h source = otel-v1-apm-span-*
       | where status.code = 'ERROR'
-      | stats count() as priorErrors by serviceName, operationName
+      | stats count() as priorErrors by serviceName, name
     ] as b
 | where b.priorErrors IS NULL
 | sort - recentErrors

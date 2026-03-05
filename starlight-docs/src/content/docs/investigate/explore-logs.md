@@ -33,8 +33,8 @@ Discover shows results as a table of log events. You can add or remove columns, 
 
 ```sql
 source = logs-otel-v1*
-| where severity.text = 'ERROR'
-| fields @timestamp, body, instrumentationScope.name, traceId
+| where severityNumber >= 17
+| fields @timestamp, body, `resource.attributes.service.name`, traceId
 | sort - @timestamp
 | head 50
 ```
@@ -43,8 +43,8 @@ source = logs-otel-v1*
 
 ```sql
 source = logs-otel-v1*
-| where body LIKE '%timeout%'
-| fields @timestamp, severity.text, body, instrumentationScope.name
+| where body LIKE '%HTTP%' AND severityNumber >= 17
+| fields @timestamp, severity.text, body, `resource.attributes.service.name`
 | sort - @timestamp
 ```
 
@@ -52,8 +52,8 @@ source = logs-otel-v1*
 
 ```sql
 search earliest=-1h source = logs-otel-v1*
-| where instrumentationScope.name = 'my-service'
-| where severity.text IN ('ERROR', 'WARN')
+| where `resource.attributes.service.name` = 'my-service'
+| where severityNumber >= 13
 | fields @timestamp, severity.text, body, traceId
 | sort - @timestamp
 ```
@@ -69,7 +69,7 @@ source = logs-otel-v1*
 | where body LIKE '%HTTP%'
 | rex field=body "(?<httpMethod>GET|POST|PUT|DELETE)\s+(?<httpPath>/\S+)\s+HTTP"
 | rex field=body "HTTP/\d\.\d\"\s+(?<statusCode>\d{3})"
-| fields @timestamp, httpMethod, httpPath, statusCode, severity.text
+| fields @timestamp, httpMethod, httpPath, statusCode, severityNumber
 | sort - @timestamp
 | head 30
 ```
@@ -78,7 +78,7 @@ source = logs-otel-v1*
 
 ```sql
 source = logs-otel-v1*
-| where severity.text = 'ERROR' AND body LIKE '%Exception%'
+| where severityNumber >= 17 AND body LIKE '%Exception%'
 | rex field=body "(?<exClass>[A-Za-z.]+Exception)"
 | stats count() as occurrences by exClass
 | sort - occurrences
@@ -93,7 +93,7 @@ source = logs-otel-v1*
 | where body LIKE '%"status"%'
 | spath input=body path=status output=responseStatus
 | spath input=body path=service output=serviceName
-| fields @timestamp, serviceName, responseStatus, severity.text
+| fields @timestamp, serviceName, responseStatus, severityNumber
 | sort - @timestamp
 ```
 
@@ -103,8 +103,8 @@ source = logs-otel-v1*
 
 ```sql
 search earliest=-6h source = logs-otel-v1*
-| where severity.text = 'ERROR'
-| stats count() as errorCount by instrumentationScope.name
+| where severityNumber >= 17
+| stats count() as errorCount by `resource.attributes.service.name`
 | sort - errorCount
 ```
 
@@ -122,10 +122,10 @@ Pipe this into a stacked bar chart in Discover to see how severity distribution 
 ```sql
 search earliest=-6h source = logs-otel-v1*
 | eventstats count() as totalLogs,
-              count(severity.text = 'ERROR') as errorCount
-              by instrumentationScope.name
+              count(severityNumber >= 17) as errorCount
+              by `resource.attributes.service.name`
 | eval errorRate = errorCount * 100.0 / totalLogs
-| stats avg(errorRate) as avgErrorRate by instrumentationScope.name
+| stats avg(errorRate) as avgErrorRate by `resource.attributes.service.name`
 | sort - avgErrorRate
 ```
 
@@ -138,7 +138,7 @@ One of the most powerful aspects of OTEL-instrumented logs is the `traceId` fiel
 ```sql
 source = logs-otel-v1*
 | where traceId = '<your-trace-id>'
-| fields @timestamp, spanId, severity.text, body, instrumentationScope.name
+| fields @timestamp, spanId, severity.text, body, `resource.attributes.service.name`
 | sort @timestamp
 ```
 
@@ -150,10 +150,10 @@ Use a subquery to first identify traces with errors, then pull all logs from tho
 source = logs-otel-v1*
 | where traceId in [
     source = logs-otel-v1*
-    | where severity.text = 'ERROR'
+    | where severityNumber >= 17
     | fields traceId
   ]
-| fields @timestamp, traceId, spanId, severity.text, body, instrumentationScope.name
+| fields @timestamp, traceId, spanId, severity.text, body, `resource.attributes.service.name`
 | sort traceId, @timestamp
 ```
 
@@ -165,12 +165,12 @@ Join error logs with span data to see whether errors correlate with slow request
 
 ```sql
 source = logs-otel-v1* as a
-| where severity.text = 'ERROR'
+| where severityNumber >= 17
 | left join ON a.traceId = b.traceId
     [ source = otel-v1-apm-span-*
       | stats max(durationInNanos) as maxSpanDuration by traceId
     ] as b
-| fields a.@timestamp, a.body, a.instrumentationScope.name, a.traceId, b.maxSpanDuration
+| fields a.@timestamp, a.body, a.`resource.attributes.service.name`, a.traceId, b.maxSpanDuration
 | sort - b.maxSpanDuration
 | head 20
 ```
@@ -181,9 +181,9 @@ See which services produce errors together — a sign of cascading failures:
 
 ```sql
 search earliest=-2h source = logs-otel-v1*
-| where severity.text = 'ERROR'
-| stats dc(instrumentationScope.name) as serviceCount,
-        values(instrumentationScope.name) as services
+| where severityNumber >= 17
+| stats dc(`resource.attributes.service.name`) as serviceCount,
+        values(`resource.attributes.service.name`) as services
         by traceId
 | where serviceCount > 1
 | sort - serviceCount
@@ -201,10 +201,10 @@ Use eventstats to compare each service's error rate against the overall average:
 ```sql
 search earliest=-6h source = logs-otel-v1*
 | eventstats count() as totalLogs,
-              count(severity.text = 'ERROR') as errorCount
-              by instrumentationScope.name
+              count(severityNumber >= 17) as errorCount
+              by `resource.attributes.service.name`
 | eval errorRate = errorCount * 100.0 / totalLogs
-| stats avg(errorRate) as avgErrorRate by instrumentationScope.name
+| stats avg(errorRate) as avgErrorRate by `resource.attributes.service.name`
 | eventstats avg(avgErrorRate) as globalAvgRate, stddev(avgErrorRate) as stddevRate
 | eval zScore = (avgErrorRate - globalAvgRate) / stddevRate
 | where zScore > 2
@@ -244,12 +244,12 @@ Find exception types that appeared recently but weren't present in the prior per
 
 ```sql
 search earliest=-1h source = logs-otel-v1*
-| where severity.text = 'ERROR'
+| where severityNumber >= 17
 | rex field=body "(?<exClass>[A-Za-z.]+Exception)"
 | stats count() as recentCount by exClass
 | left join ON a.exClass = b.exClass
     [ search earliest=-24h latest=-1h source = logs-otel-v1*
-      | where severity.text = 'ERROR'
+      | where severityNumber >= 17
       | rex field=body "(?<exClass>[A-Za-z.]+Exception)"
       | stats count() as priorCount by exClass
     ] as b
@@ -265,16 +265,16 @@ Exception classes that appear in the last hour but not in the prior 23 hours are
 
 ```sql
 search earliest=-1h source = logs-otel-v1*
-| where severity.text = 'ERROR'
-| stats count() as currentErrors by instrumentationScope.name
-| left join ON a.instrumentationScope.name = b.instrumentationScope.name
+| where severityNumber >= 17
+| stats count() as currentErrors by `resource.attributes.service.name`
+| left join ON a.`resource.attributes.service.name` = b.`resource.attributes.service.name`
     [ search earliest=-2h latest=-1h source = logs-otel-v1*
-      | where severity.text = 'ERROR'
-      | stats count() as previousErrors by instrumentationScope.name
+      | where severityNumber >= 17
+      | stats count() as previousErrors by `resource.attributes.service.name`
     ] as b
 | fillnull using currentErrors = 0, previousErrors = 0
 | eval changePercent = ((currentErrors - b.previousErrors) * 100.0) / b.previousErrors
-| fields instrumentationScope.name, currentErrors, b.previousErrors, changePercent
+| fields `resource.attributes.service.name`, currentErrors, b.previousErrors, changePercent
 | sort - changePercent
 ```
 
@@ -299,7 +299,7 @@ search earliest=-4h source = logs-otel-v1*
 | where severity.text IN ('ERROR', 'WARN')
 | eval period = if(@timestamp < TIMESTAMP('2025-03-04T14:00:00'), 'before', 'after')
 | stats count() as logCount,
-        dc(instrumentationScope.name) as affectedServices
+        dc(`resource.attributes.service.name`) as affectedServices
         by period, severity.text
 | sort period, severity.text
 ```

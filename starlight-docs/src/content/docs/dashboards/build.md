@@ -70,11 +70,11 @@ Each panel has a query editor where you write PPL or PromQL. The query determine
 For logs and traces (PPL):
 ```sql
 search earliest=-6h source = logs-otel-v1*
-| where severity.text = 'ERROR'
-| timechart span=5m count() by instrumentationScope.name
+| where severityNumber >= 17
+| timechart span=5m count() by `resource.attributes.service.name`
 ```
 
-For metrics (PromQL):
+For metrics (PromQL — adjust metric names to match your environment):
 ```promql
 sum by (service_name) (rate(http_server_request_duration_seconds_count[5m]))
 ```

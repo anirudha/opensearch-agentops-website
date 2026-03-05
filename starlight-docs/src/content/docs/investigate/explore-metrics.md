@@ -3,6 +3,10 @@ title: "Explore Metrics"
 description: "Investigate time-series metrics in Discover using PromQL — query rates, latencies, resource usage, detect anomalies, and compare time ranges"
 ---
 
+:::caution[Placeholder queries]
+The PromQL queries on this page are representative examples based on standard OpenTelemetry metric names. Your environment may use different metric names, labels, or configurations. Treat these as starting points — adjust metric names and label selectors to match your actual data.
+:::
+
 Metrics provide a continuous, low-overhead view of system health. In OpenSearch, the Discover experience for metrics uses PromQL — the industry-standard query language for Prometheus-compatible time-series data. Use it to monitor request rates, latencies, error ratios, and resource consumption across your services.
 
 ## Getting started in Discover
@@ -201,7 +205,7 @@ Metrics tell you *what* is happening; logs and traces tell you *why*. Use metric
    source = otel-v1-apm-span-*
    | where serviceName = 'checkout-service'
          AND durationInNanos > 5000000000
-   | fields traceId, operationName, durationInNanos, status.code
+   | fields traceId, name, durationInNanos, status.code
    | sort - durationInNanos
    | head 10
    ```
