@@ -1,63 +1,46 @@
 ---
-title: "SDKs & API"
-description: "Client libraries for instrumenting LLM applications with OpenSearch AI Observability"
+title: "SDKs"
+description: "OpenTelemetry-native SDKs for tracing and evaluating LLM applications with OpenSearch"
 ---
 
-# SDKs & API
+The OpenSearch AI Observability SDKs instrument LLM applications using standard OpenTelemetry. They handle the gap that general-purpose OTel doesn't cover: tracing your own agent logic — the workflows, agents, and tools that sit above raw LLM calls — and submitting evaluation scores back through the same pipeline.
 
-The OpenSearch AI Observability SDKs are OpenTelemetry-native libraries for tracing and evaluating
-LLM applications. They wrap the OTEL pipeline into a simple one-line setup, provide decorators or
-wrapper functions for tracing workflows, agents, and tools, and emit evaluation scores — all routed
-to OpenSearch through a standard OTLP pipeline.
+The SDKs are thin wrappers. They do not replace OpenTelemetry, they configure it. Remove a decorator and your code still works unchanged.
 
-## Available SDKs
+## What the SDK covers
 
-| SDK | Package | Status |
-|---|---|---|
-| [Python SDK](/opensearch-agentops-website/docs/sdks/python/) | [`opensearch-genai-sdk-py`](https://pypi.org/project/opensearch-genai-sdk-py/) | Available |
-| [JavaScript / TypeScript SDK](/opensearch-agentops-website/docs/sdks/javascript/) | [`opensearch-genai-sdk`](https://www.npmjs.com/package/opensearch-genai-sdk) | Available |
+**Pipeline setup** — one call (`register()`) creates a `TracerProvider`, wires up an OTLP exporter, and activates auto-instrumentation for any installed LLM library instrumentors (OpenAI, Anthropic, Bedrock, LangChain, and more).
 
-## What the SDKs do
+**Application tracing** — decorators (Python) or wrapper functions (JavaScript) that produce OTEL spans with [GenAI semantic convention](https://opentelemetry.io/docs/specs/semconv/gen-ai/) attributes for four span types:
 
-Both SDKs share the same design:
+| Type | Use for |
+|---|---|
+| `workflow` | Top-level orchestration — the entry point of a pipeline run |
+| `task` | A discrete unit of work inside a workflow |
+| `agent` | Autonomous decision-making logic that calls tools or LLMs |
+| `tool` | A function invoked by an agent |
 
-- **`register()`** — one call that configures a `TracerProvider`, sets up an OTLP exporter
-  (with optional AWS SigV4 signing), and auto-discovers installed LLM instrumentor packages.
-- **Trace wrappers** — decorators (Python) or higher-order functions (JavaScript) that wrap your
-  application code as OTEL spans with [GenAI semantic convention](https://opentelemetry.io/docs/specs/semconv/gen-ai/) attributes.
-- **`score()`** — submits evaluation metrics as OTEL spans at span, trace, or session level.
-- **Auto-instrumentation** — discovers and activates installed instrumentor packages (OpenAI,
-  Anthropic, Bedrock, LangChain, and more) with no code changes.
+**Evaluation scoring** — `score()` emits evaluation metrics as OTEL spans at span, trace, or session level. No separate client or index needed — scores travel through the same OTLP pipeline as traces.
+
+**AWS support** — built-in SigV4 signing for OpenSearch Ingestion (OSIS) and OpenSearch Service endpoints.
 
 ## Architecture
 
-```
-Your Application
-  workflow → agent → tool     score()
-      │          │       │        │
-      └──────────┴───────┴────────┘
-                     │
-          opensearch-genai-sdk[-py]
-  ┌─────────────────────────────────────┐
-  │  register()                          │
-  │  TracerProvider                      │
-  │  ├── Resource (service.name)         │
-  │  ├── BatchSpanProcessor              │
-  │  │   └── OTLPSpanExporter (HTTP/gRPC)│
-  │  │       └── SigV4 (AWS endpoints)   │
-  │  └── Auto-instrumentation            │
-  └──────────────┬──────────────────────┘
-                 │ OTLP
-                 ▼
-        Data Prepper / OTEL Collector
-                 │
-                 ▼
-            OpenSearch
-            ├── traces
-            └── scores
+```mermaid
+flowchart LR
+    A["Your Application<br/>@workflow / @agent / @tool<br/>score()"] -->|"OTLP HTTP/gRPC"| B["OTel Collector<br/>or Data Prepper"]
+    B --> C["OpenSearch<br/>traces + scores"]
 ```
 
-## Zero lock-in
+The SDK configures a `BatchSpanProcessor` that exports in the background — your application code is never blocked waiting on network I/O.
 
-Both SDKs are thin wrappers over standard OpenTelemetry. Remove a decorator or wrapper function
-and your code works exactly as before — no proprietary SDK calls embedded in your logic.
+## Available SDKs
+
+- [Python SDK](/opensearch-agentops-website/docs/sdks/python/) — `opensearch-genai-sdk-py` on PyPI
+- [JavaScript / TypeScript SDK](/opensearch-agentops-website/docs/sdks/javascript/) — `opensearch-genai-sdk` on npm
+
+## Related links
+
+- [Agent Traces](/opensearch-agentops-website/docs/apm/agent-traces/) — viewing traces in OpenSearch Dashboards
+- [Send Data](/opensearch-agentops-website/docs/send-data/) — OTLP pipeline setup and collector configuration
+- [GenAI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/) — the OTel spec the SDKs follow

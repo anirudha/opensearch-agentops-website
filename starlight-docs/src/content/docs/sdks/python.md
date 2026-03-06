@@ -1,23 +1,13 @@
 ---
 title: "Python SDK"
-description: "OTEL-native tracing and scoring for LLM applications — opensearch-genai-sdk-py"
+description: "Reference for opensearch-genai-sdk-py — OTEL-native tracing and scoring for LLM applications"
 ---
 
-import { Tabs, TabItem, Aside, Badge } from '@astrojs/starlight/components';
+`opensearch-genai-sdk-py` instruments Python LLM applications using standard OpenTelemetry. It configures the OTEL pipeline in one call, provides decorators for tracing your application logic, and emits evaluation scores through the same OTLP exporter.
 
-# Python SDK
-
-`opensearch-genai-sdk-py` is an OpenTelemetry-native SDK for tracing and evaluating LLM applications.
-Instrument your AI workflows with standard OTEL spans, auto-trace popular LLM libraries, and submit
-evaluation scores — all routed to OpenSearch through a single OTLP pipeline.
-
-**Key properties:**
-- **Zero lock-in** — remove a decorator and your code still works; everything is standard OpenTelemetry
-- **One-line setup** — `register()` configures the full OTEL pipeline
-- **Auto-instrumentation** — discovers and activates installed instrumentor packages automatically
-- **AWS-ready** — built-in SigV4 signing for OpenSearch Ingestion (OSIS) and OpenSearch Service
-
----
+- **PyPI:** `opensearch-genai-sdk-py`
+- **Python:** 3.10, 3.11, 3.12, 3.13
+- **Source:** [github.com/vamsimanohar/opensearch-genai-sdk-py](https://github.com/vamsimanohar/opensearch-genai-sdk-py)
 
 ## Installation
 
@@ -25,43 +15,27 @@ evaluation scores — all routed to OpenSearch through a single OTLP pipeline.
 pip install opensearch-genai-sdk-py
 ```
 
-Auto-instrumentation of LLM libraries is opt-in. Install extras for the providers you use:
+The core package includes the OTEL SDK and OTLP exporters. Auto-instrumentation for LLM providers is opt-in:
 
 ```bash
-# Single provider
 pip install "opensearch-genai-sdk-py[openai]"
 pip install "opensearch-genai-sdk-py[anthropic]"
 pip install "opensearch-genai-sdk-py[bedrock]"
 pip install "opensearch-genai-sdk-py[langchain]"
-
-# Multiple providers
-pip install "opensearch-genai-sdk-py[openai,anthropic]"
-
-# All instrumentors at once
-pip install "opensearch-genai-sdk-py[instrumentors]"
-
-# AWS SigV4 signing for OpenSearch Ingestion / OpenSearch Service
-pip install "opensearch-genai-sdk-py[aws]"
-
-# Everything
-pip install "opensearch-genai-sdk-py[all]"
+pip install "opensearch-genai-sdk-py[instrumentors]"   # all providers at once
+pip install "opensearch-genai-sdk-py[aws]"             # SigV4 signing for AWS endpoints
+pip install "opensearch-genai-sdk-py[all]"             # everything
 ```
 
-**Available extras:** `openai`, `anthropic`, `cohere`, `mistral`, `groq`, `ollama`, `google`, `bedrock`, `langchain`, `llamaindex`, `instrumentors` (all of the above), `aws`, `all`
+Available provider extras: `openai`, `anthropic`, `cohere`, `mistral`, `groq`, `ollama`, `google`, `bedrock`, `langchain`, `llamaindex`.
 
-**Requirements:** Python 3.10, 3.11, 3.12, or 3.13 · OpenTelemetry SDK ≥1.20.0
-
----
-
-## Quick Start
+## Quick start
 
 ```python
 from opensearch_genai_sdk_py import register, workflow, agent, tool, score
 
-# 1. Initialize tracing (once at startup)
 register(endpoint="http://localhost:4318/v1/traces", service_name="my-app")
 
-# 2. Decorate your functions
 @tool(name="get_weather")
 def get_weather(city: str) -> dict:
     """Fetch current weather for a city."""
@@ -72,111 +46,65 @@ def assistant(query: str) -> str:
     data = get_weather("Paris")
     return f"{data['condition']}, {data['temp']}C"
 
-@workflow(name="weather_query")
+@workflow(name="weather_pipeline")
 def run(query: str) -> str:
     return assistant(query)
 
-result = run("What's the weather in Paris?")
-
-# 3. Submit an evaluation score
+result = run("What's the weather?")
 score(name="relevance", value=0.95, trace_id="...", source="llm-judge")
 ```
 
 ---
 
-## How It Works
+## `register()`
 
-```
-Your Application
-  @workflow → @agent → @tool     score()
-       │           │        │        │
-       └───────────┴────────┴────────┘
-                       │
-              opensearch-genai-sdk-py
-  ┌─────────────────────────────────────┐
-  │  register()                          │
-  │  TracerProvider                      │
-  │  ├── Resource (service.name)         │
-  │  ├── BatchSpanProcessor              │
-  │  │   └── OTLPSpanExporter            │
-  │  │       └── SigV4 (AWS endpoints)   │
-  │  └── Auto-instrumentation            │
-  │      └── openai, anthropic, ...      │
-  └──────────────┬──────────────────────┘
-                 │ OTLP (HTTP or gRPC)
-                 ▼
-        Data Prepper / OTEL Collector
-                 │
-                 ▼
-            OpenSearch
-            ├── traces
-            └── scores
-```
-
----
-
-## API Reference
-
-### `register()`
-
-Configures the OTEL tracing pipeline. Call once at application startup.
+Configures the OTEL tracing pipeline. Call once at startup before any tracing occurs.
 
 ```python
 from opensearch_genai_sdk_py import register
 
 register(
-    endpoint="https://pipeline.us-east-1.osis.amazonaws.com/v1/traces",
+    endpoint="http://localhost:4318/v1/traces",
     service_name="my-app",
-    auth="auto",           # "auto" | "sigv4" | "none"
-    batch=True,            # BatchSpanProcessor (True) or SimpleSpanProcessor (False)
-    auto_instrument=True,  # discover and activate installed instrumentor packages
 )
 ```
 
-**Parameters:**
-
 | Parameter | Type | Default | Description |
 |---|---|---|---|
-| `endpoint` | `str` | `http://localhost:21890/opentelemetry/v1/traces` | OTLP endpoint URL. Override with `OPENSEARCH_OTEL_ENDPOINT` env var. |
-| `protocol` | `"http"` \| `"grpc"` | inferred from URL | Force HTTP or gRPC transport. |
-| `service_name` | `str` | `"default"` | Service name attached to all spans. Also reads `OTEL_SERVICE_NAME`. |
-| `project_name` | `str` | `"default"` | Alias for `service_name`. |
-| `auth` | `str` | `"auto"` | Authentication mode (see below). |
-| `region` | `str` | auto-detected | AWS region for SigV4. |
-| `service` | `str` | `"osis"` | AWS service name for SigV4 signing (`"osis"` or `"es"`). |
-| `batch` | `bool` | `True` | Use `BatchSpanProcessor` (`True`) or `SimpleSpanProcessor` (`False`). |
-| `auto_instrument` | `bool` | `True` | Discover and activate installed instrumentor packages. |
-| `exporter` | `SpanExporter` | `None` | Custom exporter — overrides endpoint/auth/protocol. |
-| `headers` | `dict` | `None` | Additional HTTP headers for the exporter. |
+| `endpoint` | `str` | `http://localhost:21890/opentelemetry/v1/traces` | OTLP endpoint URL. Reads `OPENSEARCH_OTEL_ENDPOINT` if not set. |
+| `protocol` | `"http"` \| `"grpc"` | inferred from URL | Force transport. Inferred from scheme if omitted: `grpc://` → gRPC, `grpcs://` → gRPC+TLS, else HTTP. |
+| `service_name` | `str` | `"default"` | Attached to all spans as `service.name`. Reads `OTEL_SERVICE_NAME`. |
+| `project_name` | `str` | | Alias for `service_name`. |
+| `auth` | `str` | `"auto"` | `"auto"` detects AWS endpoints and enables SigV4. `"sigv4"` always signs. `"none"` never signs. |
+| `region` | `str` | auto | AWS region for SigV4. Auto-detected from botocore if not provided. |
+| `service` | `str` | `"osis"` | AWS service name for signing. `"osis"` for OpenSearch Ingestion, `"es"` for OpenSearch Service. |
+| `batch` | `bool` | `True` | `True` uses `BatchSpanProcessor` (production). `False` uses `SimpleSpanProcessor` (debugging). |
+| `auto_instrument` | `bool` | `True` | Discovers and activates installed OTel instrumentor packages. |
+| `exporter` | `SpanExporter` | | Custom exporter. Overrides `endpoint`, `auth`, and `protocol`. |
+| `set_global` | `bool` | `True` | Register as the global `TracerProvider`. |
+| `headers` | `dict` | | Additional HTTP headers for the exporter. |
 
-**Endpoint URL schemes:**
+`register()` returns the configured `TracerProvider`.
 
-| Scheme | Transport |
+### Endpoint schemes
+
+| URL scheme | Transport |
 |---|---|
-| `http://` / `https://` | HTTP (default) |
-| `grpc://` | gRPC (insecure) |
-| `grpcs://` | gRPC with TLS |
+| `http://` or `https://` | OTLP HTTP (default) |
+| `grpc://` | OTLP gRPC, insecure |
+| `grpcs://` | OTLP gRPC with TLS |
 
-**Auth modes:**
+### Examples
 
-- `"auto"` — auto-detects AWS endpoints (`*.amazonaws.com`) and enables SigV4; plain HTTP otherwise
-- `"sigv4"` — always use AWS SigV4 (requires `pip install opensearch-genai-sdk-py[aws]`)
-- `"none"` — always plain HTTP, no signing
+Self-hosted OpenSearch with a local collector:
 
-<Aside type="note">
-SigV4 + gRPC is not currently supported. Use HTTP (`https://`) for AWS endpoints.
-</Aside>
-
-**Examples:**
-
-<Tabs>
-<TabItem label="Self-hosted">
 ```python
-# Defaults to http://localhost:21890/opentelemetry/v1/traces
 register(service_name="my-app")
+# uses http://localhost:21890/opentelemetry/v1/traces by default
 ```
-</TabItem>
-<TabItem label="AWS OSIS">
+
+AWS OpenSearch Ingestion with SigV4:
+
 ```python
 register(
     endpoint="https://pipeline.us-east-1.osis.amazonaws.com/v1/traces",
@@ -185,17 +113,15 @@ register(
     region="us-east-1",
 )
 ```
-</TabItem>
-<TabItem label="gRPC">
-```python
-# Insecure gRPC
-register(endpoint="grpc://localhost:4317", service_name="my-app")
 
-# gRPC with TLS
-register(endpoint="grpcs://otel-collector:4317", service_name="my-app")
+gRPC:
+
+```python
+register(endpoint="grpc://localhost:4317", service_name="my-app")
 ```
-</TabItem>
-<TabItem label="Custom Exporter">
+
+Custom exporter:
+
 ```python
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
 
@@ -204,130 +130,139 @@ register(
     exporter=OTLPSpanExporter(endpoint="http://localhost:4318/v1/traces"),
 )
 ```
-</TabItem>
-</Tabs>
 
 ---
 
-### Decorators
+## Decorators
 
-Four decorators for tracing application logic. Each wraps a function in an OTEL span with
-[GenAI semantic convention](https://opentelemetry.io/docs/specs/semconv/gen-ai/) attributes.
-Supports sync functions, async functions, generators, and async generators.
+Four decorators trace application logic as OTEL spans with [GenAI semantic convention](https://opentelemetry.io/docs/specs/semconv/gen-ai/) attributes. All four support sync functions, async functions, generators, and async generators. Errors are recorded as span status `ERROR` with an exception event.
 
-| Decorator | Use for | Default SpanKind | `gen_ai.operation.name` |
-|---|---|---|---|
-| `@workflow` | Top-level orchestration | `INTERNAL` | `invoke_agent` |
-| `@task` | Units of work within a workflow | `INTERNAL` | `invoke_agent` |
-| `@agent` | Autonomous agent / LLM invocation | `CLIENT` | `invoke_agent` |
-| `@tool` | Tool / function calls invoked by agents | `INTERNAL` | `execute_tool` |
+### Span hierarchy
 
-**Parameters (all decorators):**
+A typical trace looks like this:
+
+```mermaid
+flowchart TD
+    A["@workflow  — invoke_agent  — SpanKind.INTERNAL"] --> B["@agent  — invoke_agent  — SpanKind.CLIENT"]
+    B --> C["@tool  — execute_tool  — SpanKind.INTERNAL"]
+    B --> D["LLM call  (auto-instrumented)"]
+```
+
+`@agent` defaults to `SpanKind.CLIENT` because it typically represents a call out to an external LLM or service.
+
+### Common parameters
+
+All four decorators accept the same parameters:
 
 | Parameter | Type | Description |
 |---|---|---|
-| `name` | `str` | Span / entity name. Defaults to the function's `__qualname__`. |
-| `version` | `int` | Optional version number, stored as `gen_ai.agent.version`. |
-| `kind` | `SpanKind` | Override the OTel SpanKind. Uses the default for the decorator type if omitted. |
-| `name_from` | `str` | Name of a function parameter whose runtime value becomes the entity/span name. Useful for dispatchers where the name isn't known until call time. |
+| `name` | `str` | Span name and entity name. Defaults to the function's `__qualname__`. |
+| `version` | `int` | Stored as `gen_ai.agent.version`. |
+| `kind` | `SpanKind` | Override the OTel `SpanKind`. |
+| `name_from` | `str` | Name of a function parameter whose runtime value becomes the entity name. Useful for dispatcher patterns. |
 
-**Span attributes set automatically:**
+### `@workflow`
 
-| Attribute | Decorators |
-|---|---|
-| `gen_ai.operation.name` | all |
-| `gen_ai.agent.name` | `@workflow`, `@task`, `@agent` |
-| `gen_ai.tool.name` | `@tool` |
-| `gen_ai.agent.version` | all (when `version` is set) |
-| `gen_ai.input.messages` | `@workflow`, `@task`, `@agent` |
-| `gen_ai.output.messages` | `@workflow`, `@task`, `@agent` |
-| `gen_ai.tool.call.arguments` | `@tool` |
-| `gen_ai.tool.call.result` | `@tool` |
-| `gen_ai.tool.type` | `@tool` (always `"function"`) |
-| `gen_ai.tool.description` | `@tool` (first line of docstring) |
+Top-level orchestration. Creates a span with `gen_ai.operation.name = "invoke_agent"` and `SpanKind.INTERNAL`.
 
-Errors are captured as span status `ERROR` with an exception event.
-
-<Aside type="tip">
-If you set `gen_ai.output.messages` (or `gen_ai.tool.call.result`) inside the function body yourself,
-the decorator won't overwrite it — your custom value is preserved.
-</Aside>
-
-**Examples:**
-
-<Tabs>
-<TabItem label="Basic">
 ```python
-from opensearch_genai_sdk_py import workflow, task, agent, tool
+from opensearch_genai_sdk_py import workflow
 
 @workflow(name="qa_pipeline")
 def run_pipeline(query: str) -> str:
     plan = plan_steps(query)
     return execute(plan)
+```
 
-@task(name="plan_steps")
-def plan_steps(query: str) -> list:
-    return llm.generate(f"Plan steps for: {query}")
+Span attributes set automatically: `gen_ai.operation.name`, `gen_ai.agent.name`, `gen_ai.input.messages`, `gen_ai.output.messages`.
+
+### `@task`
+
+A discrete unit of work within a workflow. Same attributes and defaults as `@workflow`.
+
+```python
+from opensearch_genai_sdk_py import task
+
+@task(name="summarize")
+def summarize_text(text: str) -> str:
+    return llm.generate(f"Summarize: {text}")
+```
+
+### `@agent`
+
+Autonomous decision-making logic. Defaults to `SpanKind.CLIENT`. Span name is prefixed: `invoke_agent <name>`.
+
+```python
+from opensearch_genai_sdk_py import agent
 
 @agent(name="research_agent", version=2)
 async def research(query: str) -> str:
-    result = await search_tool(query)
-    return summarize(result)
+    while not done:
+        action = decide_action(query)
+        result = await execute_action(action)
+    return result
+```
+
+### `@tool`
+
+A function invoked by an agent. Span name is prefixed: `execute_tool <name>`.
+
+```python
+from opensearch_genai_sdk_py import tool
 
 @tool(name="web_search")
-def search_tool(query: str) -> list[dict]:
-    """Search the web for relevant documents."""
+def search(query: str) -> list[dict]:
+    """Search the web for documents."""
     return search_api.query(query)
 ```
-</TabItem>
-<TabItem label="Async">
+
+Additional attributes set on tool spans: `gen_ai.tool.name`, `gen_ai.tool.type` (`"function"`), `gen_ai.tool.description` (first line of docstring), `gen_ai.tool.call.arguments`, `gen_ai.tool.call.result`.
+
+**Dispatcher pattern** — when the tool name is only known at call time, use `name_from` to resolve it from a runtime argument:
+
 ```python
-@agent(name="async_agent")
-async def run_agent(query: str) -> str:
-    response = await openai_client.chat.completions.create(
-        model="gpt-4o",
-        messages=[{"role": "user", "content": query}],
-    )
-    return response.choices[0].message.content
-```
-</TabItem>
-<TabItem label="Streaming">
-```python
-@agent(name="streaming_agent")
-def stream_response(query: str):
-    """Generator functions are fully supported."""
-    for chunk in openai_client.chat.completions.create(
-        model="gpt-4o",
-        messages=[{"role": "user", "content": query}],
-        stream=True,
-    ):
-        yield chunk.choices[0].delta.content or ""
-```
-</TabItem>
-<TabItem label="Dynamic name_from">
-```python
-# Dispatcher tool — actual tool name is a runtime argument
 @tool(name_from="tool_name")
 def execute_tool(self, tool_name: str, arguments: dict) -> dict:
     """Routes calls to the appropriate tool implementation."""
     return self._tools[tool_name](**arguments)
 ```
-</TabItem>
-</Tabs>
+
+Each call produces a span named `execute_tool <actual_tool_name>`.
+
+### Custom output attributes
+
+If you set `gen_ai.output.messages` (or `gen_ai.tool.call.result` for tools) inside the function body, the decorator will not overwrite it:
+
+```python
+from opentelemetry import trace
+import json
+
+@agent(name="my_agent")
+def my_agent(query: str) -> str:
+    result = do_work(query)
+    span = trace.get_current_span()
+    span.set_attribute(
+        "gen_ai.output.messages",
+        json.dumps([{"role": "assistant", "content": result}])
+    )
+    return result
+```
 
 ---
 
-### `score()`
+## `score()`
 
-Submits evaluation scores as OTEL spans. Works with any evaluation framework — pass the results
-through `score()` and they flow through the same OTLP pipeline as all other traces.
-
-**Three scoring levels:**
+Submits an evaluation score as an OTEL span. Scores flow through the same OTLP pipeline as traces and land in the same OpenSearch index.
 
 ```python
 from opensearch_genai_sdk_py import score
+```
 
-# Span-level: score a specific LLM call or tool execution
+### Span-level scoring
+
+Score a specific span — a single LLM call or tool execution:
+
+```python
 score(
     name="accuracy",
     value=0.95,
@@ -336,8 +271,13 @@ score(
     explanation="Answer matches ground truth",
     source="heuristic",
 )
+```
 
-# Trace-level: score an entire workflow run
+### Trace-level scoring
+
+Score an entire workflow run:
+
+```python
 score(
     name="relevance",
     value=0.92,
@@ -345,8 +285,13 @@ score(
     explanation="Response addresses the user's query",
     source="llm-judge",
 )
+```
 
-# Session-level: score across multiple traces in a conversation
+### Session-level scoring
+
+Score across multiple traces in a conversation:
+
+```python
 score(
     name="user_satisfaction",
     value=0.88,
@@ -356,141 +301,131 @@ score(
 )
 ```
 
-**Parameters:**
+### Parameters
 
 | Parameter | Type | Description |
 |---|---|---|
-| `name` | `str` | Metric name (e.g., `"relevance"`, `"factuality"`) |
-| `value` | `float` | Numeric score |
-| `trace_id` | `str` | Trace being scored — stored as an attribute, not the span's own trace ID |
-| `span_id` | `str` | Span being scored (span-level scoring) |
-| `conversation_id` | `str` | Session/conversation ID (session-level scoring) |
-| `label` | `str` | Human-readable label (e.g., `"pass"`, `"relevant"`) |
-| `explanation` | `str` | Evaluator rationale — truncated to 500 characters |
-| `response_id` | `str` | LLM completion ID for correlation |
-| `source` | `str` | Score origin: `"sdk"`, `"human"`, `"llm-judge"`, `"heuristic"` |
-| `metadata` | `dict` | Arbitrary key-value metadata |
+| `name` | `str` | Metric name, e.g. `"relevance"`, `"factuality"`. |
+| `value` | `float` | Numeric score. |
+| `trace_id` | `str` | Trace being scored. Stored as `gen_ai.evaluation.trace_id`, not the span's own trace ID. |
+| `span_id` | `str` | Span being scored (span-level). |
+| `conversation_id` | `str` | Session ID (session-level). |
+| `label` | `str` | Human-readable label, e.g. `"pass"`, `"relevant"`. |
+| `explanation` | `str` | Evaluator rationale. Truncated to 500 characters. |
+| `response_id` | `str` | LLM completion ID for correlation. |
+| `source` | `str` | Who created the score: `"sdk"`, `"human"`, `"llm-judge"`, `"heuristic"`. |
+| `metadata` | `dict` | Arbitrary key-value metadata, stored as `gen_ai.evaluation.metadata.<key>`. |
 
 Scores are emitted as `gen_ai.evaluation.result` spans with `gen_ai.evaluation.*` attributes.
 
+### Getting the trace ID
+
+Read the trace ID from the active span context:
+
+```python
+from opentelemetry import trace
+
+@workflow(name="my_pipeline")
+def run(query: str) -> str:
+    ctx = trace.get_current_span().get_span_context()
+    trace_id = format(ctx.trace_id, "032x")
+    result = do_work(query)
+    return result
+
+# After run() returns, score using the captured trace_id
+```
+
 ---
+
+## AWS authentication
+
+For AWS-hosted endpoints (OpenSearch Ingestion or OpenSearch Service), requests must be signed with AWS SigV4.
+
+`register()` handles this automatically when `auth="sigv4"` or when `auth="auto"` detects an `*.amazonaws.com` endpoint. Requires the `[aws]` extra:
+
+```bash
+pip install "opensearch-genai-sdk-py[aws]"
+```
+
+```python
+register(
+    endpoint="https://pipeline.us-east-1.osis.amazonaws.com/v1/traces",
+    service_name="my-app",
+    auth="sigv4",
+    region="us-east-1",      # auto-detected from botocore if not set
+    service="osis",           # "osis" for OSIS pipelines, "es" for OpenSearch Service
+)
+```
+
+Credentials are resolved via the standard botocore chain: `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` env vars → `~/.aws/credentials` → IAM role / IMDS.
+
+:::caution
+SigV4 + gRPC is not supported. Use `https://` (OTLP HTTP) for AWS endpoints.
+:::
 
 ### `AWSSigV4OTLPExporter`
 
-A drop-in `OTLPSpanExporter` that signs every request with AWS SigV4. Used automatically by
-`register()` when `auth="sigv4"` or when an `*.amazonaws.com` endpoint is detected with `auth="auto"`.
+The exporter used internally by `register()` when SigV4 is enabled. Use it directly when you need more control:
 
 ```python
 from opensearch_genai_sdk_py import AWSSigV4OTLPExporter, register
 
 exporter = AWSSigV4OTLPExporter(
     endpoint="https://pipeline.us-east-1.osis.amazonaws.com/v1/traces",
-    service="osis",   # "osis" for OpenSearch Ingestion, "es" for OpenSearch Service
+    service="osis",
     region="us-east-1",
 )
-
 register(service_name="my-app", exporter=exporter)
 ```
 
-Credentials are resolved automatically via the standard botocore credential chain:
-environment variables → `~/.aws/credentials` → IAM role → IMDS.
-
 ---
 
-## Auto-Instrumented Libraries
+## Auto-instrumentation
 
-`register()` automatically discovers and activates any installed instrumentor packages via OTEL
-entry points. Install the extras for the providers you use and their calls are traced with no
-additional code changes.
+`register()` discovers and activates installed instrumentor packages via OTEL entry points. Install the extra for your LLM provider and its calls are traced automatically — no code changes needed.
 
-| Category | Extras |
+| Provider / framework | Extra |
 |---|---|
-| LLM providers | `[openai]`, `[anthropic]`, `[cohere]`, `[mistral]`, `[groq]`, `[ollama]` |
-| Cloud AI | `[bedrock]`, `[google]` (Vertex AI + Generative AI) |
-| Frameworks | `[langchain]`, `[llamaindex]` |
+| OpenAI, OpenAI Agents | `[openai]` |
+| Anthropic | `[anthropic]` |
+| Amazon Bedrock | `[bedrock]` |
+| LangChain | `[langchain]` |
+| LlamaIndex | `[llamaindex]` |
+| Cohere | `[cohere]` |
+| Mistral | `[mistral]` |
+| Groq | `[groq]` |
+| Ollama | `[ollama]` |
+| Google Generative AI + Vertex AI | `[google]` |
 | All of the above + more | `[instrumentors]` |
 
-The `[instrumentors]` bundle also includes: Together, Replicate, Writer, Voyage AI, Aleph Alpha,
-SageMaker, watsonx, Haystack, CrewAI, Agno, MCP, Transformers, ChromaDB, Pinecone, Qdrant,
-Weaviate, Milvus, LanceDB, Marqo.
+The `[instrumentors]` bundle also includes Together, Replicate, Writer, Voyage AI, SageMaker, watsonx, Haystack, CrewAI, Agno, MCP, Transformers, ChromaDB, Pinecone, Qdrant, Weaviate, Milvus, LanceDB, Marqo.
 
 To disable auto-instrumentation:
+
 ```python
 register(auto_instrument=False)
 ```
 
 ---
 
-## Environment Variables
+## Environment variables
 
 | Variable | Description | Default |
 |---|---|---|
 | `OPENSEARCH_OTEL_ENDPOINT` | OTLP endpoint URL | `http://localhost:21890/opentelemetry/v1/traces` |
 | `OTEL_SERVICE_NAME` | Service name for all spans | `"default"` |
-| `OPENSEARCH_PROJECT` | Project/service name (fallback) | `"default"` |
-| `AWS_DEFAULT_REGION` | AWS region for SigV4 signing | auto-detected from botocore |
+| `OPENSEARCH_PROJECT` | Project name (fallback to `OTEL_SERVICE_NAME`) | `"default"` |
+| `AWS_DEFAULT_REGION` | AWS region for SigV4 | auto-detected by botocore |
 | `AWS_ACCESS_KEY_ID` | AWS access key | botocore credential chain |
 | `AWS_SECRET_ACCESS_KEY` | AWS secret key | botocore credential chain |
 
 ---
 
-## Complete Example
+## Related links
 
-The following example shows a multi-step agent workflow with OpenAI auto-instrumentation,
-decorator-based tracing, and evaluation scoring.
-
-```python
-import os
-from openai import OpenAI
-from opensearch_genai_sdk_py import register, workflow, agent, tool, score
-
-# Initialize — auto-detects OpenAI if opentelemetry-instrumentation-openai is installed
-register(
-    endpoint=os.environ.get("OPENSEARCH_OTEL_ENDPOINT", "http://localhost:4318/v1/traces"),
-    service_name="weather-app",
-)
-
-client = OpenAI()
-
-@tool(name="get_weather")
-def get_weather(city: str) -> dict:
-    """Fetch current weather conditions for a city."""
-    # Real implementation would call a weather API
-    return {"city": city, "temp": 22, "condition": "sunny", "humidity": 65}
-
-@tool(name="format_response")
-def format_response(weather: dict) -> str:
-    """Format weather data into a human-readable string."""
-    return f"{weather['city']}: {weather['condition']}, {weather['temp']}°C, {weather['humidity']}% humidity"
-
-@agent(name="weather_agent")
-def weather_agent(query: str) -> str:
-    # LLM call is auto-traced by the OpenAI instrumentor
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {"role": "system", "content": "Extract the city from the user's weather query."},
-            {"role": "user", "content": query},
-        ],
-    )
-    city = response.choices[0].message.content.strip()
-    weather = get_weather(city)
-    return format_response(weather)
-
-@workflow(name="weather_pipeline")
-def run(query: str) -> str:
-    return weather_agent(query)
-
-# Run the pipeline
-result = run("What's the weather like in Tokyo?")
-print(result)
-
-# Submit evaluation score
-score(
-    name="answer_quality",
-    value=0.9,
-    trace_id="<trace-id-from-span-context>",
-    source="llm-judge",
-    explanation="Response is accurate and well-formatted",
-)
-```
+- [JavaScript SDK](/opensearch-agentops-website/docs/sdks/javascript/) — TypeScript/Node.js equivalent
+- [Agent Traces](/opensearch-agentops-website/docs/apm/agent-traces/) — viewing traces in OpenSearch Dashboards
+- [Send Data](/opensearch-agentops-website/docs/send-data/) — OTLP pipeline and collector setup
+- [FAQ](/opensearch-agentops-website/docs/sdks/faq/) — common questions
+- [GenAI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/) — OTel spec reference
+- [PyPI](https://pypi.org/project/opensearch-genai-sdk-py/) — package page
