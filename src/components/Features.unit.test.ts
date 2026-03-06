@@ -191,7 +191,7 @@ describe('Features Component - Unit Tests', () => {
                   </div>
                   <span class="text-xs text-slate-500 font-mono">python</span>
                 </div>
-                <pre class="p-6 overflow-x-auto"><code class="text-sm font-mono text-slate-300">from agentops import trace
+                <pre class="p-6 overflow-x-auto"><code class="text-sm font-mono text-slate-300">from opentelemetry import trace
 
 @trace
 def my_llm_call(prompt):
@@ -231,7 +231,7 @@ def my_llm_call(prompt):
 
       expect(pre).toBeTruthy();
       expect(code).toBeTruthy();
-      expect(code?.textContent).toContain('from agentops import trace');
+      expect(code?.textContent).toContain('from opentelemetry import trace');
       expect(code?.textContent).toContain('@trace');
     });
 

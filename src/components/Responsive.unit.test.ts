@@ -157,17 +157,16 @@ describe('Responsive Behavior Unit Tests', () => {
       // Validates: Requirements 16.4
     });
 
-    it('Footer should stack columns vertically on mobile', () => {
+    it('Footer should use flex layout for responsive stacking', () => {
       const footerContent = readFileSync(
         join(process.cwd(), 'src/components/Footer.astro'),
         'utf-8'
       );
 
-      // Check for single column on mobile
-      expect(footerContent).toContain('grid-cols-1');
-      expect(footerContent).toContain('md:grid-cols-2');
-      expect(footerContent).toContain('lg:grid-cols-4');
-      
+      // Footer uses flex-col/flex-row instead of grid columns (columns were removed)
+      expect(footerContent).toContain('flex-col');
+      expect(footerContent).toContain('md:flex-row');
+
       // Validates: Requirements 16.4
     });
 

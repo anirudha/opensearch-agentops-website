@@ -23,18 +23,21 @@
           <span class="text-xs text-slate-500">Python</span>
         </div>
         <div class="p-6 overflow-x-auto">
-          <pre class="text-sm font-mono"><code class="language-python"><span class="text-purple-400">from</span> <span class="text-blue-300">agentops</span> <span class="text-purple-400">import</span> <span class="text-blue-300">Client</span>
+          <pre class="text-sm font-mono"><code class="language-python"><span class="text-purple-400">from</span> <span class="text-blue-300">opensearch_genai_sdk_py</span> <span class="text-purple-400">import</span> <span class="text-blue-300">register</span>, <span class="text-blue-300">agent</span>, <span class="text-blue-300">tool</span>
 
-<span class="text-slate-500"># Initialize with one line</span>
-<span class="text-blue-300">agentops</span>.<span class="text-yellow-300">init</span>(<span class="text-orange-300">api_key</span>=<span class="text-green-400">"your_key"</span>)
+<span class="text-yellow-300">register</span>(<span class="text-orange-300">service_name</span>=<span class="text-green-400">"my-app"</span>)
 
-<span class="text-slate-500"># Your existing code works as-is</span>
-<span class="text-purple-400">def</span> <span class="text-yellow-300">process_request</span>(<span class="text-orange-300">prompt</span>):
-    <span class="text-blue-300">response</span> = <span class="text-blue-300">llm</span>.<span class="text-yellow-300">generate</span>(<span class="text-orange-300">prompt</span>)
-    <span class="text-purple-400">return</span> <span class="text-blue-300">response</span>
+<span class="text-purple-400">@</span><span class="text-yellow-300">tool</span>(<span class="text-orange-300">name</span>=<span class="text-green-400">"search"</span>)
+<span class="text-purple-400">def</span> <span class="text-yellow-300">search</span>(<span class="text-orange-300">query</span>: <span class="text-blue-300">str</span>) -> <span class="text-blue-300">dict</span>:
+    <span class="text-purple-400">return</span> <span class="text-blue-300">search_api</span>.<span class="text-yellow-300">query</span>(<span class="text-orange-300">query</span>)
+
+<span class="text-purple-400">@</span><span class="text-yellow-300">agent</span>(<span class="text-orange-300">name</span>=<span class="text-green-400">"assistant"</span>)
+<span class="text-purple-400">def</span> <span class="text-yellow-300">assistant</span>(<span class="text-orange-300">prompt</span>):
+    <span class="text-blue-300">data</span> = <span class="text-yellow-300">search</span>(<span class="text-orange-300">prompt</span>)
+    <span class="text-purple-400">return</span> <span class="text-blue-300">llm</span>.<span class="text-yellow-300">generate</span>(<span class="text-orange-300">prompt</span>, <span class="text-orange-300">context</span>=<span class="text-blue-300">data</span>)
 
 <span class="text-slate-500"># Automatic OTEL traces captured</span>
-<span class="text-blue-300">result</span> = <span class="text-yellow-300">process_request</span>(<span class="text-green-400">"Hello AI"</span>)</code></pre>
+<span class="text-blue-300">result</span> = <span class="text-yellow-300">assistant</span>(<span class="text-green-400">"Hello AI"</span>)</code></pre>
         </div>
       </div>
 

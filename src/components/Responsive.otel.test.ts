@@ -235,17 +235,16 @@ describe('OTEL Redesign - Responsive Layout Tests', () => {
   });
 
   describe('Footer - Responsive Columns', () => {
-    it('should stack footer columns: 1 mobile, 2 tablet, 4 desktop', () => {
+    it('should use flex layout for responsive footer (columns removed)', () => {
       const footerContent = readFileSync(
         join(process.cwd(), 'src/components/Footer.astro'),
         'utf-8'
       );
 
-      // Check for responsive grid columns
-      expect(footerContent).toContain('grid-cols-1');
-      expect(footerContent).toMatch(/md:grid-cols-2/);
-      expect(footerContent).toMatch(/lg:grid-cols-4/);
-      
+      // Footer uses flex-col/flex-row instead of grid columns (columns were removed)
+      expect(footerContent).toContain('flex-col');
+      expect(footerContent).toContain('md:flex-row');
+
       // Validates: Requirements 9.6, 12.4, 12.5
     });
 

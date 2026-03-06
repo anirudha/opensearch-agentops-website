@@ -441,7 +441,7 @@ const features = [
     visual: 'code',
     visualContent: {
       language: 'python',
-      code: `from agentops import trace\n\n@trace\ndef my_llm_call():\n    ...`,
+      code: `from opentelemetry import trace\n\n@trace\ndef my_llm_call():\n    ...`,
     },
     imagePosition: 'right',
   },

@@ -166,12 +166,12 @@ describe('OpenSource Component - Unit Tests', () => {
         <section id="open-source">
           <div class="flex flex-col sm:flex-row gap-4">
             <a 
-              href="https://github.com/opensearch-project/agentops"
+              href="https://github.com/opensearch-project/observability-stack"
               target="_blank"
               rel="noopener noreferrer"
               class="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-lg"
               data-analytics="cta_view_github"
-              data-github-url="https://github.com/opensearch-project/agentops"
+              data-github-url="https://github.com/opensearch-project/observability-stack"
             >
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"></svg>
               View on GitHub
@@ -193,7 +193,7 @@ describe('OpenSource Component - Unit Tests', () => {
     it('should have correct GitHub URL', () => {
       const githubButton = container.querySelector('[data-analytics="cta_view_github"]');
 
-      expect(githubButton?.getAttribute('href')).toBe('https://github.com/opensearch-project/agentops');
+      expect(githubButton?.getAttribute('href')).toBe('https://github.com/opensearch-project/observability-stack');
     });
 
     it('should open in new tab', () => {
@@ -458,7 +458,7 @@ describe('OpenSource Component - Unit Tests', () => {
           <div class="flex flex-col items-center gap-6">
             <div class="flex flex-col sm:flex-row gap-4">
               <a 
-                href="https://github.com/opensearch-project/agentops"
+                href="https://github.com/opensearch-project/observability-stack"
                 data-analytics="cta_view_github"
               >
                 View on GitHub
