@@ -1,7 +1,11 @@
 ---
 title: "FAQ"
 description: "Common questions about the OpenSearch AI Observability SDKs"
+sidebar:
+  order: 3
 ---
+
+import { Aside } from '@astrojs/starlight/components';
 
 ## Do I need to modify my LLM library calls to get traces?
 
@@ -24,6 +28,10 @@ Yes. `auth="auto"` (the default) only enables SigV4 for `*.amazonaws.com` endpoi
 ```python
 register(endpoint="http://my-collector:4318/v1/traces")
 ```
+
+<Aside type="tip">
+No AWS account or credentials needed for self-hosted OpenSearch. Just point `endpoint` at your local collector or Data Prepper.
+</Aside>
 
 ## What is the performance overhead?
 
@@ -71,7 +79,11 @@ Yes. Scores are standard OTEL spans (`gen_ai.evaluation.result`) and travel thro
 Check that:
 - The `region` matches the endpoint's region
 - Your credentials have `osis:Ingest` permission (or `es:ESHttpPost` for OpenSearch Service)
-- You are using `https://` (HTTP), not `grpc://` — SigV4 + gRPC is not supported
+- You are using `https://` (HTTP), not `grpc://`
+
+<Aside type="caution">
+SigV4 + gRPC is not supported. Use `https://` (OTLP HTTP) for all AWS endpoints.
+</Aside>
 
 ## What `service` value should I use for SigV4?
 
