@@ -34,8 +34,8 @@ describe('CTASection Component - Unit Tests', () => {
                 Ready to Transform Your AI Development?
               </h2>
               <p class="text-lg md:text-xl text-white/90 mb-12 max-w-2xl mx-auto">
-                Join thousands of AI teams building better applications with unified observability, 
-                evaluation, and prompt management. Start free today.
+                Join thousands of AI teams building better applications with unified observability,
+                traces, metrics, dashboards, and AI agent tracing. Get started today.
               </p>
             </div>
           </div>
@@ -66,7 +66,7 @@ describe('CTASection Component - Unit Tests', () => {
       expect(subtext).toBeTruthy();
       expect(subtext?.textContent).toContain('Join thousands of AI teams');
       expect(subtext?.textContent).toContain('unified observability');
-      expect(subtext?.textContent).toContain('Start free today');
+      expect(subtext?.textContent).toContain('Get started today');
     });
 
     it('should have responsive headline sizing', () => {
@@ -117,67 +117,67 @@ describe('CTASection Component - Unit Tests', () => {
       const ctaSectionHTML = `
         <section id="cta-final">
           <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            <a 
-              href="/signup" 
+            <a
+              href="https://github.com/opensearch-project/observability-stack"
               class="px-8 py-4 bg-white hover:bg-slate-100 text-indigo-600 font-semibold rounded-lg transition-colors duration-200 shadow-lg"
               data-analytics="cta_final_start_trial"
             >
-              Start Free Trial
+              Get Started
             </a>
-            <a 
-              href="/contact-sales" 
+            <a
+              href="/opensearch-agentops-website/docs/"
               class="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-lg transition-colors duration-200 border border-white/30 backdrop-blur-sm"
-              data-analytics="cta_final_talk_sales"
+              data-analytics="cta_final_view_docs"
             >
-              Talk to Sales
+              View Docs
             </a>
           </div>
         </section>
       `;
-      
+
       container.innerHTML = ctaSectionHTML;
     });
 
     it('should render primary CTA button', () => {
-      const primaryCTA = container.querySelector('a[href="/signup"]');
+      const primaryCTA = container.querySelector('a[href="https://github.com/opensearch-project/observability-stack"]');
 
       expect(primaryCTA).toBeTruthy();
-      expect(primaryCTA?.textContent?.trim()).toBe('Start Free Trial');
+      expect(primaryCTA?.textContent?.trim()).toBe('Get Started');
     });
 
     it('should render secondary CTA button', () => {
-      const secondaryCTA = container.querySelector('a[href="/contact-sales"]');
+      const secondaryCTA = container.querySelector('a[href="/opensearch-agentops-website/docs/"]');
 
       expect(secondaryCTA).toBeTruthy();
-      expect(secondaryCTA?.textContent?.trim()).toBe('Talk to Sales');
+      expect(secondaryCTA?.textContent?.trim()).toBe('View Docs');
     });
 
     it('should have correct href on primary CTA', () => {
-      const primaryCTA = container.querySelector('a[href="/signup"]');
+      const primaryCTA = container.querySelector('a[href="https://github.com/opensearch-project/observability-stack"]');
 
-      expect(primaryCTA?.getAttribute('href')).toBe('/signup');
+      expect(primaryCTA?.getAttribute('href')).toBe('https://github.com/opensearch-project/observability-stack');
     });
 
     it('should have correct href on secondary CTA', () => {
-      const secondaryCTA = container.querySelector('a[href="/contact-sales"]');
+      const secondaryCTA = container.querySelector('a[href="/opensearch-agentops-website/docs/"]');
 
-      expect(secondaryCTA?.getAttribute('href')).toBe('/contact-sales');
+      expect(secondaryCTA?.getAttribute('href')).toBe('/opensearch-agentops-website/docs/');
     });
 
     it('should have analytics tracking on primary CTA', () => {
-      const primaryCTA = container.querySelector('a[href="/signup"]');
+      const primaryCTA = container.querySelector('a[href="https://github.com/opensearch-project/observability-stack"]');
 
       expect(primaryCTA?.getAttribute('data-analytics')).toBe('cta_final_start_trial');
     });
 
     it('should have analytics tracking on secondary CTA', () => {
-      const secondaryCTA = container.querySelector('a[href="/contact-sales"]');
+      const secondaryCTA = container.querySelector('a[href="/opensearch-agentops-website/docs/"]');
 
-      expect(secondaryCTA?.getAttribute('data-analytics')).toBe('cta_final_talk_sales');
+      expect(secondaryCTA?.getAttribute('data-analytics')).toBe('cta_final_view_docs');
     });
 
     it('should have primary styling on primary CTA', () => {
-      const primaryCTA = container.querySelector('a[href="/signup"]');
+      const primaryCTA = container.querySelector('a[href="https://github.com/opensearch-project/observability-stack"]');
 
       expect(primaryCTA?.classList.contains('bg-white')).toBe(true);
       expect(primaryCTA?.classList.contains('hover:bg-slate-100')).toBe(true);
@@ -186,7 +186,7 @@ describe('CTASection Component - Unit Tests', () => {
     });
 
     it('should have secondary styling on secondary CTA', () => {
-      const secondaryCTA = container.querySelector('a[href="/contact-sales"]');
+      const secondaryCTA = container.querySelector('a[href="/opensearch-agentops-website/docs/"]');
 
       expect(secondaryCTA?.classList.contains('bg-white/10')).toBe(true);
       expect(secondaryCTA?.classList.contains('hover:bg-white/20')).toBe(true);
@@ -216,8 +216,8 @@ describe('CTASection Component - Unit Tests', () => {
     });
 
     it('should have correct padding on CTAs', () => {
-      const primaryCTA = container.querySelector('a[href="/signup"]');
-      const secondaryCTA = container.querySelector('a[href="/contact-sales"]');
+      const primaryCTA = container.querySelector('a[href="https://github.com/opensearch-project/observability-stack"]');
+      const secondaryCTA = container.querySelector('a[href="/opensearch-agentops-website/docs/"]');
 
       expect(primaryCTA?.classList.contains('px-8')).toBe(true);
       expect(primaryCTA?.classList.contains('py-4')).toBe(true);
@@ -226,8 +226,8 @@ describe('CTASection Component - Unit Tests', () => {
     });
 
     it('should have rounded corners on CTAs', () => {
-      const primaryCTA = container.querySelector('a[href="/signup"]');
-      const secondaryCTA = container.querySelector('a[href="/contact-sales"]');
+      const primaryCTA = container.querySelector('a[href="https://github.com/opensearch-project/observability-stack"]');
+      const secondaryCTA = container.querySelector('a[href="/opensearch-agentops-website/docs/"]');
 
       expect(primaryCTA?.classList.contains('rounded-lg')).toBe(true);
       expect(secondaryCTA?.classList.contains('rounded-lg')).toBe(true);
@@ -247,7 +247,7 @@ describe('CTASection Component - Unit Tests', () => {
               <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span class="text-sm font-semibold text-white">70% Cost Savings</span>
+              <span class="text-sm font-semibold text-white">Zero Lock-in</span>
             </div>
 
             <div class="flex flex-col items-center gap-2 p-4 rounded-lg bg-white/10 border border-white/20 backdrop-blur-sm">
@@ -268,7 +268,7 @@ describe('CTASection Component - Unit Tests', () => {
               <svg class="w-8 h-8 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
-              <span class="text-sm font-semibold text-white">SOC 2 & HIPAA Ready</span>
+              <span class="text-sm font-semibold text-white">OTel Native</span>
             </div>
           </div>
         </section>
@@ -283,9 +283,9 @@ describe('CTASection Component - Unit Tests', () => {
       expect(badges.length).toBe(4);
     });
 
-    it('should render "70% Cost Savings" badge', () => {
+    it('should render "Zero Lock-in" badge', () => {
       const badge = Array.from(container.querySelectorAll('span')).find(
-        span => span.textContent?.trim() === '70% Cost Savings'
+        span => span.textContent?.trim() === 'Zero Lock-in'
       );
 
       expect(badge).toBeTruthy();
@@ -307,9 +307,9 @@ describe('CTASection Component - Unit Tests', () => {
       expect(badge).toBeTruthy();
     });
 
-    it('should render "SOC 2 & HIPAA Ready" badge', () => {
+    it('should render "OTel Native" badge', () => {
       const badge = Array.from(container.querySelectorAll('span')).find(
-        span => span.textContent?.trim() === 'SOC 2 & HIPAA Ready'
+        span => span.textContent?.trim() === 'OTel Native'
       );
 
       expect(badge).toBeTruthy();

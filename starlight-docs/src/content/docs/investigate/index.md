@@ -11,9 +11,9 @@ Discover provides three signal-specific querying experiences:
 
 | Signal | Query language | Guide |
 |---|---|---|
-| Logs | Piped Processing Language (PPL) | [Explore Logs](/opensearch-agentops-website/docs/investigate/explore-logs/) |
-| Traces | Piped Processing Language (PPL) | [Explore Traces](/opensearch-agentops-website/docs/investigate/explore-traces/) |
-| Metrics | PromQL | [Explore Metrics](/opensearch-agentops-website/docs/investigate/explore-metrics/) |
+| Logs | Piped Processing Language (PPL) | [Discover Logs](/opensearch-agentops-website/docs/investigate/discover-logs/) |
+| Traces | Piped Processing Language (PPL) | [Discover Traces](/opensearch-agentops-website/docs/investigate/discover-traces/) |
+| Metrics | PromQL | [Discover Metrics](/opensearch-agentops-website/docs/investigate/discover-metrics/) |
 
 Each guide covers searching and filtering, query examples, cross-signal correlation, outlier detection, and time range comparisons for that signal type.
 
@@ -55,7 +55,7 @@ source = otel-v1-apm-span-*
 | head 10
 ```
 
-For the full PPL command reference, see the [PPL documentation](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/index.md). For hands-on examples using OTEL data, see [Explore Logs](/opensearch-agentops-website/docs/investigate/explore-logs/) and [Explore Traces](/opensearch-agentops-website/docs/investigate/explore-traces/).
+For the full PPL command reference, see the [PPL documentation](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/index.md). For hands-on examples using OTEL data, see [Discover Logs](/opensearch-agentops-website/docs/investigate/discover-logs/) and [Discover Traces](/opensearch-agentops-website/docs/investigate/discover-traces/).
 
 ### PromQL
 
@@ -131,10 +131,6 @@ Once you've built a visualization that tells the right story, you can save it di
 
 For more on building and managing dashboards, see the [Dashboards documentation](/opensearch-agentops-website/docs/dashboards/).
 
-## Alerts (coming soon)
-
-In a future release, analysts will be able to reuse their Discover queries to create alerts. This will allow you to set threshold-based notifications directly from the same query you used during investigation — no need to rebuild the logic in a separate alerting workflow.
-
 ## Save and share queries
 
 When your investigation is complete, save your query for future use and share it with team members:
@@ -143,6 +139,14 @@ When your investigation is complete, save your query for future use and share it
 - **Share:** Share your saved query with team members so they can rerun the same investigation, build on your work, or use it as a starting point for their own analysis.
 
 Saved queries become reusable building blocks — use them to standardize investigation runbooks, onboard new team members, or create a library of common diagnostic queries for your organization.
+
+## Datasets
+
+Datasets provide a unified way to discover and select data sources for your queries. Instead of manually typing index patterns, browse available log, trace, and metric indices from the dataset selector in Discover. See [Datasets](/opensearch-agentops-website/docs/investigate/datasets/) for details.
+
+## Correlations
+
+Correlations let you jump between related signals — linking a log entry to the trace that produced it, or navigating from a slow trace to the associated logs. See [Correlations](/opensearch-agentops-website/docs/investigate/correlations/) for details.
 
 ## Troubleshooting
 

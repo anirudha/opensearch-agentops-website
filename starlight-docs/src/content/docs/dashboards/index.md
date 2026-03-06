@@ -14,7 +14,7 @@ Dashboards serve different audiences and purposes:
 | Operational monitoring | Service health overview with error rates, latency, and throughput |
 | Incident response | Real-time view of affected services, error spikes, and trace failures |
 | Capacity planning | Resource utilization trends over days or weeks |
-| SLO tracking | Error budget burn rate, availability percentages |
+| Availability tracking | Service uptime, error rates, and availability percentages |
 | Post-incident review | Side-by-side comparison of metrics before and after a deployment |
 
 ## How dashboards connect to Discover

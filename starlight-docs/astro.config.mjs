@@ -5,7 +5,7 @@ import mermaid from 'astro-mermaid';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://anirudha.github.io',
+	site: 'https://opensearch-project.github.io',
 	base: '/opensearch-agentops-website/docs',
 	integrations: [
 		mermaid({
@@ -16,66 +16,54 @@ export default defineConfig({
 			logo: {
 				src: './src/assets/opensearch-logo-darkmode.svg',
 			},
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/anirudha/opensearch-agentops-website' }],
+			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/opensearch-project/observability-stack' }],
 			components: {
 				Header: './src/components/CustomHeader.astro',
 			},
 			sidebar: [
 				{
-					label: '🚀 Get Started',
+					label: 'Get Started',
 					autogenerate: { directory: 'get-started' },
 				},
 				{
-					label: '📡 Send Data',
+					label: 'Send Data',
 					autogenerate: { directory: 'send-data' },
 				},
 				{
-					label: '🔍 Investigate',
+					label: 'Investigate',
 					autogenerate: { directory: 'investigate' },
 				},
 				{
-					label: '🗺️ Service Map & APM',
+					label: 'Application Monitoring',
 					autogenerate: { directory: 'apm' },
 				},
 				{
-					label: '📊 Dashboards & Visualize',
+					label: 'Dashboards & Visualize',
 					autogenerate: { directory: 'dashboards' },
 				},
 				{
-					label: '🔔 Alerts & Notifications',
-					autogenerate: { directory: 'alerts' },
-				},
-				{
-					label: '🎯 SLOs & SLIs',
-					autogenerate: { directory: 'slos' },
-				},
-				{
-					label: '📋 Logs',
-					autogenerate: { directory: 'logs' },
-				},
-				{
-					label: '📈 Metrics',
-					autogenerate: { directory: 'metrics' },
-				},
-				{
-					label: '🔗 Traces',
-					autogenerate: { directory: 'traces' },
-				},
-				{
-					label: '🤖 AI Observability',
+					label: 'AI Observability',
 					autogenerate: { directory: 'ai-observability' },
 				},
 				{
-					label: '🔌 Integrations',
-					autogenerate: { directory: 'integrations' },
+					label: 'MCP Server',
+					autogenerate: { directory: 'mcp' },
 				},
 				{
-					label: '📦 SDKs & API',
+					label: 'Alerting',
+					autogenerate: { directory: 'alerting' },
+				},
+				{
+					label: 'Anomaly Detection',
+					autogenerate: { directory: 'anomaly-detection' },
+				},
+				{
+					label: 'Forecasting',
+					autogenerate: { directory: 'forecasting' },
+				},
+				{
+					label: 'SDKs & API',
 					autogenerate: { directory: 'sdks' },
-				},
-				{
-					label: '⚙️ Configure',
-					autogenerate: { directory: 'configure' },
 				},
 			],
 		}),

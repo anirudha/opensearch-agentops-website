@@ -118,5 +118,5 @@ When reporting a dashboard issue:
 3. Check the browser console for errors
 4. Try the same query directly in Discover — if it works there but not on the dashboard, the issue is in the panel configuration
 5. Export the dashboard JSON (Share → Export) to preserve the exact configuration for debugging
-6. Ask in the [OpenSearch Slack workspace](https://opensearch.org/slack) — the community is active and responsive
+6. Ask in the [#observability channel](https://opensearch.org/slack) on the OpenSearch Slack workspace — the community is active and responsive
 7. Search or file an issue on the [OpenSearch GitHub repo](https://github.com/opensearch-project/OpenSearch-Dashboards) for bugs or feature requests

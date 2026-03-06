@@ -8,7 +8,7 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://anirudha.github.io',
+  site: 'https://opensearch-project.github.io',
   base: '/opensearch-agentops-website',
   integrations: [sitemap(), react()],
   vite: {

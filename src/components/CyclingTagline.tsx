@@ -6,17 +6,17 @@ const taglines = [
   { label: 'Services', text: 'See every request, every dependency, every bottleneck', color: 'text-cyan-400' },
   { label: 'Services', text: 'From microservices to monoliths—full visibility', color: 'text-cyan-400' },
   // Metrics (emerald)
-  { label: 'Metrics', text: 'Prometheus metrics, custom dashboards, SLO/SLI tracking', color: 'text-emerald-400' },
-  { label: 'Metrics', text: 'Anomaly detection and forecasting built in', color: 'text-emerald-400' },
+  { label: 'Metrics', text: 'Prometheus metrics, PromQL queries, and custom dashboards', color: 'text-emerald-400' },
+  { label: 'Metrics', text: 'RED metrics computed automatically from trace data', color: 'text-emerald-400' },
   { label: 'Metrics', text: 'Real-time dashboards for the signals that matter', color: 'text-emerald-400' },
   // Logs (amber)
   { label: 'Logs', text: 'Correlate logs with traces—debug in minutes, not days', color: 'text-amber-400' },
-  { label: 'Logs', text: 'Structured logging, search, and alerting at scale', color: 'text-amber-400' },
+  { label: 'Logs', text: 'Full-text search with PPL structured queries', color: 'text-amber-400' },
   { label: 'Logs', text: 'From ingestion to insight, all in one place', color: 'text-amber-400' },
   // AI (orange)
-  { label: 'AI Agents', text: 'Agent tracing, local evals, and LLM observability', color: 'text-orange-400' },
+  { label: 'AI Agents', text: 'Agent tracing with GenAI semantic conventions and MCP support', color: 'text-orange-400' },
   { label: 'AI Agents', text: 'Your agents aren\'t black boxes anymore', color: 'text-orange-400' },
-  { label: 'AI Agents', text: 'Evals, prompt management, and cost tracking for LLMs', color: 'text-orange-400' },
+  { label: 'AI Agents', text: 'Trace graphs, token usage, and tool calls for every agent run', color: 'text-orange-400' },
 ];
 
 export function CyclingTagline() {

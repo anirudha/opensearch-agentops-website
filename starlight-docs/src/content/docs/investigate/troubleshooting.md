@@ -105,5 +105,5 @@ If you've exhausted these techniques:
 3. Try running a simplified version of the query (just `source = index | head 10`) to confirm basic connectivity
 4. Check OpenSearch cluster health and resource usage
 5. Consult the [PPL documentation](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/index.md) or [PromQL documentation](https://prometheus.io/docs/prometheus/latest/querying/basics/) for syntax reference
-6. Ask in the [OpenSearch Slack workspace](https://opensearch.org/slack) — the community is active and responsive
+6. Ask in the [#observability channel](https://opensearch.org/slack) on the OpenSearch Slack workspace — the community is active and responsive
 7. Search or file an issue on the [OpenSearch GitHub repo](https://github.com/opensearch-project/OpenSearch) for bugs or feature requests
