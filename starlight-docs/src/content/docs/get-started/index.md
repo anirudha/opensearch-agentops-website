@@ -16,7 +16,7 @@ The OpenSearch Observability Stack is an open-source, OpenTelemetry-native obser
 Run the interactive installer:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/opensearch-project/agentops/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/opensearch-project/observability-stack/main/install.sh | bash
 ```
 
 The installer TUI guides you through component selection and configuration. Once complete, the stack starts automatically.

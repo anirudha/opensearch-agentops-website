@@ -18,21 +18,25 @@ const tabs: Tab[] = [
     id: 'quick',
     label: 'Quickest',
     timing: '5 min',
-    title: 'Pre-Instrumented Framework',
-    description: 'Zero configuration. Just import and go. Perfect for getting started fast.',
+    title: 'GenAI SDK',
+    description: 'One-line setup with automatic OpenTelemetry instrumentation. Decorators for agents, tools, and workflows.',
     language: 'python',
-    code: `from agentops import Client
+    code: `from opensearch_genai_sdk_py import register, agent, tool
 
-# One line initialization
-agentops.init(api_key="your_key")
+# One-line setup — configures OTEL pipeline automatically
+register(service_name="my-app")
 
-# Your existing code works as-is
-def my_agent_function(prompt):
-    response = llm.generate(prompt)
-    return response
+@tool(name="get_weather")
+def get_weather(city: str) -> dict:
+    return {"city": city, "temp": 22, "condition": "sunny"}
+
+@agent(name="weather_assistant")
+def assistant(query: str) -> str:
+    data = get_weather("Paris")
+    return f"{data['condition']}, {data['temp']}C"
 
 # Automatic OTEL traces, metrics, and logs
-result = my_agent_function("Hello AI")`,
+result = assistant("What's the weather?")`,
     benefits: [
       'Zero configuration required',
       'Automatic instrumentation of popular frameworks',
@@ -51,11 +55,11 @@ result = my_agent_function("Hello AI")`,
     code: `from opentelemetry import trace
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
-from agentops.exporters import AgentOpsExporter
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
 
-# Configure OTEL with Observability Stack exporter
+# Configure OTEL with Observability Stack
 provider = TracerProvider()
-exporter = AgentOpsExporter(api_key="your_key")
+exporter = OTLPSpanExporter(endpoint="http://localhost:4317")
 provider.add_span_processor(BatchSpanProcessor(exporter))
 trace.set_tracer_provider(provider)
 
@@ -64,10 +68,9 @@ tracer = trace.get_tracer(__name__)
 
 with tracer.start_as_current_span("agent_task"):
     response = llm.generate(prompt)
-    # Full control over span attributes
     span = trace.get_current_span()
-    span.set_attribute("llm.model", "gpt-4")
-    span.set_attribute("llm.tokens", 150)`,
+    span.set_attribute("gen_ai.request.model", "gpt-4")
+    span.set_attribute("gen_ai.usage.output_tokens", 150)`,
     benefits: [
       'Standard OTEL APIs - no vendor lock-in',
       'Full control over spans and attributes',
@@ -84,13 +87,12 @@ with tracer.start_as_current_span("agent_task"):
     description: 'Already using OTEL? Just point your exporter to Observability Stack. Keep your existing setup.',
     language: 'python',
     code: `from opentelemetry.sdk.trace.export import BatchSpanProcessor
-from agentops.exporters import AgentOpsExporter
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
 
 # Add Observability Stack as an additional exporter
 # Keep your existing OTEL configuration
-exporter = AgentOpsExporter(
-    endpoint="https://api.agentops.ai/v1/traces",
-    api_key="your_key"
+exporter = OTLPSpanExporter(
+    endpoint="http://localhost:4317"
 )
 
 # Add to your existing trace provider

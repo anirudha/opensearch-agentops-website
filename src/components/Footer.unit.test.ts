@@ -1,6 +1,6 @@
 /**
  * Unit tests for Footer component
- * Requirements: 13.1, 13.2, 13.3, 13.4, 13.5, 13.6
+ * Requirements: 13.1, 13.6
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
@@ -18,297 +18,33 @@ describe('Footer Component - Unit Tests', () => {
   });
 
   /**
-   * Test: All four columns render
+   * Test: No footer column nav exists (columns were removed)
    * Requirements: 13.1
    */
-  describe('Footer Columns Rendering', () => {
-    it('should render all four footer columns', () => {
+  describe('Footer Columns Removed', () => {
+    it('should not render any footer columns', () => {
       const footerHTML = `
         <footer id="footer">
-          <div class="footer-column">
-            <h3>Product</h3>
-          </div>
-          <div class="footer-column">
-            <h3>Resources</h3>
-          </div>
-          <div class="footer-column">
-            <h3>Company</h3>
-          </div>
-          <div class="footer-column">
-            <h3>Legal</h3>
+          <div class="container mx-auto px-6">
+            <div>
+              <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex flex-col md:flex-row items-center gap-4">
+                  <a href="/"><span>Observability Stack</span></a>
+                  <p id="copyright-notice">© 2026 OpenSearch - Observability Stack. All rights reserved.</p>
+                </div>
+                <div id="social-links"></div>
+              </div>
+            </div>
           </div>
         </footer>
       `;
-      
+
       container.innerHTML = footerHTML;
       const columns = container.querySelectorAll('.footer-column');
+      const nav = container.querySelector('nav[aria-label="Footer navigation"]');
 
-      expect(columns).toBeTruthy();
-      expect(columns.length).toBe(4);
-    });
-
-    it('should render Product column with correct title', () => {
-      const footerHTML = `
-        <footer>
-          <div class="footer-column">
-            <h3>Product</h3>
-          </div>
-        </footer>
-      `;
-      
-      container.innerHTML = footerHTML;
-      const heading = container.querySelector('h3');
-
-      expect(heading).toBeTruthy();
-      expect(heading?.textContent).toBe('Product');
-    });
-
-    it('should render Resources column with correct title', () => {
-      const footerHTML = `
-        <footer>
-          <div class="footer-column">
-            <h3>Resources</h3>
-          </div>
-        </footer>
-      `;
-      
-      container.innerHTML = footerHTML;
-      const heading = container.querySelector('h3');
-
-      expect(heading).toBeTruthy();
-      expect(heading?.textContent).toBe('Resources');
-    });
-
-    it('should render Company column with correct title', () => {
-      const footerHTML = `
-        <footer>
-          <div class="footer-column">
-            <h3>Company</h3>
-          </div>
-        </footer>
-      `;
-      
-      container.innerHTML = footerHTML;
-      const heading = container.querySelector('h3');
-
-      expect(heading).toBeTruthy();
-      expect(heading?.textContent).toBe('Company');
-    });
-
-    it('should render Legal column with correct title', () => {
-      const footerHTML = `
-        <footer>
-          <div class="footer-column">
-            <h3>Legal</h3>
-          </div>
-        </footer>
-      `;
-      
-      container.innerHTML = footerHTML;
-      const heading = container.querySelector('h3');
-
-      expect(heading).toBeTruthy();
-      expect(heading?.textContent).toBe('Legal');
-    });
-  });
-
-  /**
-   * Test: Each column has correct links
-   * Requirements: 13.2, 13.3, 13.4, 13.5
-   */
-  describe('Product Column Links', () => {
-    beforeEach(() => {
-      const productColumnHTML = `
-        <footer>
-          <div class="footer-column">
-            <h3>Product</h3>
-            <ul>
-              <li><a href="#features">Features</a></li>
-              <li><a href="#pricing">Pricing</a></li>
-              <li><a href="/changelog">Changelog</a></li>
-              <li><a href="/roadmap">Roadmap</a></li>
-            </ul>
-          </div>
-        </footer>
-      `;
-      container.innerHTML = productColumnHTML;
-    });
-
-    it('should have Features link', () => {
-      const link = container.querySelector('a[href="#features"]');
-      expect(link).toBeTruthy();
-      expect(link?.textContent).toBe('Features');
-    });
-
-    it('should have Pricing link', () => {
-      const link = container.querySelector('a[href="#pricing"]');
-      expect(link).toBeTruthy();
-      expect(link?.textContent).toBe('Pricing');
-    });
-
-    it('should have Changelog link', () => {
-      const link = container.querySelector('a[href="/changelog"]');
-      expect(link).toBeTruthy();
-      expect(link?.textContent).toBe('Changelog');
-    });
-
-    it('should have Roadmap link', () => {
-      const link = container.querySelector('a[href="/roadmap"]');
-      expect(link).toBeTruthy();
-      expect(link?.textContent).toBe('Roadmap');
-    });
-
-    it('should have all four Product links', () => {
-      const links = container.querySelectorAll('a');
-      expect(links.length).toBe(4);
-    });
-  });
-
-  describe('Resources Column Links', () => {
-    beforeEach(() => {
-      const resourcesColumnHTML = `
-        <footer>
-          <div class="footer-column">
-            <h3>Resources</h3>
-            <ul>
-              <li><a href="https://docs.opensearch.org" target="_blank" rel="noopener noreferrer">Documentation</a></li>
-              <li><a href="https://docs.opensearch.org/api" target="_blank" rel="noopener noreferrer">API Reference</a></li>
-              <li><a href="/tutorials">Tutorials</a></li>
-              <li><a href="/blog">Blog</a></li>
-            </ul>
-          </div>
-        </footer>
-      `;
-      container.innerHTML = resourcesColumnHTML;
-    });
-
-    it('should have Documentation link as external', () => {
-      const link = container.querySelector('a[href="https://docs.opensearch.org"]');
-      expect(link).toBeTruthy();
-      expect(link?.textContent).toBe('Documentation');
-      expect(link?.getAttribute('target')).toBe('_blank');
-      expect(link?.getAttribute('rel')).toBe('noopener noreferrer');
-    });
-
-    it('should have API Reference link as external', () => {
-      const link = container.querySelector('a[href="https://docs.opensearch.org/api"]');
-      expect(link).toBeTruthy();
-      expect(link?.textContent).toBe('API Reference');
-      expect(link?.getAttribute('target')).toBe('_blank');
-      expect(link?.getAttribute('rel')).toBe('noopener noreferrer');
-    });
-
-    it('should have Tutorials link', () => {
-      const link = container.querySelector('a[href="/tutorials"]');
-      expect(link).toBeTruthy();
-      expect(link?.textContent).toBe('Tutorials');
-    });
-
-    it('should have Blog link', () => {
-      const link = container.querySelector('a[href="/blog"]');
-      expect(link).toBeTruthy();
-      expect(link?.textContent).toBe('Blog');
-    });
-
-    it('should have all four Resources links', () => {
-      const links = container.querySelectorAll('a');
-      expect(links.length).toBe(4);
-    });
-  });
-
-  describe('Company Column Links', () => {
-    beforeEach(() => {
-      const companyColumnHTML = `
-        <footer>
-          <div class="footer-column">
-            <h3>Company</h3>
-            <ul>
-              <li><a href="/about">About</a></li>
-              <li><a href="/careers">Careers</a></li>
-              <li><a href="/contact">Contact</a></li>
-              <li><a href="/press">Press</a></li>
-            </ul>
-          </div>
-        </footer>
-      `;
-      container.innerHTML = companyColumnHTML;
-    });
-
-    it('should have About link', () => {
-      const link = container.querySelector('a[href="/about"]');
-      expect(link).toBeTruthy();
-      expect(link?.textContent).toBe('About');
-    });
-
-    it('should have Careers link', () => {
-      const link = container.querySelector('a[href="/careers"]');
-      expect(link).toBeTruthy();
-      expect(link?.textContent).toBe('Careers');
-    });
-
-    it('should have Contact link', () => {
-      const link = container.querySelector('a[href="/contact"]');
-      expect(link).toBeTruthy();
-      expect(link?.textContent).toBe('Contact');
-    });
-
-    it('should have Press link', () => {
-      const link = container.querySelector('a[href="/press"]');
-      expect(link).toBeTruthy();
-      expect(link?.textContent).toBe('Press');
-    });
-
-    it('should have all four Company links', () => {
-      const links = container.querySelectorAll('a');
-      expect(links.length).toBe(4);
-    });
-  });
-
-  describe('Legal Column Links', () => {
-    beforeEach(() => {
-      const legalColumnHTML = `
-        <footer>
-          <div class="footer-column">
-            <h3>Legal</h3>
-            <ul>
-              <li><a href="/privacy">Privacy</a></li>
-              <li><a href="/terms">Terms</a></li>
-              <li><a href="/security">Security</a></li>
-              <li><a href="/gdpr">GDPR</a></li>
-            </ul>
-          </div>
-        </footer>
-      `;
-      container.innerHTML = legalColumnHTML;
-    });
-
-    it('should have Privacy link', () => {
-      const link = container.querySelector('a[href="/privacy"]');
-      expect(link).toBeTruthy();
-      expect(link?.textContent).toBe('Privacy');
-    });
-
-    it('should have Terms link', () => {
-      const link = container.querySelector('a[href="/terms"]');
-      expect(link).toBeTruthy();
-      expect(link?.textContent).toBe('Terms');
-    });
-
-    it('should have Security link', () => {
-      const link = container.querySelector('a[href="/security"]');
-      expect(link).toBeTruthy();
-      expect(link?.textContent).toBe('Security');
-    });
-
-    it('should have GDPR link', () => {
-      const link = container.querySelector('a[href="/gdpr"]');
-      expect(link).toBeTruthy();
-      expect(link?.textContent).toBe('GDPR');
-    });
-
-    it('should have all four Legal links', () => {
-      const links = container.querySelectorAll('a');
-      expect(links.length).toBe(4);
+      expect(columns.length).toBe(0);
+      expect(nav).toBeNull();
     });
   });
 
@@ -322,16 +58,16 @@ describe('Footer Component - Unit Tests', () => {
         <footer>
           <a href="/">
             <svg class="w-8 h-8"></svg>
-            <span>AgentOps</span>
+            <span>Observability Stack</span>
           </a>
         </footer>
       `;
-      
+
       container.innerHTML = footerHTML;
       const logoLink = container.querySelector('a[href="/"]');
 
       expect(logoLink).toBeTruthy();
-      expect(logoLink?.querySelector('span')?.textContent).toBe('AgentOps');
+      expect(logoLink?.querySelector('span')?.textContent).toBe('Observability Stack');
     });
 
     it('should have logo SVG element', () => {
@@ -342,7 +78,7 @@ describe('Footer Component - Unit Tests', () => {
           </a>
         </footer>
       `;
-      
+
       container.innerHTML = footerHTML;
       const svg = container.querySelector('svg');
 
@@ -354,16 +90,16 @@ describe('Footer Component - Unit Tests', () => {
       const currentYear = new Date().getFullYear();
       const footerHTML = `
         <footer>
-          <p id="copyright-notice">© ${currentYear} OpenSearch AgentOps. All rights reserved.</p>
+          <p id="copyright-notice">© ${currentYear} OpenSearch - Observability Stack. All rights reserved.</p>
         </footer>
       `;
-      
+
       container.innerHTML = footerHTML;
       const copyright = container.querySelector('#copyright-notice');
 
       expect(copyright).toBeTruthy();
       expect(copyright?.textContent).toContain(currentYear.toString());
-      expect(copyright?.textContent).toContain('OpenSearch AgentOps');
+      expect(copyright?.textContent).toContain('OpenSearch');
       expect(copyright?.textContent).toContain('All rights reserved');
     });
 
@@ -371,10 +107,10 @@ describe('Footer Component - Unit Tests', () => {
       const currentYear = new Date().getFullYear();
       const footerHTML = `
         <footer>
-          <p id="copyright-notice">© ${currentYear} OpenSearch AgentOps. All rights reserved.</p>
+          <p id="copyright-notice">© ${currentYear} OpenSearch - Observability Stack. All rights reserved.</p>
         </footer>
       `;
-      
+
       container.innerHTML = footerHTML;
       const copyright = container.querySelector('#copyright-notice');
 
@@ -391,16 +127,16 @@ describe('Footer Component - Unit Tests', () => {
       const socialLinksHTML = `
         <footer>
           <div id="social-links">
-            <a href="https://github.com/opensearch-project/agentops" target="_blank" rel="noopener noreferrer" aria-label="Visit our GitHub page">
+            <a href="https://github.com/opensearch-project/observability-stack" target="_blank" rel="noopener noreferrer" aria-label="Visit our GitHub page">
               <svg class="w-6 h-6"></svg>
             </a>
-            <a href="https://twitter.com/opensearch" target="_blank" rel="noopener noreferrer" aria-label="Visit our Twitter page">
+            <a href="https://x.com/OpenSearchProj" target="_blank" rel="noopener noreferrer" aria-label="Visit our X (Twitter) page">
               <svg class="w-6 h-6"></svg>
             </a>
-            <a href="https://discord.gg/opensearch" target="_blank" rel="noopener noreferrer" aria-label="Visit our Discord page">
+            <a href="https://opensearch.org/slack/" target="_blank" rel="noopener noreferrer" aria-label="Visit our Slack page">
               <svg class="w-6 h-6"></svg>
             </a>
-            <a href="https://linkedin.com/company/opensearch" target="_blank" rel="noopener noreferrer" aria-label="Visit our LinkedIn page">
+            <a href="https://www.linkedin.com/company/opensearch-project/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label="Visit our LinkedIn page">
               <svg class="w-6 h-6"></svg>
             </a>
           </div>
@@ -410,31 +146,31 @@ describe('Footer Component - Unit Tests', () => {
     });
 
     it('should have GitHub social link', () => {
-      const link = container.querySelector('a[href="https://github.com/opensearch-project/agentops"]');
+      const link = container.querySelector('a[href="https://github.com/opensearch-project/observability-stack"]');
       expect(link).toBeTruthy();
       expect(link?.getAttribute('target')).toBe('_blank');
       expect(link?.getAttribute('rel')).toBe('noopener noreferrer');
       expect(link?.getAttribute('aria-label')).toContain('GitHub');
     });
 
-    it('should have Twitter social link', () => {
-      const link = container.querySelector('a[href="https://twitter.com/opensearch"]');
+    it('should have X (Twitter) social link', () => {
+      const link = container.querySelector('a[href="https://x.com/OpenSearchProj"]');
       expect(link).toBeTruthy();
       expect(link?.getAttribute('target')).toBe('_blank');
       expect(link?.getAttribute('rel')).toBe('noopener noreferrer');
-      expect(link?.getAttribute('aria-label')).toContain('Twitter');
+      expect(link?.getAttribute('aria-label')).toContain('X (Twitter)');
     });
 
-    it('should have Discord social link', () => {
-      const link = container.querySelector('a[href="https://discord.gg/opensearch"]');
+    it('should have Slack social link', () => {
+      const link = container.querySelector('a[href="https://opensearch.org/slack/"]');
       expect(link).toBeTruthy();
       expect(link?.getAttribute('target')).toBe('_blank');
       expect(link?.getAttribute('rel')).toBe('noopener noreferrer');
-      expect(link?.getAttribute('aria-label')).toContain('Discord');
+      expect(link?.getAttribute('aria-label')).toContain('Slack');
     });
 
     it('should have LinkedIn social link', () => {
-      const link = container.querySelector('a[href="https://linkedin.com/company/opensearch"]');
+      const link = container.querySelector('a[href="https://www.linkedin.com/company/opensearch-project/posts/?feedView=all"]');
       expect(link).toBeTruthy();
       expect(link?.getAttribute('target')).toBe('_blank');
       expect(link?.getAttribute('rel')).toBe('noopener noreferrer');
@@ -461,48 +197,6 @@ describe('Footer Component - Unit Tests', () => {
   });
 
   /**
-   * Test: Responsive layout structure
-   * Requirements: 13.1
-   */
-  describe('Responsive Layout', () => {
-    it('should have grid layout classes for responsive design', () => {
-      const footerHTML = `
-        <footer>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-            <div class="footer-column"></div>
-            <div class="footer-column"></div>
-            <div class="footer-column"></div>
-            <div class="footer-column"></div>
-          </div>
-        </footer>
-      `;
-      
-      container.innerHTML = footerHTML;
-      const grid = container.querySelector('.grid');
-
-      expect(grid).toBeTruthy();
-      expect(grid?.classList.contains('grid-cols-1')).toBe(true);
-      expect(grid?.classList.contains('md:grid-cols-2')).toBe(true);
-      expect(grid?.classList.contains('lg:grid-cols-4')).toBe(true);
-    });
-
-    it('should have proper semantic footer element', () => {
-      const footerHTML = `
-        <footer id="footer">
-          <div>Content</div>
-        </footer>
-      `;
-      
-      container.innerHTML = footerHTML;
-      const footer = container.querySelector('footer');
-
-      expect(footer).toBeTruthy();
-      expect(footer?.tagName).toBe('FOOTER');
-      expect(footer?.getAttribute('id')).toBe('footer');
-    });
-  });
-
-  /**
    * Test: Footer styling and structure
    * Requirements: 13.1, 13.6
    */
@@ -512,7 +206,7 @@ describe('Footer Component - Unit Tests', () => {
         <footer class="bg-slate-950 border-t border-slate-800">
         </footer>
       `;
-      
+
       container.innerHTML = footerHTML;
       const footer = container.querySelector('footer');
 
@@ -527,7 +221,7 @@ describe('Footer Component - Unit Tests', () => {
           </div>
         </footer>
       `;
-      
+
       container.innerHTML = footerHTML;
       const footer = container.querySelector('footer');
       const containerDiv = footer?.querySelector('.container');
@@ -537,21 +231,19 @@ describe('Footer Component - Unit Tests', () => {
       expect(containerDiv?.classList.contains('px-6')).toBe(true);
     });
 
-    it('should have border separator for bottom section', () => {
+    it('should have proper semantic footer element', () => {
       const footerHTML = `
-        <footer>
-          <div class="border-t border-slate-800 pt-8">
-          </div>
+        <footer id="footer">
+          <div>Content</div>
         </footer>
       `;
-      
-      container.innerHTML = footerHTML;
-      const bottomSection = container.querySelector('.border-t');
 
-      expect(bottomSection).toBeTruthy();
-      expect(bottomSection?.classList.contains('border-slate-800')).toBe(true);
-      expect(bottomSection?.classList.contains('pt-8')).toBe(true);
+      container.innerHTML = footerHTML;
+      const footer = container.querySelector('footer');
+
+      expect(footer).toBeTruthy();
+      expect(footer?.tagName).toBe('FOOTER');
+      expect(footer?.getAttribute('id')).toBe('footer');
     });
   });
 });
-
