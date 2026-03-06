@@ -1,7 +1,11 @@
 ---
 title: "Python SDK"
 description: "Reference for opensearch-genai-sdk-py — OTEL-native tracing and scoring for LLM applications"
+sidebar:
+  order: 1
 ---
+
+import { Aside } from '@astrojs/starlight/components';
 
 `opensearch-genai-sdk-py` instruments Python LLM applications using standard OpenTelemetry. It configures the OTEL pipeline in one call, provides decorators for tracing your application logic, and emits evaluation scores through the same OTLP exporter.
 
@@ -359,9 +363,9 @@ register(
 
 Credentials are resolved via the standard botocore chain: `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` env vars → `~/.aws/credentials` → IAM role / IMDS.
 
-:::caution
+<Aside type="caution">
 SigV4 + gRPC is not supported. Use `https://` (OTLP HTTP) for AWS endpoints.
-:::
+</Aside>
 
 ### `AWSSigV4OTLPExporter`
 

@@ -1,6 +1,8 @@
 ---
 title: "JavaScript / TypeScript SDK"
 description: "Reference for opensearch-genai-sdk — OTEL-native tracing and scoring for LLM applications"
+sidebar:
+  order: 2
 ---
 
 `opensearch-genai-sdk` instruments Node.js LLM applications using standard OpenTelemetry. It configures the OTEL pipeline in one call, provides wrapper functions for tracing your application logic, and emits evaluation scores through the same OTLP exporter.
