@@ -1,11 +1,11 @@
 ---
 title: OpenSearch - Observability Stack
-description: Full-stack observability for services and AI — traces, logs, metrics, dashboards, alerts, SLOs, and agent observability.
+description: Full-stack observability for services and AI — traces, logs, metrics, dashboards, service maps, and agent tracing.
 ---
 
 ## Welcome to OpenSearch - Observability Stack
 
-OpenSearch Observability Stack is a comprehensive, open-source platform for full-stack observability. Monitor your services, infrastructure, and AI agents from a single pane of glass.
+OpenSearch Observability Stack is an open-source, OpenTelemetry-native platform for full-stack observability. Monitor your services, infrastructure, and AI agents from a single pane of glass.
 
 ## What You Can Do
 
@@ -15,34 +15,28 @@ Instrument your applications and infrastructure with OpenTelemetry. Collect trac
 ### Investigate
 Query, explore, and correlate your observability data. Drill into traces, search logs, and analyze metrics to find root causes fast.
 
-### Service Map & APM
+### Application Monitoring
 Visualize service dependencies, track latency and error rates, and monitor application performance across your distributed systems.
 
 ### Dashboards & Visualize
-Build custom dashboards with real-time panels, charts, and heatmaps. Share with your team and annotate with deployment markers.
-
-### Alerts & Notifications
-Define alert rules on metrics, logs, and traces. Get notified via Slack, PagerDuty, email, or webhooks. Anomaly detection and forecasting built in.
-
-### SLOs & SLIs
-Define service level objectives, track error budgets, and get burn-rate alerts. Meet your reliability targets with confidence.
+Build custom dashboards with real-time panels, charts, and heatmaps. Query metrics with PromQL and trace data with PPL.
 
 ### Logs
-Ingest, search, and correlate logs with traces. Pattern detection, structured queries, and log-based alerting at scale.
+Ingest, search, and correlate logs with traces. Full-text search with structured field queries using PPL.
 
 ### Metrics
-Prometheus-compatible metrics ingestion with PromQL support. Custom dashboards, anomaly detection, and time-series forecasting.
+Prometheus-compatible metrics ingestion with PromQL support. Custom dashboards and RED metrics computed from traces.
 
 ### Traces
-Distributed tracing with span-level detail. Trace context propagation, sampling strategies, and trace analytics.
+Distributed tracing with span-level detail. Trace context propagation, service maps, and trace analytics.
 
 ### AI Observability
-Trace AI agent workflows, run local evals, manage prompts, and track LLM costs. Full observability for your AI stack.
+Trace AI agent workflows with OpenTelemetry GenAI semantic conventions. Visualize agent execution graphs, monitor token usage, and debug agent behavior with Python and JavaScript SDKs.
 
 ## Quick Links
 
 - [Get Started](/opensearch-agentops-website/docs/get-started/)
 - [Send Data](/opensearch-agentops-website/docs/send-data/)
-- [Service Map & APM](/opensearch-agentops-website/docs/apm/)
+- [Application Monitoring](/opensearch-agentops-website/docs/apm/)
 - [AI Observability](/opensearch-agentops-website/docs/ai-observability/)
-- [GitHub Repository](https://github.com/anirudha/opensearch-agentops-website)
+- [GitHub Repository](https://github.com/opensearch-project/observability-stack)

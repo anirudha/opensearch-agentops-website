@@ -45,15 +45,15 @@ describe('SEO Features - Unit Tests', () => {
     it('should have description meta tag', () => {
       const headHTML = `
         <head>
-          <meta name="description" content="The unified open-source platform for LLM evaluation, prompt management, and observability." />
+          <meta name="description" content="Traces, logs, metrics, dashboards, service maps, APM, and AI agent observability. One open-source platform, zero vendor lock-in." />
         </head>
       `;
-      
+
       container.innerHTML = headHTML;
       const metaDescription = container.querySelector('meta[name="description"]');
 
       expect(metaDescription).toBeTruthy();
-      expect(metaDescription?.getAttribute('content')).toContain('unified open-source platform');
+      expect(metaDescription?.getAttribute('content')).toContain('open-source platform');
     });
 
     it('should have Open Graph title meta tag', () => {
@@ -73,7 +73,7 @@ describe('SEO Features - Unit Tests', () => {
     it('should have Open Graph description meta tag', () => {
       const headHTML = `
         <head>
-          <meta property="og:description" content="The unified open-source platform for LLM evaluation, prompt management, and observability." />
+          <meta property="og:description" content="Traces, logs, metrics, dashboards, service maps, APM, and AI agent observability. One open-source platform, zero vendor lock-in." />
         </head>
       `;
       
@@ -157,7 +157,7 @@ describe('SEO Features - Unit Tests', () => {
     it('should have Twitter description meta tag', () => {
       const headHTML = `
         <head>
-          <meta property="twitter:description" content="The unified open-source platform for LLM evaluation, prompt management, and observability." />
+          <meta property="twitter:description" content="Traces, logs, metrics, dashboards, service maps, APM, and AI agent observability. One open-source platform, zero vendor lock-in." />
         </head>
       `;
       

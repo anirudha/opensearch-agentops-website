@@ -78,7 +78,7 @@ const docsStructure = {
           { slug: 'graph', title: 'Agent Graph & Path' },
           { slug: 'tool-calls', title: 'Tool Call Tracing' },
           { slug: 'reasoning', title: 'Reasoning Steps' },
-          { slug: 'mcp', title: 'MCP Tracing' },
+          { slug: 'mcp', title: 'MCP Server' },
         ]
       },
       'projects': {
@@ -197,7 +197,7 @@ Documentation for ${title} will be added here.
 ## Related Links
 
 - [View Full Documentation](/opensearch-agentops-website/docs/)
-- [GitHub Repository](https://github.com/anirudha/opensearch-agentops-website)
+- [GitHub Repository](https://github.com/opensearch-project/observability-stack)
 `;
 }
 

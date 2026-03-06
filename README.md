@@ -1,11 +1,11 @@
 # OpenSearch - Observability Stack
 
-[![CI](https://github.com/anirudha/opensearch-agentops-website/actions/workflows/ci.yml/badge.svg)](https://github.com/anirudha/opensearch-agentops-website/actions/workflows/ci.yml)
-[![Deploy](https://github.com/anirudha/opensearch-agentops-website/actions/workflows/deploy.yml/badge.svg)](https://github.com/anirudha/opensearch-agentops-website/actions/workflows/deploy.yml)
-[![codecov](https://codecov.io/gh/anirudha/opensearch-agentops-website/branch/main/graph/badge.svg)](https://codecov.io/gh/anirudha/opensearch-agentops-website)
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-success?logo=github)](https://anirudha.github.io/opensearch-agentops-website/)
+[![CI](https://github.com/opensearch-project/observability-stack/actions/workflows/ci.yml/badge.svg)](https://github.com/opensearch-project/observability-stack/actions/workflows/ci.yml)
+[![Deploy](https://github.com/opensearch-project/observability-stack/actions/workflows/deploy.yml/badge.svg)](https://github.com/opensearch-project/observability-stack/actions/workflows/deploy.yml)
+[![codecov](https://codecov.io/gh/opensearch-project/observability-stack/branch/main/graph/badge.svg)](https://codecov.io/gh/opensearch-project/observability-stack)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-success?logo=github)](https://opensearch-project.github.io/opensearch-agentops-website/)
 
-**🌐 Live Site**: [https://anirudha.github.io/opensearch-agentops-website/](https://anirudha.github.io/opensearch-agentops-website/)
+**🌐 Live Site**: [https://opensearch-project.github.io/opensearch-agentops-website/](https://opensearch-project.github.io/opensearch-agentops-website/)
 
 Marketing website and documentation for OpenSearch - Observability Stack - an OpenTelemetry-native observability platform for AI agents and LLM applications.
 

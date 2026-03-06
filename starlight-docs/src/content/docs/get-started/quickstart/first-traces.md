@@ -1,17 +1,54 @@
 ---
-title: Log Your First Traces
-description: Learn about Log Your First Traces in OpenSearch AgentOps
+title: Ingest Your First Traces
+description: Instrument your application to send traces to the Observability Stack
 ---
 
-# Log Your First Traces
+This guide shows how to instrument a Python application with OpenTelemetry and send traces to the Observability Stack.
 
-This page is under construction. Content coming soon.
+## Install dependencies
 
-## Overview
+```bash
+pip install opentelemetry-api opentelemetry-sdk opentelemetry-exporter-otlp
+```
 
-Documentation for Log Your First Traces will be added here.
+## Configure the exporter
 
-## Related Links
+```python
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
 
-- [View Full Documentation](/opensearch-agentops-website/docs/)
-- [GitHub Repository](https://github.com/anirudha/opensearch-agentops-website)
+# Point to the OTel Collector
+exporter = OTLPSpanExporter(endpoint="http://localhost:4317", insecure=True)
+
+provider = TracerProvider()
+provider.add_span_processor(BatchSpanProcessor(exporter))
+trace.set_tracer_provider(provider)
+
+tracer = trace.get_tracer("my-app")
+```
+
+## Create spans
+
+```python
+with tracer.start_as_current_span("handle-request") as span:
+    span.set_attribute("http.method", "GET")
+    span.set_attribute("http.url", "/api/users")
+
+    with tracer.start_as_current_span("query-database") as child:
+        child.set_attribute("db.system", "postgresql")
+        # your database query here
+```
+
+## Verify in Dashboards
+
+1. Open `http://localhost:5601`.
+2. Go to **Observability** > **Traces**.
+3. Search for your trace by name or filter by time range.
+4. Click a trace to see the span tree, timing, and attributes.
+
+## Next steps
+
+- [Create Your First Dashboard](/opensearch-agentops-website/docs/get-started/quickstart/first-dashboard/)
+- [Send Data](/opensearch-agentops-website/docs/send-data/) — more instrumentation options

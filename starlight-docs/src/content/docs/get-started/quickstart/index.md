@@ -1,17 +1,55 @@
 ---
 title: Quickstart
-description: Learn about Quickstart in OpenSearch AgentOps
+description: Send your first traces and explore them in dashboards
 ---
 
-# Quickstart
+This quickstart walks you through sending trace data to the Observability Stack and viewing it in OpenSearch Dashboards.
 
-This page is under construction. Content coming soon.
+## Prerequisites
 
-## Overview
+Make sure the stack is running. If you haven't installed it yet, see [Get Started](/opensearch-agentops-website/docs/get-started/).
 
-Documentation for Quickstart will be added here.
+## Step 1: Send traces
 
-## Related Links
+The fastest way to send traces is with the Python SDK:
 
-- [View Full Documentation](/opensearch-agentops-website/docs/)
-- [GitHub Repository](https://github.com/anirudha/opensearch-agentops-website)
+```bash
+pip install opensearch-genai-sdk-py
+```
+
+```python
+from opensearch_genai_sdk_py import register, workflow, tool
+
+register(endpoint="http://localhost:4318/v1/traces", service_name="my-app")
+
+@tool(name="process_data")
+def process_data(size: int) -> dict:
+    return {"processed": size}
+
+@workflow(name="my-first-workflow")
+def run():
+    return process_data(42)
+
+run()
+```
+
+For other languages, see [Send Data](/opensearch-agentops-website/docs/send-data/).
+
+## Step 2: View traces
+
+1. Open OpenSearch Dashboards at `http://localhost:5601`.
+2. Navigate to **Observability** > **Traces**.
+3. You should see your trace appear within a few seconds.
+
+## Step 3: Explore the dashboard
+
+From the Dashboards home, explore:
+- **Traces**: Search and filter trace data with PPL queries.
+- **Services**: View the auto-generated service map.
+- **Metrics**: Query Prometheus metrics with PromQL.
+
+## Next steps
+
+- [Ingest Your First Traces](/opensearch-agentops-website/docs/get-started/quickstart/first-traces/) — detailed trace instrumentation guide
+- [Create Your First Dashboard](/opensearch-agentops-website/docs/get-started/quickstart/first-dashboard/) — build custom visualizations
+- [Agent Tracing](/opensearch-agentops-website/docs/ai-observability/agent-tracing/) — trace AI agent workflows

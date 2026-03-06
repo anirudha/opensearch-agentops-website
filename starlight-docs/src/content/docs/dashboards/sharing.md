@@ -44,7 +44,7 @@ Import by navigating to **Dashboards** → **Import** and uploading the JSON fil
 ### Design for the audience
 
 - **On-call engineers:** prioritize real-time data, error rates, and latency. Keep it scannable — if something is wrong, it should be obvious in 5 seconds.
-- **Team leads:** include trend data, SLO burn rates, and week-over-week comparisons. These dashboards are checked daily, not during incidents.
+- **Team leads:** include trend data, error rate trends, and week-over-week comparisons. These dashboards are checked daily, not during incidents.
 - **Stakeholders:** high-level summaries — availability percentage, request volume, key business metrics. Minimize technical detail.
 
 ### Keep dashboards focused
@@ -52,7 +52,7 @@ Import by navigating to **Dashboards** → **Import** and uploading the JSON fil
 A dashboard that tries to show everything shows nothing useful. Each dashboard should answer a specific set of questions:
 - "Is my service healthy right now?" → operational dashboard
 - "What happened during the incident?" → incident response dashboard
-- "Are we meeting our SLOs this month?" → SLO tracking dashboard
+- "Are we meeting our availability targets?" → availability tracking dashboard
 
 If a dashboard has more than 10–12 panels, consider splitting it into multiple focused dashboards.
 
@@ -74,6 +74,6 @@ Export dashboard JSON and commit it to your repository. This gives you:
 ## Next steps
 
 - [Build a Dashboard](/opensearch-agentops-website/docs/dashboards/build/) — create dashboards, add panels, and arrange layouts
-- [Explore Logs](/opensearch-agentops-website/docs/investigate/explore-logs/) — build log queries for dashboard panels
-- [Explore Traces](/opensearch-agentops-website/docs/investigate/explore-traces/) — build trace queries for dashboard panels
-- [Explore Metrics](/opensearch-agentops-website/docs/investigate/explore-metrics/) — build PromQL queries for metrics panels
+- [Discover Logs](/opensearch-agentops-website/docs/investigate/discover-logs/) — build log queries for dashboard panels
+- [Discover Traces](/opensearch-agentops-website/docs/investigate/discover-traces/) — build trace queries for dashboard panels
+- [Discover Metrics](/opensearch-agentops-website/docs/investigate/discover-metrics/) — build PromQL queries for metrics panels

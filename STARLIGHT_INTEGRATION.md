@@ -49,9 +49,9 @@ Updated `README.md` with:
 
 ## URLs
 
-- **Main Site**: https://anirudha.github.io/opensearch-agentops-website/
-- **Documentation**: https://anirudha.github.io/opensearch-agentops-website/docs/
-- **Getting Started**: https://anirudha.github.io/opensearch-agentops-website/getting-started/
+- **Main Site**: https://opensearch-project.github.io/opensearch-agentops-website/
+- **Documentation**: https://opensearch-project.github.io/opensearch-agentops-website/docs/
+- **Getting Started**: https://opensearch-project.github.io/opensearch-agentops-website/getting-started/
 
 ## Local Development
 

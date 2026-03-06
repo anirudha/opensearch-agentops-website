@@ -58,19 +58,18 @@ describe('Hero Component - Unit Tests', () => {
     it('should render subheadline text', () => {
       const heroHTML = `
         <section id="hero">
-          <p class="text-xl md:text-2xl text-slate-300">
-            The unified platform for LLM evaluation, prompt management, and observability. 
-            Everything you need to build production-ready AI applications.
+          <p class="text-base md:text-lg text-slate-400">
+            APM traces. Logs. Prometheus metrics. Service maps. Dashboards. <span class="text-white font-medium">Plus agent tracing, MCP support, and AI observability SDKs.</span>
           </p>
         </section>
       `;
-      
+
       container.innerHTML = heroHTML;
-      const subheadline = container.querySelector('p.text-xl');
+      const subheadline = container.querySelector('p.text-base');
 
       expect(subheadline).toBeTruthy();
-      expect(subheadline?.textContent).toContain('unified platform for LLM evaluation');
-      expect(subheadline?.textContent).toContain('production-ready AI applications');
+      expect(subheadline?.textContent).toContain('APM traces');
+      expect(subheadline?.textContent).toContain('AI observability SDKs');
     });
 
     it('should render announcement badge with NEW indicator', () => {
@@ -105,7 +104,7 @@ describe('Hero Component - Unit Tests', () => {
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div class="flex flex-col items-center gap-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800">
               <svg class="w-8 h-8 text-green-500"></svg>
-              <span class="text-sm font-semibold text-white">70% Cost Savings</span>
+              <span class="text-sm font-semibold text-white">Zero Lock-in</span>
             </div>
             <div class="flex flex-col items-center gap-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800">
               <svg class="w-8 h-8 text-indigo-500"></svg>
@@ -117,7 +116,7 @@ describe('Hero Component - Unit Tests', () => {
             </div>
             <div class="flex flex-col items-center gap-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800">
               <svg class="w-8 h-8 text-purple-500"></svg>
-              <span class="text-sm font-semibold text-white">SOC 2 & HIPAA Ready</span>
+              <span class="text-sm font-semibold text-white">OTel Native</span>
             </div>
           </div>
         </section>
@@ -132,9 +131,9 @@ describe('Hero Component - Unit Tests', () => {
       expect(badges.length).toBe(4);
     });
 
-    it('should render "70% Cost Savings" badge', () => {
+    it('should render "Zero Lock-in" badge', () => {
       const badge = Array.from(container.querySelectorAll('span.text-sm'))
-        .find(el => el.textContent === '70% Cost Savings');
+        .find(el => el.textContent === 'Zero Lock-in');
 
       expect(badge).toBeTruthy();
       expect(badge?.classList.contains('font-semibold')).toBe(true);
@@ -159,9 +158,9 @@ describe('Hero Component - Unit Tests', () => {
       expect(badge?.classList.contains('text-white')).toBe(true);
     });
 
-    it('should render "SOC 2 & HIPAA Ready" badge', () => {
+    it('should render "OTel Native" badge', () => {
       const badge = Array.from(container.querySelectorAll('span.text-sm'))
-        .find(el => el.textContent === 'SOC 2 & HIPAA Ready');
+        .find(el => el.textContent === 'OTel Native');
 
       expect(badge).toBeTruthy();
       expect(badge?.classList.contains('font-semibold')).toBe(true);
@@ -206,96 +205,81 @@ describe('Hero Component - Unit Tests', () => {
       const heroHTML = `
         <section id="hero">
           <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a 
-              href="/signup" 
-              class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg"
-              data-analytics="cta_hero_start_trial"
+            <a
+              href="/opensearch-agentops-website/docs/"
+              class="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-lg"
+              data-analytics="cta_hero_view_docs"
             >
-              Start Free Trial
+              View Docs
             </a>
-            <a 
-              href="https://github.com/opensearch-project/agentops" 
+            <a
+              href="https://github.com/opensearch-project/observability-stack"
               target="_blank"
               rel="noopener noreferrer"
-              class="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-lg"
+              class="px-8 py-4 bg-slate-800/50 hover:bg-slate-700/50 text-white font-semibold rounded-lg border-2 border-purple-500/50"
               data-analytics="cta_hero_github"
             >
-              <span class="flex items-center gap-2">
-                <svg class="w-5 h-5"></svg>
-                Star on GitHub
-              </span>
+              GitHub
             </a>
           </div>
         </section>
       `;
-      
+
       container.innerHTML = heroHTML;
     });
 
-    it('should render "Start Free Trial" primary CTA', () => {
-      const cta = container.querySelector('a[href="/signup"]');
+    it('should render "View Docs" primary CTA', () => {
+      const cta = container.querySelector('a[href="/opensearch-agentops-website/docs/"]');
 
       expect(cta).toBeTruthy();
-      expect(cta?.textContent?.trim()).toBe('Start Free Trial');
+      expect(cta?.textContent?.trim()).toBe('View Docs');
     });
 
     it('should have correct href for primary CTA', () => {
-      const cta = container.querySelector('a[href="/signup"]');
+      const cta = container.querySelector('a[href="/opensearch-agentops-website/docs/"]');
 
-      expect(cta?.getAttribute('href')).toBe('/signup');
+      expect(cta?.getAttribute('href')).toBe('/opensearch-agentops-website/docs/');
     });
 
-    it('should have primary styling on "Start Free Trial" button', () => {
-      const cta = container.querySelector('a[href="/signup"]');
+    it('should have primary styling on "View Docs" button', () => {
+      const cta = container.querySelector('a[href="/opensearch-agentops-website/docs/"]');
 
-      expect(cta?.classList.contains('bg-indigo-600')).toBe(true);
-      expect(cta?.classList.contains('hover:bg-indigo-700')).toBe(true);
       expect(cta?.classList.contains('text-white')).toBe(true);
-      expect(cta?.classList.contains('font-semibold')).toBe(true);
+      expect(cta?.classList.contains('font-bold')).toBe(true);
     });
 
-    it('should render "Star on GitHub" secondary CTA', () => {
-      const cta = container.querySelector('a[href="https://github.com/opensearch-project/agentops"]');
+    it('should render "GitHub" secondary CTA', () => {
+      const cta = container.querySelector('a[href="https://github.com/opensearch-project/observability-stack"]');
 
       expect(cta).toBeTruthy();
-      expect(cta?.textContent).toContain('Star on GitHub');
+      expect(cta?.textContent).toContain('GitHub');
     });
 
     it('should have correct href for GitHub CTA', () => {
-      const cta = container.querySelector('a[href="https://github.com/opensearch-project/agentops"]');
+      const cta = container.querySelector('a[href="https://github.com/opensearch-project/observability-stack"]');
 
-      expect(cta?.getAttribute('href')).toBe('https://github.com/opensearch-project/agentops');
+      expect(cta?.getAttribute('href')).toBe('https://github.com/opensearch-project/observability-stack');
     });
 
     it('should open GitHub link in new tab', () => {
-      const cta = container.querySelector('a[href="https://github.com/opensearch-project/agentops"]');
+      const cta = container.querySelector('a[href="https://github.com/opensearch-project/observability-stack"]');
 
       expect(cta?.getAttribute('target')).toBe('_blank');
       expect(cta?.getAttribute('rel')).toBe('noopener noreferrer');
     });
 
     it('should have secondary styling on GitHub button', () => {
-      const cta = container.querySelector('a[href="https://github.com/opensearch-project/agentops"]');
+      const cta = container.querySelector('a[href="https://github.com/opensearch-project/observability-stack"]');
 
-      expect(cta?.classList.contains('bg-slate-800')).toBe(true);
-      expect(cta?.classList.contains('hover:bg-slate-700')).toBe(true);
       expect(cta?.classList.contains('text-white')).toBe(true);
-    });
-
-    it('should have GitHub icon in secondary CTA', () => {
-      const cta = container.querySelector('a[href="https://github.com/opensearch-project/agentops"]');
-      const icon = cta?.querySelector('svg');
-
-      expect(icon).toBeTruthy();
-      expect(icon?.classList.contains('w-5')).toBe(true);
-      expect(icon?.classList.contains('h-5')).toBe(true);
+      expect(cta?.classList.contains('font-semibold')).toBe(true);
     });
 
     it('should have analytics tracking attributes on both CTAs', () => {
-      const primaryCTA = container.querySelector('a[href="/signup"]');
-      const secondaryCTA = container.querySelector('a[href="https://github.com/opensearch-project/agentops"]');
+      const primaryCTA = container.querySelector('a[href="/opensearch-agentops-website/docs/"]');
+      const secondaryCTA = container.querySelector('a[href="https://github.com/opensearch-project/observability-stack"]');
 
-      expect(primaryCTA?.getAttribute('data-analytics')).toBe('cta_hero_start_trial');
+      expect(primaryCTA?.getAttribute('data-analytics')).toBe('cta_hero_view_docs');
       expect(secondaryCTA?.getAttribute('data-analytics')).toBe('cta_hero_github');
     });
 
